@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app='bikeAcrossAmerica'>
+  <head>
+    <meta charset="utf-8" />
+    <title>Bike Across America</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  </head>
+  <body>
+  <nav>
+      <div class="nav-wrapper blue darken-1">
+        <a class="brand-logo center">Bike Across America</a>
+      </div>
+  </nav>
+
+    <div ng-view></div>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+
+    <script src="app/auth/auth.js"></script>
+    <script src="app/home/home.js"></script>
+    <script src="app/profile/profile.js"></script>
+    <script src="app/services/services.js"></script>
+    <script src="app/app.js"></script>
+  </body>
+</html>
