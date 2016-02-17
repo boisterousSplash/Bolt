@@ -1,18 +1,7 @@
 <div id='profile' class="container">
-  <h1>{{ user.username }}</h1>
-  <form ng-submit='update()'>
-    <p>First Name: {{ user.firstName }}
-      <input type="text" ng-model="newInfo.firstName" placeholder="First Name">
-    </p>
-    <p>Last Name: {{ user.lastName }}
-      <input type="text" ng-model="newInfo.lastName" placeholder="Last Name">
-    </p>
-    <p>Weekly Milage Goal: {{ user.weeklyMilageGoal }}
-      <input type="number" ng-model="newInfo.weeklyMilageGoal" placeholder="Weekly Milage Goal">
-    </p>
-    <button class="waves-effect waves-light btn">Update</button>
-  </form>
-    <h2><a href="#/home">Home</a></h2>
-    <button class="waves-effect waves-light btn"
-            ng-click="signout()">Signout</button>
+  <a href="#">Back Arrow<a>
+  <p>Your Name</p>
+  <p>Edit Profile</p>
+  <button class="waves-effect waves-light btn"
+          ng-click="logOut()">Log Out</button>
 </div>
