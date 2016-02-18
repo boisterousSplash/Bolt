@@ -1,13 +1,25 @@
 angular.module('bolt.services', [])
 
 .factory('Geo', function () {
-  // Kyle's code here
-  // Kyle's code here
-  // Kyle's code here
-  // Kyle's code here
+  var updateCurrentCoords = function() {
 
-  
-  })
+  };
+  var getCurrentCoords = function(callback) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      callback({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      });
+    }, function(err) {
+      console.error(err);
+    });
+  };
+
+  return {
+    getCurrentCoords: getCurrentCoords
+  };
+
+})
 .factory('Run', function(){
   // Kyle's code here
   // Kyle's code here
