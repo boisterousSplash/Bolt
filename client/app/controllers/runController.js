@@ -2,7 +2,7 @@ angular.module('run.controller', [])
 
 .controller('RunController', function($scope, $timeout, $location, Geo){
   $scope.raceStarted = 0;
-  $scope.statTime;
+  $scope.startTime;
   $scope.userLocation;
   $scope.destination;
 
@@ -43,20 +43,17 @@ angular.module('run.controller', [])
   };
 
   $scope.checkIfFinished = function($location) {
-    console.log('check if finished');
     if ($scope.destination && $scope.userLocation) {
-      var conv = 110.574;
       var currLat = $scope.destination.lat;
       var currLng = $scope.destination.lng;
       var destLat = $scope.userLocation.lat;
       var destLng = $scope.userLocation.lng;
       var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
-      console.log('current distance', distRemaining)
       
       if (distRemaining < 0.0004) {
         $location.path('/finish');
+        clearInterval($scope.geoUpdater);
       }
-      // $location.path('/finished')
     }
   }
 
