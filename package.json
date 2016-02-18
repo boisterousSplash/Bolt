@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Race against your neighborhood",
   "author": "Boisterous Splash",
+  "main": "server/server.js",
   "contributors": [
     "Shane McGraw",
     "Elliot Plant",
