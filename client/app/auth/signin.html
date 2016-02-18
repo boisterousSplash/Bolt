@@ -1,9 +1,10 @@
-<div id='signin'>
-  <h1>signin</h1>
+
+<div id='signin' class="container">
+  <h1>Sign In</h1>
   <form name="signinForm" ng-submit='signin()'>
-    <input type='text'ng-model='user.username'>
-    <input type="password" ng-model='user.password'>
-    <button>signin</button>
-  </form>
-  <a href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
+    <input type='text'ng-model='user.username' placeholder="username">
+    <input type="password" ng-model='user.password' placeholder="password">
+    <button class="waves-effect waves-light btn">Sign In</button>
+  </form><br>
+  <a href="#/signup">Don't have an account?<strong> Sign Up!</strong></a>
 </div>

@@ -1,22 +1,39 @@
 <!DOCTYPE html>
-<html ng-app='shortly'>
+<html ng-app='bolt'>
   <head>
     <meta charset="utf-8" />
-    <title>Shortly</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css" />
-  </head>
-  <body>
-    <h1>Shortly</h1>
+    <title>Bolt</title>
 
-    <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
+    <!-- Angular Materialize Styles -->
+    <!-- http://materializecss.com/ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Top Bar -->
+    <!-- Probably unnecessary on mobile -->
+    <nav>
+        <div class="nav-wrapper blue darken-1">
+          <a class="brand-logo center">Bike Across America</a>
+        </div>
+    </nav>
+
+    <!-- ng-view holds all subviews for SPA -->
     <div ng-view></div>
 
+    <!-- Angular requirements -->
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
 
+    <!-- Angular servicies -->
     <script src="app/auth/auth.js"></script>
-    <script src="app/links/links.js"></script>
-    <script src="app/shorten/shorten.js"></script>
     <script src="app/services/services.js"></script>
     <script src="app/app.js"></script>
   </body>
