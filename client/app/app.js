@@ -10,6 +10,8 @@ angular.module('bolt', [
   $routeProvider
     .when('/', {
       // home page template
+      templateUrl: 'app/bolt/bolt.html'
+      controller: 'BoltController'
     })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
@@ -20,7 +22,7 @@ angular.module('bolt', [
       controller: 'AuthController'
     })
     .otherwise({
-      redirectTo: '/links'
+      redirectTo: '/'
     });
     
     // We add our $httpInterceptor into the array
