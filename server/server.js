@@ -7,8 +7,8 @@ var app = express();
 // mongoose.connect('mongodb://localhost/bolt');
 
 // configure our server with all the middleware and routing
-require('./config/middleware.js')(app, express);
-require('./config/routes.js')(app, express);
+// require('./config/middleware.js')(app, express);
+// require('./config/routes.js')(app, express);
 
 // start listening to requests on port 8000
 var port = Number(process.env.PORT || 8000);
