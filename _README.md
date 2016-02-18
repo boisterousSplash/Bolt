@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Shane McGraw
+  - __Scrum Master__: Elliot Plant
+  - __Development Team Members__: Erick Paepke, Kyle Corbelli
 
 ## Table of Contents
 
@@ -25,10 +25,11 @@
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Redis 2.6.x <- do we need this?
+- Postgresql 9.1.x <- do we need this?
+- MongoDB NaN.4.3
+- Firebase 3.-4.PI
+- Angular 1.3.20
 
 ## Development
 

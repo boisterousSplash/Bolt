@@ -7,14 +7,8 @@
     "Shane McGraw",
     "Elliot Plant",
     "Kyle Corbelli",
-    "Erick Paepke",
+    "Erick Paepke"
   ],
-  "scripts": {
-    "test": "gulp karma",
-    "start": "gulp",
-    "lint": "jscs ./"
-  },
-  "pre-commit": "lint",
   "repository": {
     "type": "git",
     "url": "http://github.com/hackreactor-labs/sprint.bolt-angular.git"
