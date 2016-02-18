@@ -4,6 +4,9 @@
   "description": "Race against your neighborhood",
   "author": "Boisterous Splash",
   "main": "server/server.js",
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "contributors": [
     "Shane McGraw",
     "Elliot Plant",
@@ -45,6 +48,7 @@
     "mongoose": "^4.1.0",
     "morgan": "^1.1.1",
     "q": "^1.4.1",
-    "request": "^2.36.0"
+    "request": "^2.36.0",
+    "bower": "^1.7.7"
   }
 }
