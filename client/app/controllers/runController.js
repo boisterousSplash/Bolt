@@ -43,7 +43,9 @@ angular.module('run.controller', [])
   };
 
   $scope.checkIfFinished = function($location) {
+    console.log('check if finished');
     if ($scope.destination && $scope.userLocation) {
+      var conv = 110.574;
       var currLat = $scope.destination.lat;
       var currLng = $scope.destination.lng;
       var destLat = $scope.userLocation.lat;
@@ -59,7 +61,6 @@ angular.module('run.controller', [])
 
   // Determine user location and update map each second
   $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
-
 
   // Stop geotracker upon canceling run
   $scope.stopGeoUpdater = function() {
