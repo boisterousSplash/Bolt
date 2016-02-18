@@ -6,13 +6,15 @@ angular.module('bolt.services', [])
   var currentLocMarker;
   var destinationMarker;
 
-  var makeInitialMap = function() {
+  var makeInitialMap = function($scope) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      makeMap({lat: position.coords.latitude, lng: position.coords.longitude});
+      makeMap({lat: position.coords.latitude, lng: position.coords.longitude}, $scope);
     }, function(err) {
       console.error(err);
     });
-    var makeMap = function(currentLatLngObj) {
+    var makeMap = function(currentLatLngObj, $scope) {
+      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 1);
+      $scope.destination = destinationCoordinates;
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: currentLatLngObj,
         zoom: 13
@@ -24,7 +26,7 @@ angular.module('bolt.services', [])
         icon: '/assets/bolt.png'
       });
       destinationMarker = new google.maps.Marker({
-        position: randomCoordsAlongCircumference(currentLatLngObj, 1),
+        position: destinationCoordinates,
         map: mainMap,
         animation: google.maps.Animation.DROP,
         icon: '/assets/finish-line.png' // change to finish line image
@@ -32,9 +34,12 @@ angular.module('bolt.services', [])
     };
   };
 
-  var updateCurrentPosition = function() {
+  var updateCurrentPosition = function($scope) {
     navigator.geolocation.getCurrentPosition(function(position) {
       currentLocMarker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+      // if ($scope) {
+      //   $scope.userLocation = 10;
+      // }
       console.log(currentLocMarker);
     }, function(err) {
       console.error(err);

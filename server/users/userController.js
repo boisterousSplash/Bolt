@@ -1,6 +1,7 @@
 var User = require('./userModel.js');
-    Q = require('q');
-    jwt = require('jwt-simple');
+var Q = require('q');
+var jwt = require('jwt-simple');
+var helpers = require('../config/helpers');
 
 // Promisify a few mongoose methods with the `q` promise library
 var findUser = Q.nbind(User.findOne, User);

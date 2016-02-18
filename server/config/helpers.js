@@ -1,6 +1,20 @@
 var jwt = require('jwt-simple');
 
 module.exports = {
+  applyToUser: function(user) {
+    if (typeof(user) === 'string') {
+      user = {username: user};
+    }
+    return findUser({username: username})
+    .then(function (user) {
+      if (!user) {
+        next(new Error('User does not exist'));
+      } else {
+        return user;
+      }
+    });
+  },
+
   errorLogger: function (error, req, res, next) {
     // log the error then send it to the next middleware in
     console.error(error.stack);
