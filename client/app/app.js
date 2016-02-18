@@ -2,7 +2,8 @@ angular.module('bolt', [
   'bolt.services',
   'bolt.auth',
   'ngRoute',
-  'bolt.controller'
+  'bolt.controller',
+  'run.controller'
 ])
 .config(function ($routeProvider, $httpProvider) {
   //Shane's code here
@@ -12,6 +13,10 @@ angular.module('bolt', [
       // home page template
       templateUrl: '../bolt/bolt.html',
       controller: 'BoltController'
+    })
+    .when('/run', {
+      templateUrl: '../bolt/run.html',
+      controller: 'RunController'
     })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
