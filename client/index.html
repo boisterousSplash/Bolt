@@ -2,17 +2,22 @@
 <html ng-app='bolt'>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bolt</title>
 
     <!-- Angular Materialize Styles -->
     <!-- http://materializecss.com/ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIOAllvDFbkAixfnuS9TaC4Cep3rCpRAk"></script>
   </head>
 
   <body>
@@ -21,7 +26,7 @@
     <!-- Probably unnecessary on mobile -->
     <nav>
         <div class="nav-wrapper blue darken-1">
-          <a class="brand-logo center">Bike Across America</a>
+          <a class="brand-logo center">Bolt</a>
         </div>
     </nav>
 
@@ -33,8 +38,10 @@
     <script src="lib/angular-route/angular-route.js"></script>
 
     <!-- Angular servicies -->
+    <script src="app/controllers/boltController.js"></script>
     <script src="app/auth/auth.js"></script>
     <script src="app/services/services.js"></script>
     <script src="app/app.js"></script>
+    <script src="/map-scripts/map.js"></script>
   </body>
 </html>

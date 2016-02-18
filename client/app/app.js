@@ -1,10 +1,18 @@
 angular.module('bolt', [
   'bolt.services',
   'bolt.auth',
-  'ngRoute'
+  'ngRoute',
+  'bolt.controller'
 ])
 .config(function ($routeProvider, $httpProvider) {
+  //Shane's code here
+
   $routeProvider
+    .when('/', {
+      // home page template
+      templateUrl: '../bolt/bolt.html',
+      controller: 'BoltController'
+    })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
       controller: 'AuthController'
@@ -14,13 +22,14 @@ angular.module('bolt', [
       controller: 'AuthController'
     })
     .otherwise({
-      redirectTo: '/links'
+      redirectTo: '/'
     });
     
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
     $httpProvider.interceptors.push('AttachTokens');
 })
+
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
   // its job is to stop all out going request
