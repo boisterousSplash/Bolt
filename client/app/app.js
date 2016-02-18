@@ -10,7 +10,7 @@ angular.module('bolt', [
   $routeProvider
     .when('/', {
       // home page template
-      templateUrl: 'app/bolt/bolt.html'
+      templateUrl: '../bolt/bolt.html',
       controller: 'BoltController'
     })
     .when('/signin', {
