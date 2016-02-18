@@ -18,6 +18,19 @@ nav {
   background-color: black;
 }
 
+.btn-floating.btn-large {
+  width: 500px;
+  height: 500px;
+  display: block;
+  vertical-align: middle;
+  line-height: 550px;
+  margin: 0 auto;
+}
+
+.btn-large i {
+  font-size: 6em;
+}
+
 .botNav {
   position: absolute;
   bottom: 0;
