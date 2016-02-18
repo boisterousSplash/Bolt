@@ -3,6 +3,7 @@ angular.module('run.controller', [])
 .controller('RunController', function($scope, $timeout, Geo){
   $scope.raceStarted = 0;
   $scope.statTime;
+  $scope.destination;
 
   var tick = function() {
     $scope.time = Math.floor((Date.now() - $scope.startTime)/1000);
@@ -28,16 +29,25 @@ angular.module('run.controller', [])
   //   });
   // };
 
-  $scope.makeInitialMap = function() {
+  $scope.makeInitialMap = function($scope) {
     console.log('in controller');
-    Geo.makeInitialMap();
+    Geo.makeInitialMap($scope);
   };
 
-  $scope.makeInitialMap();
+  $scope.makeInitialMap($scope);
 
   $scope.updateCurrentPosition = function() {
     Geo.updateCurrentPosition();
   };
+
+  $scope.checkIfFinished = function() {
+    if ($scope.destination) {
+      var lat = $scope.destination.lat;
+      var lng = $scope.destination.lng;
+
+
+    }
+  }
 
   // Determine user location and update map each second
   $scope.geoUpdater = setInterval($scope.updateCurrentPosition, 1000);
