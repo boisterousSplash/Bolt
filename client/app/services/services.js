@@ -1,13 +1,61 @@
 angular.module('bolt.services', [])
 
 .factory('Geo', function () {
-  // Kyle's code here
-  // Kyle's code here
-  // Kyle's code here
-  // Kyle's code here
 
-  
-  })
+  var mainMap;
+  var currentLocMarker;
+  var destinationMarker;
+
+  var makeInitialMap = function() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      makeMap({lat: position.coords.latitude, lng: position.coords.longitude});
+    }, function(err) {
+      console.error(err);
+    });
+    var makeMap = function(currentLatLngObj) {
+      mainMap = new google.maps.Map(document.getElementById('map'), {
+        center: currentLatLngObj,
+        zoom: 13
+      });
+      currentLocMarker = new google.maps.Marker({
+        position: currentLatLngObj,
+        map: mainMap,
+        animation: google.maps.Animation.DROP,
+        icon: '/assets/bolt.png'
+      });
+      destinationMarker = new google.maps.Marker({
+        position: randomCoordsAlongCircumference(currentLatLngObj, 1),
+        map: mainMap,
+        animation: google.maps.Animation.DROP,
+        icon: '/assets/finish-line.png' // change to finish line image
+      });
+    };
+  };
+
+  var updateCurrentPosition = function() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      currentLocMarker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+      console.log(currentLocMarker);
+    }, function(err) {
+      console.error(err);
+    });
+  };
+
+  function randomCoordsAlongCircumference (originObj, radius) {
+    var randomTheta = Math.random() * 2 * Math.PI;
+    console.log('randomTheta');
+    return {
+      lat: originObj.lat + (radius / 69 * Math.cos(randomTheta)),
+      lng: originObj.lng + (radius / 69 * Math.sin(randomTheta))
+    };
+  };
+
+  return {
+    makeInitialMap: makeInitialMap,
+    updateCurrentPosition: updateCurrentPosition
+  };
+
+})
 .factory('Run', function(){
   // Kyle's code here
   // Kyle's code here
