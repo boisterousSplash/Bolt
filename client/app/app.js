@@ -18,6 +18,10 @@ angular.module('bolt', [
       templateUrl: '../bolt/run.html',
       controller: 'RunController'
     })
+    .when('/finish', {
+      templateUrl: '../bolt/finish.html',
+      controller: 'RunController'
+    })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
       controller: 'AuthController'
