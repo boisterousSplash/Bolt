@@ -2,7 +2,7 @@
 
 <div id='run' class="container">
   <div class="botNav">
-    <a class="botLink cancel" href="#/" > Cancel </a>
+    <a class="botLink cancel" href="#/" ng-click="stopGeoUpdater()"> Cancel </a>
     <div class ="botLink" ng-click="startRun()" ng-show="!raceStarted"> Ready? </div>
     <div class="botLink" ng-show="raceStarted"> Start! </div>
     <div class="botLink time" ng-show="raceStarted"> {{ time }} <div>

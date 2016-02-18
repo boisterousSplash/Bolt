@@ -39,5 +39,11 @@ angular.module('run.controller', [])
     Geo.updateCurrentPosition();
   };
 
-  setInterval($scope.updateCurrentPosition, 1000);
+  // Determine user location and update map each second
+  $scope.geoUpdater = setInterval($scope.updateCurrentPosition, 1000);
+
+  // Stop geotracker upon canceling run
+  $scope.stopGeoUpdater = function() {
+    clearInterval($scope.geoUpdater);
+  };
 })
