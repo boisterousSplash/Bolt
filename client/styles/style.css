@@ -6,11 +6,39 @@ html, body {
   height: 100%;
 }
 #map {
-  height: 600px;
+  /* Revise */
+  height: 650px;
   width: 100%;
-  background-color: black;
 }
 
 nav {
   background-color: black;
+}
+
+.botNav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top:92%;
+  width: 100%;
+  background-color: black;
+  text-align: center;
+}
+
+.botLink {
+  display: inline-block;
+  color: white;
+  font-size: 24pt;
+}
+
+.cancel {
+  position: relative;
+  float: left;
+  left: 1%;
+}
+
+.time {
+  position: absolute;
+  float: rigth;
+  right: 1%;
 }

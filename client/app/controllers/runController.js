@@ -1,6 +1,20 @@
 angular.module('run.controller', [])
 
-.controller('RunController', function($scope, Geo){
+.controller('RunController', function($scope, $timeout, Geo){
+  $scope.raceStarted = 0;
+  $scope.statTime;
+
+  var tick = function() {
+    $scope.time = Math.floor((Date.now() - $scope.startTime)/1000);
+    $timeout(tick, 100)
+  }
+
+  $scope.startRun = function() {
+    $scope.startTime = Date.now();
+    $scope.raceStarted = true;
+    tick();
+  }
+
   $scope.currentCoords = {
     lat: null,
     lng: null
