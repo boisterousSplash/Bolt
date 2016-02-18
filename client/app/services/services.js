@@ -34,9 +34,12 @@ angular.module('bolt.services', [])
     };
   };
 
-  var updateCurrentPosition = function() {
+  var updateCurrentPosition = function($scope) {
     navigator.geolocation.getCurrentPosition(function(position) {
       currentLocMarker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+      // if ($scope) {
+      //   $scope.userLocation = 10;
+      // }
       console.log(currentLocMarker);
     }, function(err) {
       console.error(err);

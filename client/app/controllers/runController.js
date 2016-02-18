@@ -3,6 +3,7 @@ angular.module('run.controller', [])
 .controller('RunController', function($scope, $timeout, Geo){
   $scope.raceStarted = 0;
   $scope.statTime;
+  $scope.userLocation;
   $scope.destination;
 
   var tick = function() {
@@ -36,16 +37,17 @@ angular.module('run.controller', [])
 
   $scope.makeInitialMap($scope);
 
-  $scope.updateCurrentPosition = function() {
-    Geo.updateCurrentPosition();
+  $scope.updateCurrentPosition = function($scope) {
+    Geo.updateCurrentPosition($scope);
   };
 
-  $scope.checkIfFinished = function() {
-    if ($scope.destination) {
+  $scope.checkIfFinished = function($location) {
+    if ($scope.destination && $scope.userLocation) {
       var lat = $scope.destination.lat;
       var lng = $scope.destination.lng;
-
-
+      
+      // Route to finished page if currentUser is near destination
+      // $location.path('/finished')
     }
   }
 

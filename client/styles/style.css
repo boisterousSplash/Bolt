@@ -6,9 +6,12 @@ html, body {
   height: 100%;
 }
 #map {
-  /* Revise */
-  height: 650px;
+  height: 100%;
   width: 100%;
+}
+
+.ng-scope {
+  height: 100%;
 }
 
 nav {
@@ -39,6 +42,6 @@ nav {
 
 .time {
   position: absolute;
-  float: rigth;
+  float: right;
   right: 1%;
 }
