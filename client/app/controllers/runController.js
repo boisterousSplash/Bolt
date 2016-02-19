@@ -68,6 +68,7 @@ angular.module('run.controller', [])
   $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
 >>>>>>> Determine whether user has reached destination
 
+
   // Stop geotracker upon canceling run
   $scope.stopGeoUpdater = function() {
     clearInterval($scope.geoUpdater);
