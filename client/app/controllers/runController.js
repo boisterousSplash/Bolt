@@ -49,8 +49,8 @@ angular.module('run.controller', [])
       var destLat = $scope.userLocation.lat;
       var destLng = $scope.userLocation.lng;
       var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
-      
-      if (distRemaining < 0.0004) {
+
+      if (distRemaining < 0.0008) {
         $location.path('/finish');
         clearInterval($scope.geoUpdater);
       }
