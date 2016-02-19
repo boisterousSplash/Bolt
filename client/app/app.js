@@ -1,6 +1,7 @@
 angular.module('bolt', [
   'bolt.services',
   'bolt.auth',
+  'bolt.profile',
   'ngRoute',
   'bolt.controller',
   'run.controller',
@@ -36,8 +37,8 @@ angular.module('bolt', [
       controller: 'AuthController'
     })
     .when('/profile', {
-      templateUrl: 'profile/profile.html',
-      controller: ''
+      templateUrl: 'app/profile/profile.html',
+      controller: 'ProfileController'
     })
     .otherwise({
       redirectTo: '/'
