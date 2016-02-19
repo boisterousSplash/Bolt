@@ -54,11 +54,16 @@ angular.module('run.controller', [])
         $location.path('/finish');
         clearInterval($scope.geoUpdater);
       }
+
     }
   }
 
   // Determine user location and update map each second
+<<<<<<< HEAD
   $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
+=======
+  $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope)}, 1000);
+>>>>>>> Modify race end conditions
 
   // Stop geotracker upon canceling run
   $scope.stopGeoUpdater = function() {
