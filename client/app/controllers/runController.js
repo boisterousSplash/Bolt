@@ -43,27 +43,32 @@ angular.module('run.controller', [])
   };
 
   $scope.checkIfFinished = function($location) {
+    console.log('check if finished');
     if ($scope.destination && $scope.userLocation) {
+      var conv = 110.574;
       var currLat = $scope.destination.lat;
       var currLng = $scope.destination.lng;
       var destLat = $scope.userLocation.lat;
       var destLng = $scope.userLocation.lng;
       var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
-
+      
       if (distRemaining < 0.0008) {
         $location.path('/finish');
         clearInterval($scope.geoUpdater);
       }
-
     }
   }
 
   // Determine user location and update map each second
 <<<<<<< HEAD
+<<<<<<< HEAD
   $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
 =======
   $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope)}, 1000);
 >>>>>>> Modify race end conditions
+=======
+  $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
+>>>>>>> Determine whether user has reached destination
 
   // Stop geotracker upon canceling run
   $scope.stopGeoUpdater = function() {
