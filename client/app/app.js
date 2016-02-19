@@ -35,6 +35,10 @@ angular.module('bolt', [
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
     })
+    .when('/profile', {
+      templateUrl: 'profile/profile.html',
+      controller: ''
+    })
     .otherwise({
       redirectTo: '/'
     });
