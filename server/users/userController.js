@@ -60,6 +60,24 @@ module.exports = {
       });
   },
 
+  getUser: function(req, res, next) {
+    //var token = get x-access-token from req;
+    var token = req.headers['x-access-token'];
+    if (!token) {
+      next(new Error('No token'));
+    } else {
+      var user = jwt.decode(token, 'secret');
+      findUser({username: user.username})
+      .then(function(user) {
+        res.json(user);
+      })
+      .catch(function(err) {
+        console.error(err);
+        res.send(404);
+      })
+    }
+  },
+
   checkAuth: function (req, res, next) {
     // checking to see if the user is authenticated
     // grab the token in the header is any

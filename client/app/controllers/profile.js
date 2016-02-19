@@ -3,12 +3,12 @@ angular.module('bolt.profile', ['bolt.auth'])
 .controller('ProfileController', function ($scope, Auth, Profile) {
   $scope.user = {};
   $scope.newInfo = {};
-  // var getUserInfo = function () {
-  //   Auth.getUser()
-  //   .then(function (user) {
-  //     $scope.user = user;
-  //   });
-  // };
+  var getUserInfo = function () {
+    Profile.getUser()
+    .then(function (user) {
+      $scope.user = user;
+    });
+  };
 
   $scope.signout = function () {
     Auth.signout();
@@ -28,5 +28,5 @@ angular.module('bolt.profile', ['bolt.auth'])
       });
   };
 
-  // getUserInfo();
+  getUserInfo();
 });

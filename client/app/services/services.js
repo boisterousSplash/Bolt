@@ -90,23 +90,32 @@ angular.module('bolt.services', [])
 })
 .factory('Profile', function ($http) {
 
-  var updateUser = function (newInfo, previousUsername) {
-    return $http({
-      method: 'PUT',
-      url: '/api/users/profile',
-      data: {
-        newInfo: newInfo,
-        user: {
-          username: previousUsername
-        }
-      }
-    }).then(function (user) {
-      return user;
-    });
-  };
-
   return {
-    updateUser: updateUser
+
+    updateUser : function (newInfo, previousUsername) {
+      return $http({
+        method: 'PUT',
+        url: '/api/users/profile',
+        data: {
+          newInfo: newInfo,
+          user: {
+            username: previousUsername
+          }
+        }
+      }).then(function (user) {
+        return user;
+      });
+    },
+
+    getUser : function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/profile',
+      }).then(function(user) {
+        return user;
+      });
+    }
+
   };
 })
 .factory('Auth', function ($http, $location, $window) {
