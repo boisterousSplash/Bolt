@@ -19,6 +19,7 @@ angular.module('bolt.services', [])
     });
     var makeMap = function(currentLatLngObj, $scope) {
       var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.2);
+
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         zoom: 13
