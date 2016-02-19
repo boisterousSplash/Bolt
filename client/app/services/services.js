@@ -102,6 +102,7 @@ angular.module('bolt.services', [])
           }
         }
       }).then(function (user) {
+        console.log(user);
         return user;
       });
     },

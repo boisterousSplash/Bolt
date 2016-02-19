@@ -3,6 +3,7 @@ var helpers = require('./helpers.js'); // our custom middleware
 
 module.exports = function (app, express) {
   app.get('/api/users/profile', userController.getUser);
+  app.put('/api/users/profile', userController.updateUser);
   // app.post('/api/users/signin', userController.signin);
   app.post('/api/users/signup', userController.signup);
   // app.get('/api/users/signedin', userController.checkAuth);
