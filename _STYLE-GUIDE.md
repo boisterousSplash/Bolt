@@ -44,6 +44,37 @@ When writing any block of code that is logically subordinate to the line immedia
 
     * use sublime's arrow collapsing as a guide. do the collapsing lines seem like they should be 'contained' by the line with an arrow on it?
 
+    * promises should not be indented when chained:
+    ```javascript
+    // good:
+    returnPromiseFunction()
+    .then(function(val1) {
+      // body...
+    })
+    .then(function(val2) {
+      // body...
+    })
+    .catch(function(err) {
+      // handle err...
+    })
+    ```
+
+    * this prevents promises from becoming callback pyramids they are trying to avoid
+
+    ```javascript
+    // bad:
+    returnPromiseFunction()
+      .then(function(val1) {
+        // body...
+      })
+        .then(function(val2) {
+          // body...
+        })
+          .catch(function(err) {
+            // handle err...
+          })
+    }});
+    ```
 
 ### Variable names
 
@@ -129,7 +160,7 @@ When writing any block of code that is logically subordinate to the line immedia
     }
     ```
 
-* Don't use function statements for the entire first half of the course. They introduce a slew of subtle new rules to how the language behaves, and without a clear benefit. Once you and all your peers are expert level in the second half, you can start to use the more (needlessly) complicated option if you like.
+* Don't use function statements. They introduce a slew of subtle new rules to how the language behaves, and without a clear benefit.
 
     ```javascript
     // good:
