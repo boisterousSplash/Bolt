@@ -17,10 +17,6 @@ angular.module('run.controller', [])
     tick();
   }
 
-  $scope.currentCoords = {
-    lat: null,
-    lng: null
-  };
   // $scope.getCurrentCoords = function() {
   //   console.log('ran');
   //   Geo.getCurrentCoords(function(coordsObj) {
@@ -31,7 +27,6 @@ angular.module('run.controller', [])
   // };
 
   $scope.makeInitialMap = function($scope) {
-    console.log('in controller');
     Geo.makeInitialMap($scope);
   };
 
@@ -44,13 +39,13 @@ angular.module('run.controller', [])
 
   $scope.checkIfFinished = function($location) {
     if ($scope.destination && $scope.userLocation) {
-      var currLat = $scope.destination.lat;
-      var currLng = $scope.destination.lng;
-      var destLat = $scope.userLocation.lat;
-      var destLng = $scope.userLocation.lng;
+      var currLat = $scope.userLocation.lat;
+      var currLng = $scope.userLocation.lng;
+      var destLat = $scope.destination.lat;
+      var destLng = $scope.destination.lng;
       var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
 
-      if (distRemaining < 0.0008) {
+      if (distRemaining < 0.0004) {
         $location.path('/finish');
         clearInterval($scope.geoUpdater);
       }
