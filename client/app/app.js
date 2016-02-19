@@ -3,7 +3,8 @@ angular.module('bolt', [
   'bolt.auth',
   'ngRoute',
   'bolt.controller',
-  'run.controller'
+  'run.controller',
+  'multi.Controller'
 ])
 .config(function ($routeProvider, $httpProvider) {
   //Shane's code here
