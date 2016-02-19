@@ -35,10 +35,14 @@ angular.module('bolt', [
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
     })
+    .when('/profile', {
+      templateUrl: 'profile/profile.html',
+      controller: ''
+    })
     .otherwise({
       redirectTo: '/'
     });
-    
+
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
     $httpProvider.interceptors.push('AttachTokens');
