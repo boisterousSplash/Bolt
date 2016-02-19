@@ -11,32 +11,28 @@ angular.module('bolt.services', [])
 
   var makeInitialMap = function($scope) {
     navigator.geolocation.getCurrentPosition(function(position) {
+      console.log('position: ');
+      console.log(position);
       makeMap({lat: position.coords.latitude, lng: position.coords.longitude}, $scope);
     }, function(err) {
       console.error(err);
     });
     var makeMap = function(currentLatLngObj, $scope) {
       var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.2);
-      $scope.destination = destinationCoordinates;
       mainMap = new google.maps.Map(document.getElementById('map'), {
-        center: currentLatLngObj,
+        center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         zoom: 13
       });
       directionsRenderer.setMap(mainMap);
       currentLocMarker = new google.maps.Marker({
-        position: currentLatLngObj,
+        position: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         map: mainMap,
         animation: google.maps.Animation.DROP,
         icon: '/assets/bolt.png'
       });
-      destinationMarker = new google.maps.Marker({
-        position: destinationCoordinates,
-        map: mainMap,
-        animation: google.maps.Animation.DROP,
-        icon: '/assets/finish-line.png' // change to finish line image
-      });
       var startOfRoute = new google.maps.LatLng(currentLocMarker.position.lat(), currentLocMarker.position.lng());
-      var endOfRoute = new google.maps.LatLng(destinationMarker.position.lat(), destinationMarker.position.lng());
+      var endOfRoute = new google.maps.LatLng(destinationCoordinates.lat, destinationCoordinates.lng);
+      $scope.destination = {lat: endOfRoute.lat(), lng: endOfRoute.lng()};
       route = directionsService.route({
         origin: startOfRoute,
         destination: endOfRoute,
@@ -59,9 +55,9 @@ angular.module('bolt.services', [])
   var updateCurrentPosition = function($scope) {
     console.log($scope);
     navigator.geolocation.getCurrentPosition(function(position) {
-      currentLocMarker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+      currentLocMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
       if ($scope) {
-        $scope.userLocation= {lat: position.coords.latitude, lng: position.coords.longitude};
+        $scope.userLocation= {lat: currentLocMarker.position.lat(), lng: currentLocMarker.position.lng()};
       }
       console.log(currentLocMarker);
     }, function(err) {
