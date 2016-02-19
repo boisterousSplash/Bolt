@@ -13,19 +13,19 @@ angular.module('bolt', [
   $routeProvider
     .when('/', {
       // home page template
-      templateUrl: '../bolt/bolt.html',
+      templateUrl: 'app/views/bolt.html',
       controller: 'BoltController'
     })
     .when('/run', {
-      templateUrl: '../bolt/run.html',
+      templateUrl: 'app/views/run.html',
       controller: 'RunController'
     })
     .when('/finish', {
-      templateUrl: '../bolt/finish.html',
+      templateUrl: 'app/views/finish.html',
       controller: 'RunController'
     })
     .when('/multiLoad', {
-      templateUrl: '../bolt/multiLoad.html',
+      templateUrl: 'app/views/multiLoad.html',
       controller: 'MultiController'
     })
     .when('/signin', {
