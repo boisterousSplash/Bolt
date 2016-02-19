@@ -5,7 +5,8 @@ angular.module('bolt', [
   'ngRoute',
   'bolt.controller',
   'run.controller',
-  'multi.Controller'
+  'multi.Controller',
+  'bolt.createProfile'
 ])
 .config(function ($routeProvider, $httpProvider) {
   //Shane's code here
@@ -39,6 +40,10 @@ angular.module('bolt', [
     .when('/profile', {
       templateUrl: 'app/profile/profile.html',
       controller: 'ProfileController'
+    })
+    .when('/createProfile', {
+      templateUrl: 'app/views/createProfile.html',
+      controller: 'CreateProfileController'
     })
     .otherwise({
       redirectTo: '/'
