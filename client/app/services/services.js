@@ -11,14 +11,12 @@ angular.module('bolt.services', [])
 
   var makeInitialMap = function($scope) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      console.log('position: ');
-      console.log(position);
       makeMap({lat: position.coords.latitude, lng: position.coords.longitude}, $scope);
     }, function(err) {
       console.error(err);
     });
     var makeMap = function(currentLatLngObj, $scope) {
-      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.2);
+      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.1);
 
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
@@ -42,13 +40,16 @@ angular.module('bolt.services', [])
         provideRouteAlternatives: false
       }, function(response, status) {
         directionsRenderer.setDirections(response);
-        console.log('response:');
-        console.log(response);
         var totalDistance = 0;
         for (var i = 0; i < response.routes[0].legs.length; i++) {
           totalDistance += response.routes[0].legs[i].distance.text;
         }
+        totalDistance = parseFloat(totalDistance);
         console.log('total distance: ', totalDistance);
+        var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
+        $scope.goldTime = moment().minute(totalDistance * userMinPerMile * 0.9);
+        $scope.silverTime = moment().minute(totalDistance * userMinPerMile * 1.0);
+        $scope.bronzeTime = moment().minute(totalDistance * userMinPerMile * 1.1);
       });
     };
   };
@@ -60,7 +61,6 @@ angular.module('bolt.services', [])
       if ($scope) {
         $scope.userLocation= {lat: currentLocMarker.position.lat(), lng: currentLocMarker.position.lng()};
       }
-      console.log(currentLocMarker);
     }, function(err) {
       console.error(err);
     });
@@ -68,7 +68,6 @@ angular.module('bolt.services', [])
 
   function randomCoordsAlongCircumference (originObj, radius) {
     var randomTheta = Math.random() * 2 * Math.PI;
-    console.log('randomTheta');
     return {
       lat: originObj.lat + (radius / 69 * Math.cos(randomTheta)),
       lng: originObj.lng + (radius / 69 * Math.sin(randomTheta))
