@@ -22,6 +22,10 @@ angular.module('bolt', [
       templateUrl: '../bolt/finish.html',
       controller: 'RunController'
     })
+    .when('/multiLoad', {
+      templateUrl: '../bolt/multiLoad.html',
+      controller: 'MultiController'
+    })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
       controller: 'AuthController'
