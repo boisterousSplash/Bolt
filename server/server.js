@@ -5,7 +5,11 @@ var app = express();
 
 // connect to mongo database named "bolt"
 mongoose.connect('mongodb://localhost/bolt');
-
+mongoose.connect(process.env.MONGOLAB_URI, function (error) {
+    if (error) console.error(error);
+    else console.log('mongo connected');
+});
+// API key: kyYsvLVM95SVVl9EKZ-dbfX0LzejuVJf
 // configure our server with all the middleware and routing
 require('./config/middleware.js')(app, express);
 require('./config/routes.js')(app, express);
