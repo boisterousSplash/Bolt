@@ -6,6 +6,7 @@ var helpers = require('../config/helpers');
 // Promisify a few mongoose methods with the `q` promise library
 var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
+var updateUserDB = Q.nbind(User.update, User);
 
 module.exports = {
   signin: function (req, res, next) {
@@ -54,6 +55,33 @@ module.exports = {
         // create token to send back for auth
         var token = jwt.encode(user, 'secret');
         res.json({token: token});
+      })
+      .fail(function (error) {
+        next(error);
+      });
+  },
+
+  updateUser: function(req, res, next) {
+    var newData = req.body.newInfo;
+    var username = req.body.user.username.data.username;
+    console.log(username);
+
+    var queryCondition = {username: username};
+    var dataToUpdate = {
+      firstName: newData.first,
+      lastName: newData.last,
+      email: newData.email, 
+      phoneNumber: newData.phone,
+      preferedDistance: newData.distancePreference
+    };
+
+    findUser({username: username})
+      .then(function(user) {
+        if (user) {
+          return updateUserDB(queryCondition, dataToUpdate);
+        } else {
+          next(new Error('No user found!'));
+        }
       })
       .fail(function (error) {
         next(error);
