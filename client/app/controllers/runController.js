@@ -58,6 +58,7 @@ angular.module('run.controller', [])
   }
 
   // Determine user location and update map each second
+
   $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
 
   // Stop geotracker upon canceling run

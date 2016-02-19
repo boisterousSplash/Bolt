@@ -19,6 +19,7 @@ angular.module('bolt.services', [])
     });
     var makeMap = function(currentLatLngObj, $scope) {
       var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.2);
+
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         zoom: 13
@@ -87,7 +88,27 @@ angular.module('bolt.services', [])
   // Kyle's code here
 
 })
+.factory('Profile', function ($http) {
 
+  var updateUser = function (newInfo, previousUsername) {
+    return $http({
+      method: 'PUT',
+      url: '/api/users/profile',
+      data: {
+        newInfo: newInfo,
+        user: {
+          username: previousUsername
+        }
+      }
+    }).then(function (user) {
+      return user;
+    });
+  };
+
+  return {
+    updateUser: updateUser
+  };
+})
 .factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
