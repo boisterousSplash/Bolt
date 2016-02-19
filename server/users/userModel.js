@@ -11,6 +11,8 @@ var UserSchema = new mongoose.Schema({
 
   firstName: { type: String, default: "Speedee" },
   lastName: { type: String, default: "Gonzales" },
+  email: String,
+  phone: String,
   preferedDistance: Number,
   mileSpeed: { type: Number, default: 10 }, // in min/mile
   runs: Array
