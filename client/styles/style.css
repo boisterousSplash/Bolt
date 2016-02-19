@@ -23,11 +23,11 @@ nav {
 }
 
 .btn-floating.btn-large {
-  width: 500px;
-  height: 500px;
+  width: 22em;
+  height: 22em;
   display: block;
   vertical-align: middle;
-  line-height: 550px;
+  line-height: 28em;
   margin: 0 auto;
 }
 
