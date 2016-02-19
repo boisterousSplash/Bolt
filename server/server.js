@@ -4,9 +4,10 @@ var mongoose = require('mongoose');
 var app = express();
 
 // connect to mongo database named "bolt"
-mongoose.connect('mongodb://localhost/bolt');
+// uncomment this line to use a local database
+// mongoose.connect('mongodb://localhost/bolt');
+mongoose.connect('mongodb://heroku_l3g4r0kp:61docmam4tnk026c51bhc5hork@ds029605.mongolab.com:29605/heroku_l3g4r0kp');
 
-// configure our server with all the middleware and routing
 require('./config/middleware.js')(app, express);
 require('./config/routes.js')(app, express);
 
