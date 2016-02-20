@@ -24,7 +24,4 @@ angular.module('bolt.auth', [])
         console.error(error);
       });
   };
-
-
-
 });
