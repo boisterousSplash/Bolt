@@ -3,13 +3,12 @@ var helpers = require('./helpers.js'); // our custom middleware
 
 module.exports = function (app, express) {
   app.get('/api/users/profile', userController.getUser);
-  app.put('/api/users/profile', userController.updateUser);
-  // app.post('/api/users/signin', userController.signin);
+  app.get('/api/users/signedin', userController.checkAuth);
+
+  app.post('/api/users/signin', userController.signin);
   app.post('/api/users/signup', userController.signup);
-  // app.get('/api/users/signedin', userController.checkAuth);
-  //
-  // // authentication middleware used to decode token and made available on the request
-  // // app.use('/api/links', helpers.decode);
+
+  app.put('/api/users/profile', userController.updateUser);
 
   // If a request is sent somewhere other than the routes above,
   // send it through our custom error handler

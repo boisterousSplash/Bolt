@@ -1,6 +1,8 @@
 var jwt = require('jwt-simple');
 
 module.exports = {
+
+  // Getus user from db, returns a promise of that user
   applyToUser: function(user) {
     if (typeof(user) === 'string') {
       user = {username: user};
@@ -16,13 +18,10 @@ module.exports = {
   },
 
   errorLogger: function (error, req, res, next) {
-    // log the error then send it to the next middleware in
     console.error(error.stack);
     next(error);
   },
   errorHandler: function (error, req, res, next) {
-    // send error message to client
-    // message for gracefull error handling on app
     res.send(500, {error: error.message});
   },
 
@@ -35,14 +34,11 @@ module.exports = {
     }
 
     try {
-      // decode token and attach user to the request
-      // for use inside our controllers
       user = jwt.decode(token, 'secret');
       req.user = user;
       next();
     } catch (error) {
       return next(error);
     }
-
   }
 };
