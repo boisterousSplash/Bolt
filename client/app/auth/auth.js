@@ -7,7 +7,7 @@ angular.module('bolt.auth', [])
     Auth.signin($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.bolt', token);
-        $location.path('/links');
+        $location.path('/');
       })
       .catch(function (error) {
         console.error(error);
