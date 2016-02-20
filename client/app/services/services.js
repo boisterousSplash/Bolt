@@ -45,13 +45,14 @@ angular.module('bolt.services', [])
           totalDistance += response.routes[0].legs[i].distance.text;
         }
         totalDistance = parseFloat(totalDistance);
-        console.log('total distance: ', totalDistance);
+        $scope.totalDistance = totalDistance;
         var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
         var minutes = userMinPerMile * totalDistance;
         var seconds = minutes * 60;
         $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9);
         $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0);
         $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1);
+        $scope.$digest();
       });
     };
   };
