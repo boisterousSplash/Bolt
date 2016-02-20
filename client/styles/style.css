@@ -14,16 +14,20 @@ html, body {
   height: 100%;
 }
 
+.message {
+  text-align: center;
+}
+
 nav {
   background-color: black;
 }
 
 .btn-floating.btn-large {
-  width: 500px;
-  height: 500px;
+  width: 22em;
+  height: 22em;
   display: block;
   vertical-align: middle;
-  line-height: 550px;
+  line-height: 28em;
   margin: 0 auto;
 }
 
@@ -35,7 +39,7 @@ nav {
   position: absolute;
   bottom: 0;
   left: 0;
-  top:92%;
+  top: 92%;
   width: 100%;
   background-color: black;
   text-align: center;
@@ -47,14 +51,22 @@ nav {
   font-size: 24pt;
 }
 
-.cancel {
+.left {
   position: relative;
   float: left;
   left: 1%;
 }
 
-.time {
+.right {
   position: absolute;
   float: right;
   right: 1%;
+}
+
+.congrats {
+  position: relative;
+  top: 30%;
+  color: green;
+  text-align: center;
+  font-size: 32pt;
 }

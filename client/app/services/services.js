@@ -16,27 +16,22 @@ angular.module('bolt.services', [])
       console.error(err);
     });
     var makeMap = function(currentLatLngObj, $scope) {
-      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 1);
-      $scope.destination = destinationCoordinates;
+      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.1);
+
       mainMap = new google.maps.Map(document.getElementById('map'), {
-        center: currentLatLngObj,
+        center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         zoom: 13
       });
       directionsRenderer.setMap(mainMap);
       currentLocMarker = new google.maps.Marker({
-        position: currentLatLngObj,
+        position: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         map: mainMap,
         animation: google.maps.Animation.DROP,
         icon: '/assets/bolt.png'
       });
-      destinationMarker = new google.maps.Marker({
-        position: destinationCoordinates,
-        map: mainMap,
-        animation: google.maps.Animation.DROP,
-        icon: '/assets/finish-line.png' // change to finish line image
-      });
       var startOfRoute = new google.maps.LatLng(currentLocMarker.position.lat(), currentLocMarker.position.lng());
-      var endOfRoute = new google.maps.LatLng(destinationMarker.position.lat(), destinationMarker.position.lng());
+      var endOfRoute = new google.maps.LatLng(destinationCoordinates.lat, destinationCoordinates.lng);
+      $scope.destination = {lat: endOfRoute.lat(), lng: endOfRoute.lng()};
       route = directionsService.route({
         origin: startOfRoute,
         destination: endOfRoute,
@@ -45,24 +40,27 @@ angular.module('bolt.services', [])
         provideRouteAlternatives: false
       }, function(response, status) {
         directionsRenderer.setDirections(response);
-        console.log('response:');
-        console.log(response);
         var totalDistance = 0;
         for (var i = 0; i < response.routes[0].legs.length; i++) {
           totalDistance += response.routes[0].legs[i].distance.text;
         }
+        totalDistance = parseFloat(totalDistance);
         console.log('total distance: ', totalDistance);
+        var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
+        $scope.goldTime = moment().minute(totalDistance * userMinPerMile * 0.9);
+        $scope.silverTime = moment().minute(totalDistance * userMinPerMile * 1.0);
+        $scope.bronzeTime = moment().minute(totalDistance * userMinPerMile * 1.1);
       });
     };
   };
 
   var updateCurrentPosition = function($scope) {
+    console.log($scope);
     navigator.geolocation.getCurrentPosition(function(position) {
-      currentLocMarker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
-      // if ($scope) {
-      //   $scope.userLocation = 10;
-      // }
-      console.log(currentLocMarker.position.lat(), currentLocMarker.position.lng());
+      currentLocMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+      if ($scope) {
+        $scope.userLocation= {lat: currentLocMarker.position.lat(), lng: currentLocMarker.position.lng()};
+      }
     }, function(err) {
       console.error(err);
     });
@@ -70,7 +68,6 @@ angular.module('bolt.services', [])
 
   function randomCoordsAlongCircumference (originObj, radius) {
     var randomTheta = Math.random() * 2 * Math.PI;
-    console.log('randomTheta');
     return {
       lat: originObj.lat + (radius / 69 * Math.cos(randomTheta)),
       lng: originObj.lng + (radius / 69 * Math.sin(randomTheta))
@@ -90,7 +87,37 @@ angular.module('bolt.services', [])
   // Kyle's code here
 
 })
+.factory('Profile', function ($http) {
 
+  return {
+
+    updateUser : function (newInfo, previousUsername) {
+      return $http({
+        method: 'PUT',
+        url: '/api/users/profile',
+        data: {
+          newInfo: newInfo,
+          user: {
+            username: previousUsername
+          }
+        }
+      }).then(function (user) {
+        console.log(user);
+        return user;
+      });
+    },
+
+    getUser : function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/profile',
+      }).then(function(user) {
+        return user;
+      });
+    }
+
+  };
+})
 .factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user

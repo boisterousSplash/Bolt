@@ -1,9 +1,12 @@
 angular.module('bolt', [
   'bolt.services',
   'bolt.auth',
+  'bolt.profile',
   'ngRoute',
   'bolt.controller',
-  'run.controller'
+  'run.controller',
+  'multi.Controller',
+  'bolt.createProfile'
 ])
 .config(function ($routeProvider, $httpProvider) {
   //Shane's code here
@@ -11,12 +14,20 @@ angular.module('bolt', [
   $routeProvider
     .when('/', {
       // home page template
-      templateUrl: '../bolt/bolt.html',
+      templateUrl: 'app/views/bolt.html',
       controller: 'BoltController'
     })
     .when('/run', {
-      templateUrl: '../bolt/run.html',
+      templateUrl: 'app/views/run.html',
       controller: 'RunController'
+    })
+    .when('/finish', {
+      templateUrl: 'app/views/finish.html',
+      controller: 'RunController'
+    })
+    .when('/multiLoad', {
+      templateUrl: 'app/views/multiLoad.html',
+      controller: 'MultiController'
     })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
@@ -26,10 +37,18 @@ angular.module('bolt', [
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
     })
+    .when('/profile', {
+      templateUrl: 'app/profile/profile.html',
+      controller: 'ProfileController'
+    })
+    .when('/createProfile', {
+      templateUrl: 'app/views/createProfile.html',
+      controller: 'CreateProfileController'
+    })
     .otherwise({
       redirectTo: '/'
     });
-    
+
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
     $httpProvider.interceptors.push('AttachTokens');
