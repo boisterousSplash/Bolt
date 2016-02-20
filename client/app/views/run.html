@@ -10,12 +10,12 @@
   </div>
 </div> -->
 
-    <div class ="medalTimes" ng-show="!raceStarted"> Total Time: </div>
-    <div class ="medalTimes" ng-show="!raceStarted"> Bronze: </div>
-    <div class ="medalTimes" ng-show="!raceStarted"> Silver: </div>
-    <div class ="medalTimes" ng-show="!raceStarted"> Gold: </div>
-    <div class ="medalTimes" ng-show="raceStarted"> 
-      <div class="botLink" > 5:23 &nbsp; &nbsp;Gold </div>
+    <div class ="medalTimes" ng-show="!raceStarted">Total Distance: {{ totalDistance }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">Bronze: {{ bronzeTime.format('mm:ss') }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">Silver: {{ silverTime.format('mm:ss') }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">Gold: {{ goldTime.format('mm:ss') }}</div>
+    <div class ="medalTimes" ng-show="raceStarted">
+      <div class="botLink" >{{ timeUntilGold.format('mm:ss') }} Gold</div>
       <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
     </div>
     <div class ="medalTimes">
