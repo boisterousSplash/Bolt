@@ -28,5 +28,9 @@ angular.module('bolt.profile', ['bolt.auth'])
       });
   };
 
-  getUserInfo();
+  $scope.$on('$routeChangeSuccess', function () {
+    getUserInfo();
+    console.log('loading!');
+  // do something
+  });
 });
