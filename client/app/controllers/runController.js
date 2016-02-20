@@ -5,6 +5,7 @@ angular.module('run.controller', [])
   $scope.startTime;
   $scope.userLocation;
   $scope.destination;
+  $scope.pointsInTime = {}; // gold, silver, bronze
   $scope.goldPointInTime;
   $scope.silverPointInTime;
   $scope.bronzePointInTime;
@@ -31,7 +32,7 @@ angular.module('run.controller', [])
 
   $scope.regenRace =  function() {
     $route.reload();
-  } 
+  }
   // $scope.getCurrentCoords = function() {
   //   console.log('ran');
   //   Geo.getCurrentCoords(function(coordsObj) {
@@ -84,7 +85,3 @@ angular.module('run.controller', [])
     clearInterval($scope.geoUpdater);
   };
 })
-
-
-
-
