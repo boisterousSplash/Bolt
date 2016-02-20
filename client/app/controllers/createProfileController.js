@@ -6,7 +6,7 @@ angular.module('bolt.createProfile', [])
       first: first,
       last: last,
       email: email,
-      phone: phone,
+      phone: phone.toString(),
       distancePreference: distance
     };
 
