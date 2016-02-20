@@ -1,10 +1,26 @@
 <div id="map"></div>
 
-<div id='run' class="container">
+<!-- <div id='run' class="container"> -->
   <div class="botNav">
-    <a class="botLink left" href="#/" ng-click="stopGeoUpdater()"> Cancel </a>
+
+<!--     <a class="botLink left" href="#/" ng-click="stopGeoUpdater()"> Cancel </a>
     <div class ="botLink start-race" ng-click="startRun()" ng-show="!raceStarted"> Ready? </div>
     <div class="botLink" ng-show="raceStarted">G: {{ goldTime.format('mm:ss') }}, S: {{ silverTime.format('mm:ss') }}, B: {{ bronzeTime.format('mm:ss') }}</div>
     <div class="botLink right" ng-show="raceStarted"> {{ timeUntilGold.format('mm:ss') }} <div>
   </div>
-</div>
+</div> -->
+
+    <div class ="medalTimes" ng-show="!raceStarted"> Total Time: </div>
+    <div class ="medalTimes" ng-show="!raceStarted"> Bronze: </div>
+    <div class ="medalTimes" ng-show="!raceStarted"> Silver: </div>
+    <div class ="medalTimes" ng-show="!raceStarted"> Gold: </div>
+    <div class ="medalTimes" ng-show="raceStarted"> 
+      <div class="botLink" > 5:23 &nbsp; &nbsp;Gold </div>
+      <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
+    </div>
+    <div class ="medalTimes">
+      <a class="botLink left" href="#/" ng-show="!raceStarted" ng-click="stopGeoUpdater()"> x </a>
+      <div class="botLink" ng-show="!raceStarted" ng-click="regenRace()"> <i class="small material-icons">replay</i> </div>
+      <div class="botLink right" ng-show="!raceStarted" ng-click="startRun()"> <i class="small material-icons">done</i> </div>
+    </div>
+    </div>

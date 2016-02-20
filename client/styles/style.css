@@ -5,13 +5,22 @@
 html, body {
   height: 100%;
 }
+
 #map {
-  height: 100%;
+  display: block;
+  top: 0%;
+  height: 95%;
   width: 100%;
 }
 
+#run {
+  display: block;
+  bottom: 0%;
+  height: 0%;
+}
+
 .ng-scope {
-  height: 100%;
+  height: 91%;
 }
 
 .message {
@@ -37,9 +46,7 @@ nav {
 
 .botNav {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  top: 92%;
+  height: 5%;
   width: 100%;
   background-color: black;
   text-align: center;
@@ -48,13 +55,20 @@ nav {
 .botLink {
   display: inline-block;
   color: white;
-  font-size: 24pt;
+  font-size: 20pt;
+}
+
+.medalTimes {
+  background-color: black;
+  color: white;
+  font-size: 18pt;
+  display: block;
 }
 
 .left {
   position: relative;
   float: left;
-  left: 1%;
+  left: 2%;
 }
 
 .right {
