@@ -63,6 +63,10 @@ nav {
   right: 1%;
 }
 
+.start-race {
+  cursor: pointer;
+}
+
 .congrats {
   position: relative;
   top: 30%;

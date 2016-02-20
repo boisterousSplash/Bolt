@@ -3,8 +3,8 @@
 <div id='run' class="container">
   <div class="botNav">
     <a class="botLink left" href="#/" ng-click="stopGeoUpdater()"> Cancel </a>
-    <div class ="botLink" ng-click="startRun()" ng-show="!raceStarted"> Ready? </div>
-    <div class="botLink" ng-show="raceStarted"> Start! </div>
-    <div class="botLink right" ng-show="raceStarted"> {{ time }} <div>
+    <div class ="botLink start-race" ng-click="startRun()" ng-show="!raceStarted"> Ready? </div>
+    <div class="botLink" ng-show="raceStarted">G: {{ goldTime.format('mm:ss') }}, S: {{ silverTime.format('mm:ss') }}, B: {{ bronzeTime.format('mm:ss') }}</div>
+    <div class="botLink right" ng-show="raceStarted"> {{ timeUntilGold.format('mm:ss') }} <div>
   </div>
 </div>

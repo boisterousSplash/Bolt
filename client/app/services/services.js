@@ -47,15 +47,16 @@ angular.module('bolt.services', [])
         totalDistance = parseFloat(totalDistance);
         console.log('total distance: ', totalDistance);
         var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
-        $scope.goldTime = moment().minute(totalDistance * userMinPerMile * 0.9);
-        $scope.silverTime = moment().minute(totalDistance * userMinPerMile * 1.0);
-        $scope.bronzeTime = moment().minute(totalDistance * userMinPerMile * 1.1);
+        var minutes = userMinPerMile * totalDistance;
+        var seconds = minutes * 60;
+        $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9);
+        $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0);
+        $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1);
       });
     };
   };
 
   var updateCurrentPosition = function($scope) {
-    console.log($scope);
     navigator.geolocation.getCurrentPosition(function(position) {
       currentLocMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
       if ($scope) {

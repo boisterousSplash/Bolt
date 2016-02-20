@@ -5,6 +5,12 @@ angular.module('run.controller', [])
   $scope.startTime;
   $scope.userLocation;
   $scope.destination;
+  $scope.goldPointInTime;
+  $scope.silverPointInTime;
+  $scope.bronzePointInTime;
+  $scope.timeUntilGold;
+  $scope.timeUntilSilver;
+  $scope.timeUntilBronze;
 
   var tick = function() {
     $scope.time = Math.floor((Date.now() - $scope.startTime)/1000);
@@ -14,6 +20,10 @@ angular.module('run.controller', [])
   $scope.startRun = function() {
     $scope.startTime = Date.now();
     $scope.raceStarted = true;
+    $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 500);
+    $scope.goldPointInTime = moment().add($scope.goldTime.second(), 'seconds').add($scope.goldTime.minute(), 'minutes');
+    $scope.silverPointInTime = moment().add($scope.silverTime.second(), 'seconds').add($scope.silverTime.minute(), 'minutes');
+    $scope.bronzePointInTime = moment().add($scope.bronzeTime.second(), 'seconds').add($scope.bronzeTime.minute(), 'minutes');
     tick();
   }
 
@@ -34,7 +44,16 @@ angular.module('run.controller', [])
 
   $scope.updateCurrentPosition = function($scope, $location) {
     Geo.updateCurrentPosition($scope);
+    var secondsToGold = $scope.goldPointInTime.diff(moment(), 'seconds');
+    var secondsToSilver = $scope.silverPointInTime.diff(moment(), 'seconds');
+    var secondsToBronze = $scope.bronzePointInTime.diff(moment(), 'seconds');
+    $scope.timeUntilGold = moment().second(secondsToGold).minute(secondsToGold / 60);
+    $scope.timeUntilSilver = moment().second(secondsToSilver).minute(secondsToSilver / 60);
+    $scope.timeUntilBronze = moment().second(secondsToBronze).minute(secondsToBronze / 60);
+    console.log('$scope.timeUntilGold: ', $scope.timeUntilGold.format('mm:ss'));
     $scope.checkIfFinished($location);
+    // console.log('$scope.goldPointInTime: ', $scope.goldPointInTime.format('hh:mm'));
+    // console.log('$scope.timeUntilGold: ', $scope.timeUntilGold.format('mm:ss'));
   };
 
   $scope.checkIfFinished = function($location) {
@@ -54,7 +73,6 @@ angular.module('run.controller', [])
 
   // Determine user location and update map each second
 
-  $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
 
   // Stop geotracker upon canceling run
   $scope.stopGeoUpdater = function() {
