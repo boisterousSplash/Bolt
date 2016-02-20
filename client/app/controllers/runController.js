@@ -17,6 +17,7 @@ angular.module('run.controller', [])
     $timeout(tick, 100)
   }
 
+
   $scope.startRun = function() {
     $scope.startTime = Date.now();
     $scope.raceStarted = true;
@@ -31,7 +32,7 @@ angular.module('run.controller', [])
 
   $scope.regenRace =  function() {
     $route.reload();
-  } 
+  }
   // $scope.getCurrentCoords = function() {
   //   console.log('ran');
   //   Geo.getCurrentCoords(function(coordsObj) {
@@ -55,7 +56,6 @@ angular.module('run.controller', [])
     $scope.timeUntilGold = moment().second(secondsToGold).minute(secondsToGold / 60);
     $scope.timeUntilSilver = moment().second(secondsToSilver).minute(secondsToSilver / 60);
     $scope.timeUntilBronze = moment().second(secondsToBronze).minute(secondsToBronze / 60);
-    console.log('$scope.timeUntilGold: ', $scope.timeUntilGold.format('mm:ss'));
     $scope.checkIfFinished($location);
     // console.log('$scope.goldPointInTime: ', $scope.goldPointInTime.format('hh:mm'));
     // console.log('$scope.timeUntilGold: ', $scope.timeUntilGold.format('mm:ss'));
@@ -84,7 +84,3 @@ angular.module('run.controller', [])
     clearInterval($scope.geoUpdater);
   };
 })
-
-
-
-

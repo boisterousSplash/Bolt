@@ -88,3 +88,7 @@ nav {
   text-align: center;
   font-size: 32pt;
 }
+
+.clickable {
+  cursor: pointer;
+}
