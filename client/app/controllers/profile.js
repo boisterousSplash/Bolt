@@ -3,6 +3,7 @@ angular.module('bolt.profile', ['bolt.auth'])
 .controller('ProfileController', function ($scope, Auth, Profile) {
   $scope.user = {};
   $scope.newInfo = {};
+
   var getUserInfo = function () {
     Profile.getUser()
     .then(function (user) {
@@ -22,10 +23,10 @@ angular.module('bolt.profile', ['bolt.auth'])
     }
 
     Profile.updateUser(newProperties, $scope.user.username)
-      .then( function(user) {
-        $scope.user = user;
-        getUserInfo();
-      });
+    .then( function(user) {
+      $scope.user = user;
+      getUserInfo();
+    });
   };
 
   getUserInfo();
