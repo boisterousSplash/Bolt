@@ -16,10 +16,10 @@ angular.module('run.controller', [])
     var minutesRan = moment().diff(startTime, 'minutes');
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
-    console.log('runTime: ', runTime.format('mm:ss'));
   }
 
   $scope.startRun = function() {
+    // setTimeout(finishRun, 4000);
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -38,7 +38,7 @@ angular.module('run.controller', [])
 
   function makeInitialMap($scope) {
     Geo.makeInitialMap($scope);
-  };
+  }
 
   makeInitialMap($scope);
 
@@ -87,11 +87,16 @@ angular.module('run.controller', [])
       var destLng = $scope.destination.lng;
       var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
       if (distRemaining < 0.0002) {
-        sessionStorage.setItem('runTime', runTime);
-        $location.path('/finish');
-        $interval.cancel(statusUpdateLoop);
+        finishRun();
       }
     }
+  }
+
+  function finishRun() {
+    sessionStorage.setItem('runTime', runTime.format('mm:ss'));
+    sessionStorage.setItem('achievement', $scope.currentMedal);
+    $interval.cancel(statusUpdateLoop);
+    $location.path('/finish');
   }
 
   // Stop geotracker upon canceling run

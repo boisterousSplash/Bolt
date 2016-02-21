@@ -5,6 +5,7 @@ angular.module('bolt', [
   'ngRoute',
   'bolt.controller',
   'run.controller',
+  'finish.controller',
   'multi.Controller',
   'bolt.createProfile'
 ])
@@ -25,7 +26,7 @@ angular.module('bolt', [
     })
     .when('/finish', {
       templateUrl: 'app/views/finish.html',
-      controller: 'RunController',
+      controller: 'FinishController',
       authenticate: true
     })
     .when('/multiLoad', {
