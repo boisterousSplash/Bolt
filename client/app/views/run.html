@@ -15,7 +15,7 @@
     <div class ="medalTimes" ng-show="!raceStarted">Silver: {{ silverTime.format('mm:ss') }}</div>
     <div class ="medalTimes" ng-show="!raceStarted">Gold: {{ goldTime.format('mm:ss') }}</div>
     <div class ="medalTimes" ng-show="raceStarted">
-      <div class="botLink" >{{ timeUntilGold.format('mm:ss') }} Gold</div>
+      <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} {{ currentMedal }}</div>
       <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
     </div>
     <div class ="medalTimes">

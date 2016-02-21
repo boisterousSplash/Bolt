@@ -25,6 +25,9 @@ angular.module('run.controller', [])
     $scope.goldPointInTime = moment().add($scope.goldTime.second(), 'seconds').add($scope.goldTime.minute(), 'minutes');
     $scope.silverPointInTime = moment().add($scope.silverTime.second(), 'seconds').add($scope.silverTime.minute(), 'minutes');
     $scope.bronzePointInTime = moment().add($scope.bronzeTime.second(), 'seconds').add($scope.bronzeTime.minute(), 'minutes');
+    $scope.currentMedal = 'Gold';
+    var secondsToGold = $scope.goldPointInTime.diff(moment(), 'seconds');
+    $scope.timeUntilCurrentMedal = moment().second(secondsToGold).minute(secondsToGold / 60);
     document.getElementById('map').style.height = "125%"
     tick();
   }
@@ -33,14 +36,6 @@ angular.module('run.controller', [])
   $scope.regenRace =  function() {
     $route.reload();
   }
-  // $scope.getCurrentCoords = function() {
-  //   console.log('ran');
-  //   Geo.getCurrentCoords(function(coordsObj) {
-  //     $scope.currentCoords = coordsObj;
-  //     console.log('$scope.currentCoords.lat: ', $scope.currentCoords.lat);
-  //     console.log('$scope.currentCoords.lng: ', $scope.currentCoords.lng);
-  //   });
-  // };
 
   $scope.makeInitialMap = function($scope) {
     Geo.makeInitialMap($scope);
@@ -50,15 +45,38 @@ angular.module('run.controller', [])
 
   $scope.updateCurrentPosition = function($scope, $location) {
     Geo.updateCurrentPosition($scope);
-    var secondsToGold = $scope.goldPointInTime.diff(moment(), 'seconds');
-    var secondsToSilver = $scope.silverPointInTime.diff(moment(), 'seconds');
-    var secondsToBronze = $scope.bronzePointInTime.diff(moment(), 'seconds');
-    $scope.timeUntilGold = moment().second(secondsToGold).minute(secondsToGold / 60);
-    $scope.timeUntilSilver = moment().second(secondsToSilver).minute(secondsToSilver / 60);
-    $scope.timeUntilBronze = moment().second(secondsToBronze).minute(secondsToBronze / 60);
+    updateTimes();
     $scope.checkIfFinished($location);
-    // console.log('$scope.goldPointInTime: ', $scope.goldPointInTime.format('hh:mm'));
-    // console.log('$scope.timeUntilGold: ', $scope.timeUntilGold.format('mm:ss'));
+  };
+
+  function updateTimes() {
+    if ($scope.currentMedal === 'Gold') {
+      var secondsToGold = $scope.goldPointInTime.diff(moment(), 'seconds');
+      if (secondsToGold === 0) {
+        var secondsToSilver = $scope.silverPointInTime.diff(moment(), 'seconds');
+        $scope.timeUntilCurrentMedal = moment().second(secondsToSilver).minute(secondsToSilver / 60);
+        $scope.currentMedal = 'Silver';
+      } else {
+        $scope.timeUntilCurrentMedal = moment().second(secondsToGold).minute(secondsToGold / 60);
+      }
+    } else if ($scope.currentMedal === 'Silver') {
+      var secondsToSilver = $scope.silverPointInTime.diff(moment(), 'seconds');
+      if (secondsToSilver === 0) {
+        var secondsToBronze = $scope.bronzePointInTime.diff(moment(), 'seconds');
+        $scope.timeUntilCurrentMedal = moment().second(secondsToBronze).minute(secondsToBronze / 60);
+        $scope.currentMedal = 'Bronze';
+      } else {
+        $scope.timeUntilCurrentMedal = moment().second(secondsToSilver).minute(secondsToSilver / 60);
+      }
+    } else if ($scope.currentMedal === 'Bronze') {
+      var secondsToBronze = $scope.bronzePointInTime.diff(moment(), 'seconds');
+      if (secondsToBronze === 0) {
+        $scope.currentMedal = 'High Five';
+        $scope.timeUntilCurrentMedal = '';
+      } else {
+        $scope.timeUntilCurrentMedal = moment().second(secondsToBronze).minute(secondsToBronze / 60);
+      }
+    }
   };
 
   $scope.checkIfFinished = function($location) {
@@ -69,7 +87,7 @@ angular.module('run.controller', [])
       var destLng = $scope.destination.lng;
       var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
 
-      if (distRemaining < 0.0004) {
+      if (distRemaining < 0.0002) {
         $location.path('/finish');
         clearInterval($scope.geoUpdater);
       }
