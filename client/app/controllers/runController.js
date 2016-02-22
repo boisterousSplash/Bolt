@@ -9,8 +9,16 @@ angular.module('run.controller', [])
     
   */
 
+
   $scope.userLocation;
   $scope.destination;
+  $scope.pointsInTime = {}; // gold, silver, bronze
+  $scope.goldPointInTime;
+  $scope.silverPointInTime;
+  $scope.bronzePointInTime;
+  $scope.timeUntilGold;
+  $scope.timeUntilSilver;
+  $scope.timeUntilBronze;
 
   var goldPointInTime;
   var silverPointInTime;
@@ -19,7 +27,7 @@ angular.module('run.controller', [])
   var runTime;
   var statusUpdateLoop;
 
-  var updateTotalRunTime = function() {
+  function updateTotalRunTime() {
     var minutesRan = moment().diff(startTime, 'minutes');
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
@@ -43,20 +51,20 @@ angular.module('run.controller', [])
     $route.reload();
   };
 
-  var makeInitialMap = function($scope) {
+  function makeInitialMap($scope) {
     Geo.makeInitialMap($scope);
   }
 
   makeInitialMap($scope);
 
-  var updateStatus = function() {
+  function updateStatus() {
     Geo.updateCurrentPosition($scope);
     updateTotalRunTime();
     updateGoalTimes();
     checkIfFinished();
   }
 
-  var updateGoalTimes = function() {
+  function updateGoalTimes() {
     if ($scope.currentMedal === 'Gold') {
       var secondsToGold = goldPointInTime.diff(moment(), 'seconds');
       if (secondsToGold === 0) {
@@ -86,7 +94,7 @@ angular.module('run.controller', [])
     }
   }
 
-  var checkIfFinished = function() {
+  function checkIfFinished() {
     if ($scope.destination && $scope.userLocation) {
       var currLat = $scope.userLocation.lat;
       var currLng = $scope.userLocation.lng;
@@ -99,7 +107,7 @@ angular.module('run.controller', [])
     }
   }
 
-  var finishRun = function() {
+  function finishRun() {
     $rootScope.runTime = runTime.format('mm:ss');
     $rootScope.achievement = $scope.currentMedal;
     $interval.cancel(statusUpdateLoop);
