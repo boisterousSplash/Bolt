@@ -6,7 +6,7 @@
   "main": "server/server.js",
   "scripts": {
     "postinstall": "bower install",
-    "start": "node server/server.js"
+    "start": "nodemon server/server.js"
   },
   "contributors": [
     "Shane McGraw",
@@ -38,6 +38,7 @@
     "karma-sinon": "^1.0.4",
     "karma-unicorn-reporter": "^0.1.4",
     "mocha": "^2.3.4",
+    "nodemon": "^1.9.0",
     "pre-commit": "^1.1.1",
     "sinon": "^1.17.2"
   },
