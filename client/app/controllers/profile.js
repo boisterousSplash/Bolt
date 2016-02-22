@@ -7,7 +7,7 @@ angular.module('bolt.profile', ['bolt.auth'])
   var getUserInfo = function () {
     Profile.getUser()
     .then(function (user) {
-      $rootScope.user = user;
+      $rootScope.user = user.data;
     });
   };
 
@@ -30,9 +30,5 @@ angular.module('bolt.profile', ['bolt.auth'])
     });
   };
 
-  $scope.$on('$routeChangeSuccess', function () {
-    getUserInfo();
-    console.log('loading!');
-  // do something
-  });
+  getUserInfo();
 });
