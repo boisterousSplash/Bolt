@@ -12,7 +12,7 @@ angular.module('run.controller', [])
   var runTime;
   var statusUpdateLoop;
 
-  function updateTotalRunTime() {
+  var updateTotalRunTime = function() {
     var minutesRan = moment().diff(startTime, 'minutes');
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
@@ -36,20 +36,20 @@ angular.module('run.controller', [])
     $route.reload();
   };
 
-  function makeInitialMap($scope) {
+  var makeInitialMap = function($scope) {
     Geo.makeInitialMap($scope);
   }
 
   makeInitialMap($scope);
 
-  function updateStatus() {
+  var updateStatus = function() {
     Geo.updateCurrentPosition($scope);
     updateTotalRunTime();
     updateGoalTimes();
     checkIfFinished();
   }
 
-  function updateGoalTimes() {
+  var updateGoalTimes = function() {
     if ($scope.currentMedal === 'Gold') {
       var secondsToGold = goldPointInTime.diff(moment(), 'seconds');
       if (secondsToGold === 0) {
@@ -79,7 +79,7 @@ angular.module('run.controller', [])
     }
   }
 
-  function checkIfFinished() {
+  var checkIfFinished = function() {
     if ($scope.destination && $scope.userLocation) {
       var currLat = $scope.userLocation.lat;
       var currLng = $scope.userLocation.lng;
@@ -92,7 +92,7 @@ angular.module('run.controller', [])
     }
   }
 
-  function finishRun() {
+  var finishRun = function() {
     $rootScope.runTime = runTime.format('mm:ss');
     $rootScope.achievement = $scope.currentMedal;
     $interval.cancel(statusUpdateLoop);
