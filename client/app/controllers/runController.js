@@ -4,6 +4,13 @@ angular.module('run.controller', [])
 
   $scope.userLocation;
   $scope.destination;
+  $scope.pointsInTime = {}; // gold, silver, bronze
+  $scope.goldPointInTime;
+  $scope.silverPointInTime;
+  $scope.bronzePointInTime;
+  $scope.timeUntilGold;
+  $scope.timeUntilSilver;
+  $scope.timeUntilBronze;
 
   var goldPointInTime;
   var silverPointInTime;

@@ -1,5 +1,5 @@
-<div class="">
-  <form class="col s12">
+<div class="container">
+  <form class="col s12" ng-submit="createProfile(first, last, email, phone, distance)">
     <div class="row">
       <div class="input-field col s3">
         <i class="material-icons prefix">account_circle</i>
@@ -32,8 +32,6 @@
         <label for="icon_telephone"></label>
       </div>
     </div>
+    <button href="#/" class="waves-effect waves-light btn right-align">Submit</button>
   </form>
-  <div>
-    <a href="#/" class="waves-effect waves-light btn right-align" ng-click="createProfile(first, last, email, phone, distance)">Submit</a>
-  </div>
 </div>
