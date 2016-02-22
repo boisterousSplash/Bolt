@@ -2,6 +2,13 @@ angular.module('run.controller', [])
 
 .controller('RunController', function($scope, $rootScope, $timeout, $interval, $location, $route, Geo){
 
+  /*
+    SM - There's a lot of business logic in this controller. We should consider taking it out and putting
+    it inside it's own factory, just so it's consistent with our code structure so far (and keeps things a
+    bit more tidy). Thoughts?
+    
+  */
+
   $scope.userLocation;
   $scope.destination;
 
