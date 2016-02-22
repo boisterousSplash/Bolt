@@ -33,14 +33,12 @@ var UserSchema = new mongoose.Schema({
   // }
 
   personalBest: Number, // Personal best in min/mile
-  acheivements: Object
-  // Object of all lifetime medals received in following format:
-  // {
-  //   gold: 23,
-  //   silver: 32,
-  //   bronze: 9,
-  //   iron: 2 -> (this is the experimental medal based on beating someone else's personal best)
-  // }
+  acheivements: {type: Object, default: { // Object of all lifetime medals received
+    gold: 0,
+    silver: 0,
+    bronze: 0,
+    iron: 0 //experimental
+  }},
 });
 
 UserSchema.methods.comparePasswords = function (candidatePassword) {
