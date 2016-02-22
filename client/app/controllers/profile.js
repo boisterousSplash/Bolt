@@ -1,6 +1,6 @@
 angular.module('bolt.profile', ['bolt.auth'])
 
-.controller('ProfileController', function ($scope, Auth, Profile) {
+.controller('ProfileController', function ($scope, $rootScope, Auth, Profile) {
   $rootScope.user = {};
   $scope.newInfo = {};
 
@@ -24,7 +24,8 @@ angular.module('bolt.profile', ['bolt.auth'])
 
     Profile.updateUser(newProperties, $rootScope.user.username)
     .then( function(user) {
-      $rootScope.user = user;
+      $rootScope.user = user.data;
+      //get the current user on rootScope
       getUserInfo();
     });
   };
