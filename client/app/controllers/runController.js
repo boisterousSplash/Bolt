@@ -4,6 +4,13 @@ angular.module('run.controller', [])
 
   $scope.userLocation;
   $scope.destination;
+  $scope.pointsInTime = {}; // gold, silver, bronze
+  $scope.goldPointInTime;
+  $scope.silverPointInTime;
+  $scope.bronzePointInTime;
+  $scope.timeUntilGold;
+  $scope.timeUntilSilver;
+  $scope.timeUntilBronze;
 
   var goldPointInTime;
   var silverPointInTime;
@@ -34,7 +41,19 @@ angular.module('run.controller', [])
 
   $scope.regenRace =  function() {
     $route.reload();
+<<<<<<< HEAD
   };
+=======
+  }
+  // $scope.getCurrentCoords = function() {
+  //   console.log('ran');
+  //   Geo.getCurrentCoords(function(coordsObj) {
+  //     $scope.currentCoords = coordsObj;
+  //     console.log('$scope.currentCoords.lat: ', $scope.currentCoords.lat);
+  //     console.log('$scope.currentCoords.lng: ', $scope.currentCoords.lng);
+  //   });
+  // };
+>>>>>>> Begin refactor of medals
 
   function makeInitialMap($scope) {
     Geo.makeInitialMap($scope);
