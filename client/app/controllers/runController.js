@@ -4,6 +4,9 @@ angular.module('run.controller', [])
 
   $scope.userLocation;
   $scope.destination;
+
+  /////////////////////////////////////
+  // None of these variables get used. Do we need them?
   $scope.pointsInTime = {}; // gold, silver, bronze
   $scope.goldPointInTime;
   $scope.silverPointInTime;
@@ -11,7 +14,9 @@ angular.module('run.controller', [])
   $scope.timeUntilGold;
   $scope.timeUntilSilver;
   $scope.timeUntilBronze;
+  /////////////////////////////////////
 
+  // These variables seem similar. do you think we can put them together in an object?
   var goldPointInTime;
   var silverPointInTime;
   var bronzePointInTime;
@@ -30,11 +35,15 @@ angular.module('run.controller', [])
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
+    // $scope.goldTime is not declared in this controller. Where do we define it?
+    // same goes for silver, bronze Times
     goldPointInTime = moment().add($scope.goldTime.second(), 'seconds').add($scope.goldTime.minute(), 'minutes');
     silverPointInTime = moment().add($scope.silverTime.second(), 'seconds').add($scope.silverTime.minute(), 'minutes');
     bronzePointInTime = moment().add($scope.bronzeTime.second(), 'seconds').add($scope.bronzeTime.minute(), 'minutes');
     $scope.currentMedal = 'Gold';
     var secondsToGold = goldPointInTime.diff(moment(), 'seconds');
+    // Does this function make sure to go from gold -> silver -> bronze?
+    // I'm just curious to make sure we've tested it
     $scope.timeUntilCurrentMedal = moment().second(secondsToGold).minute(secondsToGold / 60);
     document.getElementById('map').style.height = "125%"
   }
@@ -56,6 +65,8 @@ angular.module('run.controller', [])
     checkIfFinished();
   }
 
+  // It looks like we're repeating ourselves a bit here.
+  // Could we refactor to cover all three medals with one medalTime object?
   function updateGoalTimes() {
     if ($scope.currentMedal === 'Gold') {
       var secondsToGold = goldPointInTime.diff(moment(), 'seconds');
@@ -107,6 +118,7 @@ angular.module('run.controller', [])
   }
 
   // Stop geotracker upon canceling run
+  // Does this make sure to stop tracking if they close the window?
   $scope.$on('$destroy', function() {
     $interval.cancel(statusUpdateLoop);
   });
