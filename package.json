@@ -5,7 +5,8 @@
   "author": "Boisterous Splash",
   "main": "server/server.js",
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "start": "node server/server.js"
   },
   "contributors": [
     "Shane McGraw",
