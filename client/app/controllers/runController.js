@@ -1,6 +1,6 @@
 angular.module('run.controller', [])
 
-.controller('RunController', function($scope, $timeout, $interval, $location, $route, Geo){
+.controller('RunController', function($scope, $rootScope, $timeout, $interval, $location, $route, Geo){
 
   $scope.userLocation;
   $scope.destination;
@@ -26,7 +26,7 @@ angular.module('run.controller', [])
   }
 
   $scope.startRun = function() {
-    // setTimeout(finishRun, 4000);
+    // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -100,8 +100,8 @@ angular.module('run.controller', [])
   }
 
   function finishRun() {
-    sessionStorage.setItem('runTime', runTime.format('mm:ss'));
-    sessionStorage.setItem('achievement', $scope.currentMedal);
+    $rootScope.runTime = runTime.format('mm:ss');
+    $rootScope.achievement = $scope.currentMedal;
     $interval.cancel(statusUpdateLoop);
     $location.path('/finish');
   }
