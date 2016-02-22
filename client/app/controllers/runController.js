@@ -41,19 +41,7 @@ angular.module('run.controller', [])
 
   $scope.regenRace =  function() {
     $route.reload();
-<<<<<<< HEAD
   };
-=======
-  }
-  // $scope.getCurrentCoords = function() {
-  //   console.log('ran');
-  //   Geo.getCurrentCoords(function(coordsObj) {
-  //     $scope.currentCoords = coordsObj;
-  //     console.log('$scope.currentCoords.lat: ', $scope.currentCoords.lat);
-  //     console.log('$scope.currentCoords.lng: ', $scope.currentCoords.lng);
-  //   });
-  // };
->>>>>>> Begin refactor of medals
 
   function makeInitialMap($scope) {
     Geo.makeInitialMap($scope);
