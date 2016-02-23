@@ -1,11 +1,11 @@
 angular.module('achievements.controller', [])
   .controller('AchievementsController', function($scope) {
-    $scope.gold = 15;
-    $scope.silver = 13;
-    $scope.bronze = 5;
+
+    $scope.gold = 15; // Place holder for user-specific data
+    $scope.silver = 13; // Place holder for user-specific data
+    $scope.bronze = 5; // Place holder for user-specific data
 
     var medalCounts = [$scope.gold.toString(), $scope.silver.toString(), $scope.bronze.toString()];
-
 
     $scope.incrementCounts = function(width) {
       selection = d3.select("body").selectAll("span.number").data(medalCounts);
@@ -21,5 +21,5 @@ angular.module('achievements.controller', [])
     }
 
     $scope.incrementCounts();
-    
+
   });
