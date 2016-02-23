@@ -1,7 +1,43 @@
-<div id='profile' class="container">
-  <a href="#/">Back Arrow<a>
-  <p>{{ user.data.firstName + ' ' + user.data.lastName }}</p>
-  <a href="#/createProfile">Edit Profile</a>
-  <button class="waves-effect waves-light btn"
-          ng-click="logOut()">Log Out</button>
+<div id='profile' class="container" >
+  <a href="#/">Return to Bolt<a>
+  <div>
+    <a href="#/createProfile">Edit Profile</a>
+  </div>
+
+  <div class="">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s3">
+          <i class="material-icons prefix">account_circle</i>
+          <label>{{user.data.firstName + " " + user.data.lastName}}</label>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">email</i>
+          <label for="icon_email">{{user.data.email}}</label>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">phone</i>
+          <label for="icon_telephone">{{user.data.phone || 'N/A'}}</label>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">trending_up</i>
+          <label for="icon_telephone">{{user.data.preferedDistance + " miles" || 'N/A'}}</label>
+        </div>
+      </div>
+    </form>
+    <br>
+    <br>
+    <div>
+      <a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a>
+    </div>
+  </div>
 </div>

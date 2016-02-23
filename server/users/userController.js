@@ -71,7 +71,7 @@ module.exports = {
       firstName: newData.first,
       lastName: newData.last,
       email: newData.email, 
-      phoneNumber: newData.phone,
+      phone: newData.phone,
       preferedDistance: newData.distancePreference
     };
 

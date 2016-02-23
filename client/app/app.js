@@ -5,8 +5,10 @@ angular.module('bolt', [
   'ngRoute',
   'bolt.controller',
   'run.controller',
+  'finish.controller',
   'multi.Controller',
-  'bolt.createProfile'
+  'bolt.createProfile',
+  'achievements.controller'
 ])
 .config(function ($routeProvider, $httpProvider) {
   //Shane's code here
@@ -15,19 +17,28 @@ angular.module('bolt', [
     .when('/', {
       // home page template
       templateUrl: 'app/views/bolt.html',
-      controller: 'BoltController'
+      controller: 'BoltController',
+      authenticate: true
     })
     .when('/run', {
       templateUrl: 'app/views/run.html',
-      controller: 'RunController'
+      controller: 'RunController',
+      authenticate: true
     })
     .when('/finish', {
       templateUrl: 'app/views/finish.html',
-      controller: 'RunController'
+      controller: 'FinishController',
+      authenticate: true
+    })
+    .when('/achievements', {
+      templateUrl: 'app/views/achievements.html',
+      controller: 'AchievementsController',
+      authenticate: true
     })
     .when('/multiLoad', {
       templateUrl: 'app/views/multiLoad.html',
-      controller: 'MultiController'
+      controller: 'MultiController',
+      authenticate: true
     })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
@@ -39,11 +50,13 @@ angular.module('bolt', [
     })
     .when('/profile', {
       templateUrl: 'app/profile/profile.html',
-      controller: 'ProfileController'
+      controller: 'ProfileController',
+      authenticate: true
     })
     .when('/createProfile', {
       templateUrl: 'app/views/createProfile.html',
-      controller: 'CreateProfileController'
+      controller: 'CreateProfileController',
+      authenticate: true
     })
     .otherwise({
       redirectTo: '/'

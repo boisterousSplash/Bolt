@@ -1,13 +1,14 @@
 angular.module('bolt.createProfile', [])
 
-.controller('CreateProfileController', function($scope, Profile) {
+.controller('CreateProfileController', function($location, $scope, Profile) {
   $scope.createProfile = function(first, last, email, phone, distance) {
-    console.log(arguments);
+    $location.path('/');
+
     var newData = {
       first: first,
       last: last,
       email: email,
-      phone: phone,
+      phone: phone.toString(),
       distancePreference: distance
     };
 

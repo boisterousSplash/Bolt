@@ -16,11 +16,12 @@ angular.module('bolt.services', [])
       console.error(err);
     });
     var makeMap = function(currentLatLngObj, $scope) {
-      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.1);
+      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.2);
 
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
-        zoom: 13
+        zoom: 13,
+        disableDefaultUI: true
       });
       directionsRenderer.setMap(mainMap);
       currentLocMarker = new google.maps.Marker({
@@ -45,17 +46,19 @@ angular.module('bolt.services', [])
           totalDistance += response.routes[0].legs[i].distance.text;
         }
         totalDistance = parseFloat(totalDistance);
-        console.log('total distance: ', totalDistance);
+        $scope.totalDistance = totalDistance;
         var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
-        $scope.goldTime = moment().minute(totalDistance * userMinPerMile * 0.9);
-        $scope.silverTime = moment().minute(totalDistance * userMinPerMile * 1.0);
-        $scope.bronzeTime = moment().minute(totalDistance * userMinPerMile * 1.1);
+        var minutes = userMinPerMile * totalDistance;
+        var seconds = minutes * 60;
+        $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9);
+        $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0);
+        $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1);
+        $scope.$digest();
       });
     };
   };
 
   var updateCurrentPosition = function($scope) {
-    console.log($scope);
     navigator.geolocation.getCurrentPosition(function(position) {
       currentLocMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
       if ($scope) {
