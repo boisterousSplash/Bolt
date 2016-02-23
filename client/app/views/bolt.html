@@ -1,21 +1,16 @@
-<div class="buttonContainer">
-  <a href="#/run" class="center">
-    <img src="../assets/boltButton.png" width="auto" height="50%">
+
+<!-- Profile Link -->
+<div id="topNav">
+  <a href="#/profile" class="icon middle left">
+    <i class="medium material-icons" style="color:white">perm_identity</i>
+  </a>
+
+  <a href="#/achievements" class="icon right middle">
+    <img src="../assets/gold.png" height="50" width="30" /> 
   </a>
 </div>
 
-<div class="banner"> Bolt </div>
-
-<div id='bolt' class="container">
-  <!-- Profile Link -->
-  <a href="#/profile">
-    <i class="medium material-icons">perm_identity</i>
-  </a>
-
   <!-- Achievements Link -->
-  <a href="#/achievements">
-    <img src="../assets/trophy.png" height="50" width="50" /> 
-  </a>
 
   <!-- Big Button to start run -->
 
@@ -24,4 +19,23 @@
 
   <!-- Radio input for solo, friends, public run -->
   <!-- (does not exist yet) -->
+
+<div class="boltButton">
+  <a href="#/run" class="btn-floating btn-large waves-effect waves-light red lighten-1">
+    <img src="../assets/thunderbolt.png" width="40%" height="50%"/>
+  </a>
 </div>
+<h2 style="text-align:center; height:10vh"> Bolt </h2>
+<div class="container">
+  <form class="form">   
+    <div class="switch-field">
+      <input type="radio" id="switch_3_left" name="switch_3" value="yes" checked/>
+      <label for="switch_3_left">Solo</label>
+      <input type="radio" id="switch_3_center" name="switch_3" value="maybe" />
+      <label for="switch_3_center">Friend</label>
+        <input type="radio" id="switch_3_right" name="switch_3" value="no" />
+      <label for="switch_3_right">Public</label>
+    </div>
+  </form>
+</div>
+
