@@ -29,6 +29,11 @@ angular.module('bolt', [
       controller: 'FinishController',
       authenticate: true
     })
+    .when('/achievements', {
+      templateUrl: 'app/views/achievements.html',
+      controller: 'BoltController',
+      authenticate: true
+    })
     .when('/multiLoad', {
       templateUrl: 'app/views/multiLoad.html',
       controller: 'MultiController',
