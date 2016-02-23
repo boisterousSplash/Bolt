@@ -64,21 +64,13 @@ module.exports = {
   updateUser: function(req, res, next) {
     var newData = req.body.newInfo;
     var username = req.body.user.username.data.username;
-    console.log(username);
 
     var queryCondition = {username: username};
-    var dataToUpdate = {
-      firstName: newData.first,
-      lastName: newData.last,
-      email: newData.email, 
-      phone: newData.phone,
-      preferedDistance: newData.distancePreference
-    };
 
     findUser({username: username})
       .then(function(user) {
         if (user) {
-          return updateUserDB(queryCondition, dataToUpdate);
+          return updateUserDB(queryCondition, newData);
         } else {
           next(new Error('No user found!'));
         }
@@ -104,6 +96,11 @@ module.exports = {
         res.send(404);
       })
     }
+  },
+
+  updateRunData: function(req, res, next) {
+    //post to DB
+    var username = req.body.user.username.data.username;
   },
 
   checkAuth: function (req, res, next) {
