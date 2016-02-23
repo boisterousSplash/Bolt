@@ -33,7 +33,7 @@ var UserSchema = new mongoose.Schema({
   // }
 
   personalBest: Number, // Personal best in min/mile
-  acheivements: {type: Object, default: { // Object of all lifetime medals received
+  achievements: {type: Object, default: { // Object of all lifetime medals received
     Gold: 0,
     Silver: 0,
     Bronze: 0,
