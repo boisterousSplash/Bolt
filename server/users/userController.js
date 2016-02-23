@@ -26,8 +26,12 @@ module.exports = {
                   token: token,
                   username: user.username,
                   firstName: user.firstName,
-                  runs: user.runs,
-                  achievements: user.achievements,
+                  lastName: user.lastName,
+                  email: user.email,
+                  phone: user.phone,
+                  preferredDistance: user.preferredDistance,
+                  runs: JSON.stringify(user.runs),
+                  achievements: JSON.stringify(user.achievements),
                 });
               } else {
                 return next(new Error('No user'));
@@ -69,7 +73,7 @@ module.exports = {
 
   updateUser: function(req, res, next) {
     var newData = req.body.newInfo;
-    var username = req.body.user.data.username;
+    var username = req.body.user.username;
 
     var queryCondition = {username: username};
 
