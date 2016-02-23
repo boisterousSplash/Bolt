@@ -20,7 +20,8 @@ angular.module('bolt.services', [])
 
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
-        zoom: 13
+        zoom: 13,
+        disableDefaultUI: true
       });
       directionsRenderer.setMap(mainMap);
       currentLocMarker = new google.maps.Marker({

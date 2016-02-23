@@ -47,7 +47,8 @@ angular.module('run.controller', [])
     $scope.currentMedal = 'Gold';
     var secondsToGold = goldPointInTime.diff(moment(), 'seconds');
     $scope.timeUntilCurrentMedal = moment().second(secondsToGold).minute(secondsToGold / 60);
-    document.getElementById('map').style.height = "125%"
+    document.getElementById('map').style.height = "93vh"
+    document.getElementById('botNav').style.height = "7vh"
   }
 
   $scope.regenRace =  function() {
