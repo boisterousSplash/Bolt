@@ -164,3 +164,16 @@ nav {
   color: black;
   text-align: center;
 }
+
+.buttonContainer {
+  width: 100%;
+  height: 50vh;
+}
+
+.center {
+  /*display: inline-block;*/
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
