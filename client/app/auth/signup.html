@@ -5,5 +5,6 @@
     <input type="password" ng-model='user.password' placeholder="password">
     <button class="waves-effect waves-light btn">Join</button>
   </form><br>
+  <div class="card-panel red lighten-3" ng-show="errorDetected">{{signupError}}</div>
   <a href="#/signin">Already have an account?<strong> Signin!</strong></a>
 </div>

@@ -14,7 +14,8 @@ angular.module('bolt.auth', [])
         $location.path('/');
       })
       .catch(function (error) {
-        console.error(error);
+        $scope.errorDetected = true;
+        $scope.signinError = "Hmm... we can't seem to find that username in our DB. Could it be another?";
       });
   };
 
@@ -25,7 +26,8 @@ angular.module('bolt.auth', [])
         $location.path('/createProfile');
       })
       .catch(function (error) {
-        console.error(error);
+        $scope.errorDetected = true;
+        $scope.signupError = "Please enter both a username and a password";
       });
   };
 });
