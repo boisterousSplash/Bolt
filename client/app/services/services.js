@@ -82,29 +82,31 @@ angular.module('bolt.services', [])
   };
 
 })
-.factory('Run', function(){
-  // Kyle's code here
-  // Kyle's code here
-  // Kyle's code here
-  // Kyle's code here
 
+.factory('Run', function($http){
+  return {
+  };
 })
+
+
 .factory('Profile', function ($http) {
 
   return {
-
-    updateUser : function (newInfo, previousUsername) {
+    updateUser : function (newInfo, user) {
       return $http({
         method: 'PUT',
         url: '/api/users/profile',
         data: {
           newInfo: newInfo,
-          user: {
-            username: previousUsername
-          }
+          //The above 'newInfo' object needs to contain the same keys as
+          //the DB, or else it will fail to PUT. E.g. newInfo needs to have
+          //a 'firstName' key in the incoming object in order to update the 
+          //'firstName' key in the User DB. If it's named something else
+          //('first', 'firstname', 'firstN', etc.), it won't work
+
+          user: user
         }
       }).then(function (user) {
-        console.log(user);
         return user;
       });
     },
@@ -116,10 +118,13 @@ angular.module('bolt.services', [])
       }).then(function(user) {
         return user;
       });
-    }
+    },
 
   };
 })
+
+
+
 .factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
