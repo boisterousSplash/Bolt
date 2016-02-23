@@ -2,14 +2,6 @@ angular.module('run.controller', [])
 
 .controller('RunController', function($scope, $rootScope, $timeout, $interval, $location, $route, Geo, Run, Profile){
 
-  /*
-    SM - There's a lot of business logic in this controller. We should consider taking it out and putting
-    it inside it's own factory, just so it's consistent with our code structure so far (and keeps things a
-    bit more tidy). Thoughts?
-    
-  */
-
-
   $scope.userLocation;
   $scope.destination;
 
@@ -40,9 +32,20 @@ angular.module('run.controller', [])
     runTime = moment().minute(0).second(secondsRan);
   }
 
+  //set a waiting message for the user while Google maps loads...
+
+  var messages = ["Finding the best route for you", "Scanning the streets", "Charging runtime engine"];
+  
+  var setRunMessage = function() {
+    $scope.runMessage = messages[Math.floor(Math.random() * messages.length)] + "...";
+  };
+  
+  //rinse and repeat...
+  $interval(setRunMessage, Math.random() * 1000, messages.length);
+
+
   $scope.startRun = function() {
-    console.log("starting run!");
-    setTimeout(finishRun, 400); // simulate finishing run for manual testing
+    setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);

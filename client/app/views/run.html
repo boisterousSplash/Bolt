@@ -1,9 +1,57 @@
-<div id="map"></div>
+<div id="map">
+<div ng-hide="raceStarted" class="container">
+  <br>
+  <div class="message">{{runMessage}}</div>
+  <div class="center" style="top:10vh">
+   <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
   <div id="botNav">
-    <div class ="medalTimes" ng-show="!raceStarted">Total Distance: {{ totalDistance }} mi</div>
-    <div class ="medalTimes" ng-show="!raceStarted">Bronze: {{ bronzeTime.format('mm:ss') }}</div>
-    <div class ="medalTimes" ng-show="!raceStarted">Silver: {{ silverTime.format('mm:ss') }}</div>
-    <div class ="medalTimes" ng-show="!raceStarted">Gold: {{ goldTime.format('mm:ss') }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">{{ totalDistance ? "Total Distance: " + totalDistance + "miles": "" }} </div>
+    <div class ="medalTimes" ng-show="!raceStarted">{{ bronzeTime ? "Bronze: " + bronzeTime.format('mm:ss') : ""}}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">{{ silverTime ? "Silver: " + silverTime.format('mm:ss') : "" }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">{{ goldTime ? "Gold: " + goldTime.format('mm:ss') : "" }}</div>
     <div class ="medalTimes" ng-show="raceStarted">
       <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} <img src="../assets/{{ currentMedal.toLowerCase() }}.png" class="medals"/> </div>
       <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
