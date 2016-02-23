@@ -4,14 +4,14 @@
   <a href="#/profile" class="icon left">
     <i class="medium material-icons" style="color:white">perm_identity</i>
   </a>
-  Hi there, {{session.firstName}}! 
+  
 
   <!-- Achievements Link -->
   <a href="#/achievements" class="icon right">
     <img src="../assets/medal_icon.png" height="50" width="50" /> 
   </a>
 </div>
-
+  Hi there{{session.firstName ? ", " + session.firstName : ""}}! 
   <!-- Run Distance Spinner -->
   <!-- (does not exist yet) -->
 
