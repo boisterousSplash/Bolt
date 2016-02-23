@@ -5,11 +5,11 @@ angular.module('bolt.createProfile', [])
     $location.path('/');
 
     var newData = {
-      first: first,
-      last: last,
+      firstName: first,
+      lastName: last,
       email: email,
       phone: phone.toString(),
-      distancePreference: distance
+      preferedDistance: distance
     };
 
     Profile.getUser()

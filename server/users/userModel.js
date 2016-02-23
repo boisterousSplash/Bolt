@@ -15,22 +15,16 @@ var UserSchema = new mongoose.Schema({
   phone: Number,
   preferedDistance: Number,
   mileSpeed: { type: Number, default: 10 }, // in min/mile
-  runs: Array
-  // holds run objects, format should be {
-  //   date: Date,
-  //   startLocation: {
-  //     longitude: String,
-  //     latitude: String
-  //   },
-  //   endLocation: {
-  //     longitude: String,
-  //     latitude: String
-  //   },
-  //   googleExpectedTime: Number,
-  //   actualTime: Number,
-  //   medalRecieved: String,
-  //   racedAgainst: ObjectID? String?
-  // }
+  runs: {type: Array, default: []},
+
+  personalBest: Number, // Personal best in min/mile
+  achievements: {type: Object, default: { // Object of all lifetime medals received
+    Gold: 0,
+    Silver: 0,
+    Bronze: 0,
+    'High Five': 0,
+    Iron: 0, //experimental
+  }},
 });
 
 UserSchema.methods.comparePasswords = function (candidatePassword) {

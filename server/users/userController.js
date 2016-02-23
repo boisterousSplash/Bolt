@@ -22,7 +22,13 @@ module.exports = {
             .then(function (foundUser) {
               if (foundUser) {
                 var token = jwt.encode(user, 'secret');
-                res.json({token: token});
+                res.json({
+                  token: token,
+                  username: user.username,
+                  firstName: user.firstName,
+                  runs: user.runs,
+                  achievements: user.achievements,
+                });
               } else {
                 return next(new Error('No user'));
               }
@@ -63,22 +69,14 @@ module.exports = {
 
   updateUser: function(req, res, next) {
     var newData = req.body.newInfo;
-    var username = req.body.user.username.data.username;
-    console.log(username);
+    var username = req.body.user.data.username;
 
     var queryCondition = {username: username};
-    var dataToUpdate = {
-      firstName: newData.first,
-      lastName: newData.last,
-      email: newData.email, 
-      phone: newData.phone,
-      preferedDistance: newData.distancePreference
-    };
 
     findUser({username: username})
       .then(function(user) {
         if (user) {
-          return updateUserDB(queryCondition, dataToUpdate);
+          return updateUserDB(queryCondition, newData);
         } else {
           next(new Error('No user found!'));
         }
@@ -104,6 +102,11 @@ module.exports = {
         res.send(404);
       })
     }
+  },
+
+  updateRunData: function(req, res, next) {
+    //post to DB
+    var username = req.body.user.username.data.username;
   },
 
   checkAuth: function (req, res, next) {

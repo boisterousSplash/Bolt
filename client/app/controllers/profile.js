@@ -1,13 +1,16 @@
 angular.module('bolt.profile', ['bolt.auth'])
 
-.controller('ProfileController', function ($scope, Auth, Profile) {
-  $scope.user = {};
+.controller('ProfileController', function ($scope, $rootScope, Auth, Profile) {
+  $rootScope.user = {};
   $scope.newInfo = {};
 
   var getUserInfo = function () {
     Profile.getUser()
     .then(function (user) {
-      $scope.user = user;
+      $rootScope.user = user.data;
+    })
+    .catch(function (err) {
+      console.error(err);
     });
   };
 
@@ -22,16 +25,13 @@ angular.module('bolt.profile', ['bolt.auth'])
       $scope.newInfo[property] = '';
     }
 
-    Profile.updateUser(newProperties, $scope.user.username)
+    Profile.updateUser(newProperties, $rootScope.user.username)
     .then( function(user) {
-      $scope.user = user;
+      $rootScope.user = user.data;
+      //get the current user on rootScope
       getUserInfo();
     });
   };
 
-  $scope.$on('$routeChangeSuccess', function () {
-    getUserInfo();
-    console.log('loading!');
-  // do something
-  });
+  getUserInfo();
 });
