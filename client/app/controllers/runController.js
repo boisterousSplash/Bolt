@@ -56,7 +56,8 @@ angular.module('run.controller', [])
     // Does this function make sure to go from gold -> silver -> bronze?
     // I'm just curious to make sure we've tested it
     $scope.timeUntilCurrentMedal = moment().second(secondsToGold).minute(secondsToGold / 60);
-    document.getElementById('map').style.height = "125%"
+    document.getElementById('map').style.height = "93vh"
+    document.getElementById('botNav').style.height = "7vh"
   }
 
   $scope.regenRace =  function() {

@@ -7,7 +7,8 @@ angular.module('bolt', [
   'run.controller',
   'finish.controller',
   'multi.Controller',
-  'bolt.createProfile'
+  'bolt.createProfile',
+  'achievements.controller'
 ])
 .config(function ($routeProvider, $httpProvider) {
   //Shane's code here
@@ -27,6 +28,11 @@ angular.module('bolt', [
     .when('/finish', {
       templateUrl: 'app/views/finish.html',
       controller: 'FinishController',
+      authenticate: true
+    })
+    .when('/achievements', {
+      templateUrl: 'app/views/achievements.html',
+      controller: 'AchievementsController',
       authenticate: true
     })
     .when('/multiLoad', {
