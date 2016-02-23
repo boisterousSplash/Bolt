@@ -3,34 +3,33 @@
   <div>
     <a href="#/createProfile">Edit Profile</a>
   </div>
-
   <div class="">
     <form class="col s12">
       <div class="row">
         <div class="input-field col s3">
           <i class="material-icons prefix">account_circle</i>
-          <label>{{user.data.firstName + " " + user.data.lastName}}</label>
+          <label>{{$root.user.firstName + " " + $root.user.lastName}}</label>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">email</i>
-          <label for="icon_email">{{user.data.email}}</label>
+          <label for="icon_email">{{$root.user.email}}</label>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">phone</i>
-          <label for="icon_telephone">{{user.data.phone || 'N/A'}}</label>
+          <label for="icon_telephone">{{$root.user.phone || 'N/A'}}</label>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">trending_up</i>
-          <label for="icon_telephone">{{user.data.preferedDistance + " miles" || 'N/A'}}</label>
+          <label for="icon_telephone">{{$root.user.preferedDistance + " miles" || 'N/A'}}</label>
         </div>
       </div>
     </form>
