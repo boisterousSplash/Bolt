@@ -6,23 +6,12 @@ angular.module('run.controller', [])
     SM - There's a lot of business logic in this controller. We should consider taking it out and putting
     it inside it's own factory, just so it's consistent with our code structure so far (and keeps things a
     bit more tidy). Thoughts?
-    
+
   */
 
 
   $scope.userLocation;
   $scope.destination;
-
-  /////////////////////////////////////
-  // None of these variables get used. Do we need them?
-  $scope.pointsInTime = {}; // gold, silver, bronze
-  $scope.goldPointInTime;
-  $scope.silverPointInTime;
-  $scope.bronzePointInTime;
-  $scope.timeUntilGold;
-  $scope.timeUntilSilver;
-  $scope.timeUntilBronze;
-  /////////////////////////////////////
 
   // These variables seem similar. do you think we can put them together in an object?
   var goldPointInTime;
@@ -125,7 +114,7 @@ angular.module('run.controller', [])
   function finishRun() {
     $rootScope.runTime = runTime.format('mm:ss');
     var medal = $rootScope.achievement = $scope.currentMedal;
-    
+
     var date = new Date();
 
     var endLocation = {
