@@ -46,11 +46,20 @@ nav {
 
 .botNav {
   position: absolute;
-  height: 5%;
+  height: 5vh;
+  bottom: -1px;
   width: 100%;
   background-color: black;
   text-align: center;
 }
+
+/*.botNav {
+  position: absolute;
+  height: 5%;
+  width: 100%;
+  background-color: black;
+  text-align: center;
+}*/
 
 .botLink {
   display: inline-block;
@@ -124,4 +133,14 @@ nav {
   margin-top: 1%;
   height: 100%;
   width: auto;
+}
+
+.number {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  bottom: 30%;
+  margin: 0 auto;
+  font-size: 1em;
+  color: black;
 }
