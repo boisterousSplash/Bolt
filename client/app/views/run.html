@@ -1,8 +1,5 @@
 <div id="map"></div>
-
-
   <div id="botNav">
-
     <div class ="medalTimes" ng-show="!raceStarted">Total Distance: {{ totalDistance }} mi</div>
     <div class ="medalTimes" ng-show="!raceStarted">Bronze: {{ bronzeTime.format('mm:ss') }}</div>
     <div class ="medalTimes" ng-show="!raceStarted">Silver: {{ silverTime.format('mm:ss') }}</div>
@@ -16,4 +13,5 @@
       <div class="botLink clickable" ng-show="!raceStarted" ng-click="regenRace()"> <i class="small material-icons">replay</i> </div>
       <div class="botLink right clickable" ng-show="!raceStarted" ng-click="startRun()"> <i class="small material-icons">done</i> </div>
     </div>
+    <div class ="medalTimes"></div>
   </div>

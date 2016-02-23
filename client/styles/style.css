@@ -45,20 +45,21 @@ nav {
   font-size: 6em;
 }
 
-.botNavAchievements {
-  position: absolute;
-  height: 5vh;
-  bottom: -1px;
-  width: 100%;
-  background-color: black;
-  text-align: center;
-}
 
 #botNav {
   position: absolute;
   height: 30vh;
   width: 100%;
   bottom: 0;
+  background-color: black;
+  text-align: center;
+}
+
+.botNavAchievements {
+  position: absolute;
+  height: 5vh;
+  bottom: -1px;
+  width: 100%;
   background-color: black;
   text-align: center;
 }
@@ -76,7 +77,6 @@ nav {
   display: block;
   height: 6vh;
   margin-top: auto;
-  margin-bottom: auto;
 }
 
 .left {
