@@ -92,3 +92,12 @@ nav {
 .clickable {
   cursor: pointer;
 }
+
+.banner {
+  background-color: #088da5;
+  height: 8vh;
+  text-align: center;
+  padding-top: 1vh;
+  color: white;
+  font-size: 2em;
+}
