@@ -1,6 +1,6 @@
 angular.module('run.controller', [])
 
-.controller('RunController', function($scope, $rootScope, $timeout, $interval, $location, $route, Geo){
+.controller('RunController', function($scope, $rootScope, $timeout, $interval, $location, $route, Geo, Run, Profile){
 
   /*
     SM - There's a lot of business logic in this controller. We should consider taking it out and putting
@@ -34,7 +34,8 @@ angular.module('run.controller', [])
   }
 
   $scope.startRun = function() {
-    // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
+    console.log("starting run!");
+    setTimeout(finishRun, 400); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -109,7 +110,28 @@ angular.module('run.controller', [])
 
   function finishRun() {
     $rootScope.runTime = runTime.format('mm:ss');
-    $rootScope.achievement = $scope.currentMedal;
+    var medal = $rootScope.achievement = $scope.currentMedal;
+
+    Profile.getUser()
+    .then(function(user) {
+      var achievements = user.data.achievements;
+
+      //update achievments object
+      achievements[medal] = achievements[medal] + 1;
+
+      updatedAchievementsData = {
+        achievements: achievements
+      };
+
+      Profile.updateUser(updatedAchievementsData, user)
+      .then(function (updatedProfile) {
+        return updatedProfile;
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+    });
+
     $interval.cancel(statusUpdateLoop);
     $location.path('/finish');
   }
