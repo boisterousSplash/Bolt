@@ -5,8 +5,12 @@ angular.module('bolt.auth', [])
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.bolt', token);
+      .then(function (session) {
+        $window.localStorage.setItem('com.bolt', session.token);
+        $window.localStorage.setItem('username', session.username);
+        $window.localStorage.setItem('firstName', session.firstName);
+        $window.localStorage.setItem('runs', session.runs);
+        $window.localStorage.setItem('achievements', session.achievements);
         $location.path('/');
       })
       .catch(function (error) {

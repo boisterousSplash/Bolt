@@ -126,7 +126,6 @@ angular.module('bolt.services', [])
 
 
 .factory('Auth', function ($http, $location, $window) {
-  // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
   // for a JWT from the server
@@ -140,7 +139,7 @@ angular.module('bolt.services', [])
       data: user
     })
     .then(function (resp) {
-      return resp.data.token;
+      return resp.data;
     });
   };
 

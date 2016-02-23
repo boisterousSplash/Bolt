@@ -22,7 +22,13 @@ module.exports = {
             .then(function (foundUser) {
               if (foundUser) {
                 var token = jwt.encode(user, 'secret');
-                res.json({token: token});
+                res.json({
+                  token: token,
+                  username: user.username,
+                  firstName: user.firstName,
+                  runs: user.runs,
+                  achievements: user.achievements,
+                });
               } else {
                 return next(new Error('No user'));
               }
