@@ -99,16 +99,10 @@ angular.module('bolt.services', [])
         url: '/api/users/profile',
         data: {
           newInfo: newInfo,
-          //The above 'newInfo' object needs to contain the same keys as
-          //the DB, or else it will fail to PUT. E.g. newInfo needs to have
-          //a 'firstName' key in the incoming object in order to update the 
-          //'firstName' key in the User DB. If it's named something else
-          //('first', 'firstname', 'firstN', etc.), it won't work
-
           user: user
         }
-      }).then(function (user) {
-        return user;
+      }).then(function (res) {
+        return res;
       });
     },
 
@@ -117,7 +111,7 @@ angular.module('bolt.services', [])
         method: 'GET',
         url: '/api/users/profile',
       }).then(function(user) {
-        return user;
+        return user.data;
       });
     },
 
