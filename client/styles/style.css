@@ -149,3 +149,18 @@ nav {
   font-size: 1em;
   color: black;
 }
+
+.medals {
+  position: relative;
+  display: inline-block;
+  height: 5vh;
+  width: auto;
+  top: 1vh;
+  margin-left: 1vh;
+}
+
+.total {
+  font-size: 2em;
+  color: black;
+  text-align: center;
+}

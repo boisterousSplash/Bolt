@@ -8,7 +8,7 @@
     <div class ="medalTimes" ng-show="!raceStarted">Silver: {{ silverTime.format('mm:ss') }}</div>
     <div class ="medalTimes" ng-show="!raceStarted">Gold: {{ goldTime.format('mm:ss') }}</div>
     <div class ="medalTimes" ng-show="raceStarted">
-      <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} {{ currentMedal }}</div>
+      <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} <img src="../assets/{{ currentMedal.toLowerCase() }}_small.png" class="medals"/> </div>
       <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
     </div>
     <div class ="medalTimes">
