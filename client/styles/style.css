@@ -95,9 +95,9 @@ nav {
 }
 
 .right {
-  position: absolute;
+  position: relative;
   float: right;
-  right: 1%;
+  right: 2%;
 }
 
 .start-race {
