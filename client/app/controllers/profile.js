@@ -8,6 +8,9 @@ angular.module('bolt.profile', ['bolt.auth'])
     Profile.getUser()
     .then(function (user) {
       $rootScope.user = user.data;
+    })
+    .catch(function (err) {
+      console.error(err);
     });
   };
 
