@@ -3,6 +3,7 @@ angular.module('multi.Controller', ['bolt.profile'])
 .controller('MultiController', function($window, $scope, Multi){
   $scope.session = $window.localStorage;
   
+  console.log('window local storage', $scope.session)
   Multi.addUserGeoFire();
 
   $scope.cancelSearch = function() {
@@ -11,7 +12,8 @@ angular.module('multi.Controller', ['bolt.profile'])
 
 })
 
-.factory('Multi', function($location, $interval, Profile) {
+.factory('Multi', function($window, $location, $interval, Profile) {
+  var session = $window.localStorage;
   var firebaseRef = new Firebase("https://glowing-fire-8101.firebaseio.com/");
   var geoFire = new GeoFire(firebaseRef);
   var currentUser;
@@ -45,23 +47,15 @@ angular.module('multi.Controller', ['bolt.profile'])
   }
 
   var addUserGeoFire = function(){
-    // This line obtains the user's location, can get rid of this if this info is stored
     navigator.geolocation.getCurrentPosition(function(position) {
-      // Retrieves the user, should be able to access this from session
-      Profile.getUser().then(function(user) {
-        currentUser = user.data;
-        userPosition = position;
-        // addUserGeoFire (this entire function) should start here if the user id and position are accessible
-        // from session
-        geoFire.set(user.data._id, [userPosition.coords.latitude, userPosition.coords.longitude]).then(function() {
-          console.log("Provided key has been added to GeoFire");
-          generateQuery();
-          }, function(error) {
-            console.log("Error: " + error);
-          });
+      geoFire.set(session.username, [position.coords.latitude, position.coords.longitude]).then(function() {
+        console.log("Provided key has been added to GeoFire");
+        generateQuery();
+        }, function(error) {
+          console.log("Error: " + error);
         });
-      }, function(err) {
-        console.error(err);
+    }, function(err) {
+      console.error(err);
     });
   };
 
