@@ -1,5 +1,5 @@
 var userController = require('../users/userController.js');
-var gameController = require('../game/gameController');
+var gameController = require('../game/multiGameController');
 var helpers = require('./helpers.js'); // our custom middleware
 
 module.exports = function (app, express) {
