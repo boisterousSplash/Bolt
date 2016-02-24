@@ -18,19 +18,20 @@ module.exports = {
       active: true
     })
     .then(function (newGame) {
-      return newGame._id;
+      console.log(newGame);
+      res.send(201, newGame._id);
     });
   },
 
-  cancelGame: function (req, res, next) {
-    var gameId = req.body.gameId;
-    findGame({_id : gameId})
+  cancelGame: function (gameId, res) {
+    findGame({_id : "ObjectId(" + gameId + ")"})
       .then(function (targetGame) {
+        console.log(targetGame);
         targetGame.active = false;
+        res.send(201, targetGame);
       })
       .catch(function (err) {
         console.error(err);
       });
   }
-
 };
