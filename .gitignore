@@ -1,5 +1,8 @@
 ### node etc ###
 
+# OSX
+**/.DS_Store
+
 # Logs
 logs
 *.log
