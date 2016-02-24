@@ -13,8 +13,8 @@ module.exports = {
     var user1 = req.body.user1;
     var user2 = req.body.user2;
     createGame({
-      player1: user1,
-      player2: user2,
+      user1: user1,
+      user2: user2,
       active: true
     })
     .then(function (newGame) {

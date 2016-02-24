@@ -181,6 +181,32 @@ angular.module('bolt.services', [])
 })
 
 
+.factory('Game', function ($http) {
+  return {
+    makeGame : function (user1, user2) {
+      return $http({
+        method: 'POST',
+        url: '/api/games',
+        data: {
+          user1: user1,
+          user2: user2,
+        }
+      }).then(function (res) {
+        return res;
+      });
+    },
+
+    cancelGame : function (game_id) {
+      return $http({
+        method: 'POST',
+        url: 'api/games/' + game_id,
+      }).then(function(game) {
+        return game;
+      });
+    },
+  };
+})
+
 
 .factory('Auth', function ($http, $location, $window) {
   // it is responsible for authenticating our user
