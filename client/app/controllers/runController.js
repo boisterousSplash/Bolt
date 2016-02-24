@@ -17,6 +17,16 @@ angular.module('run.controller', [])
   var statusUpdateLoop;
   var startLat;
   var startLong;
+  var FINISH_RADIUS = 0.0002; // miles?
+
+  // Math functions
+  var sqrt = Math.sqrt;
+  var floor = Math.floor;
+  var random = Math.random;
+  var pow2 = function (num) {
+    return Math.pow(num, 2)
+  }
+
 
   var updateTotalRunTime = function() {
     var secondsRan = moment().diff(startTime, 'seconds');
@@ -28,11 +38,11 @@ angular.module('run.controller', [])
   var messages = ["Finding the best route for you", "Scanning the streets", "Charging runtime engine"];
 
   var setRunMessage = function() {
-    $scope.runMessage = messages[Math.floor(Math.random() * messages.length)] + "...";
+    $scope.runMessage = messages[floor(random() * messages.length)] + "...";
   };
 
   //rinse and repeat...
-  $interval(setRunMessage, Math.random() * 1000, messages.length);
+  $interval(setRunMessage, random() * 1000, messages.length);
 
   $scope.startRun = function() {
     // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
@@ -119,16 +129,16 @@ angular.module('run.controller', [])
 
   var checkIfFinished = function() {
     if ($scope.destination && $scope.userLocation) {
-      var currLat = $scope.userLocation.lat;
-      var currLng = $scope.userLocation.lng;
-      var destLat = $scope.destination.lat;
-      var destLng = $scope.destination.lng;
-      var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
+      var distRemaining = distBetween($scope.userLocation, $scope.destination);
       if (distRemaining < 0.0002) {
         finishRun();
       }
     }
   };
+
+  var distBetween = function(loc1, loc2) {
+    return sqrt(pow2(loc1.lat - loc2.lat) + pow2(loc1.lng - loc2.lng));
+  }
 
   var updateStatus = function() {
     Geo.updateCurrentPosition($scope);
