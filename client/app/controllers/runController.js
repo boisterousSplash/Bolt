@@ -11,14 +11,7 @@ angular.module('run.controller', [])
   /////////////////////////////////////
 
   // These variables seem similar. do you think we can put them together in an object?
-  var pointsInTime = {
-    'Gold': '',
-    'Silver': '',
-    'Bronze': ''
-  };
-  // var goldPointInTime;
-  // var silverPointInTime;
-  // var bronzePointInTime;
+
   var startTime;
   var runTime;
   var statusUpdateLoop;
@@ -41,10 +34,6 @@ angular.module('run.controller', [])
   //rinse and repeat...
   $interval(setRunMessage, Math.random() * 1000, messages.length);
 
-  var updateTimeUntilMedal = function(secondsToMedal) {
-    return moment().second(secondsToMedal).minute(secondsToMedal / 60);
-  };
-
   $scope.startRun = function() {
     // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();
@@ -52,14 +41,8 @@ angular.module('run.controller', [])
     statusUpdateLoop = $interval(updateStatus, 100);
     // $scope.goldTime is not declared in this controller. Where do we define it?
     // same goes for silver, bronze Times --> these get defined in services.js when we initialize the map
-    pointsInTime['Gold'] = moment().add($scope.goldTime.second(), 'seconds').add($scope.goldTime.minute(), 'minutes');
-    pointsInTime['Silver'] = moment().add($scope.silverTime.second(), 'seconds').add($scope.silverTime.minute(), 'minutes');
-    pointsInTime['Bronze'] = moment().add($scope.bronzeTime.second(), 'seconds').add($scope.bronzeTime.minute(), 'minutes');
-    $scope.currentMedal = 'Gold';
-    var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
-    // Does this function make sure to go from gold -> silver -> bronze?
-    // I'm just curious to make sure we've tested it
-    $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToGold);
+    Run.setPointsInTime($scope);
+    Run.setInitialMedalGoal($scope);
     document.getElementById('map').style.height = "93vh"
     document.getElementById('botNav').style.height = "7vh"
   }
@@ -68,11 +51,11 @@ angular.module('run.controller', [])
     $route.reload();
   };
 
-  function makeInitialMap($scope) {
+  var makeInitialMap = function() {
     Geo.makeInitialMap($scope);
-  }
+  };
 
-  makeInitialMap($scope);
+  makeInitialMap();
 
   // It looks like we're repeating ourselves a bit here.
   // Could we refactor to cover all three medals with one medalTime object?
@@ -147,40 +130,10 @@ angular.module('run.controller', [])
     }
   };
 
-  var updateGoalTimes = function() {
-    if ($scope.currentMedal === 'Gold') {
-      var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
-      if (secondsToGold === 0) {
-        var secondsToSilver = pointsInTime['Silver'].diff(moment(), 'seconds');
-        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToSilver);
-        $scope.currentMedal = 'Silver';
-      } else {
-        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToGold);
-      }
-    } else if ($scope.currentMedal === 'Silver') {
-      var secondsToSilver = pointsInTime['Silver'].diff(moment(), 'seconds');
-      if (secondsToSilver === 0) {
-        var secondsToBronze = pointsInTime['Bronze'].diff(moment(), 'seconds');
-        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToBronze);
-        $scope.currentMedal = 'Bronze';
-      } else {
-        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToSilver);
-      }
-    } else if ($scope.currentMedal === 'Bronze') {
-      var secondsToBronze = pointsInTime['Bronze'].diff(moment(), 'seconds');
-      if (secondsToBronze === 0) {
-        $scope.currentMedal = 'High Five';
-        $scope.timeUntilCurrentMedal = '';
-      } else {
-        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToBronze);
-      }
-    }
-  };
-
   var updateStatus = function() {
     Geo.updateCurrentPosition($scope);
     updateTotalRunTime();
-    updateGoalTimes();
+    Run.updateGoalTimes($scope);
     checkIfFinished();
   };
 

@@ -85,8 +85,65 @@ angular.module('bolt.services', [])
 })
 
 .factory('Run', function($http){
-  return {
+
+  var pointsInTime = {
+    'Gold': '',
+    'Silver': '',
+    'Bronze': ''
   };
+
+  var updateTimeUntilMedal = function(secondsToMedal) {
+    return moment().second(secondsToMedal).minute(secondsToMedal / 60);
+  };
+
+  var setPointsInTime = function($scope) {
+    pointsInTime['Gold'] = moment().add($scope.goldTime.second(), 'seconds').add($scope.goldTime.minute(), 'minutes');
+    pointsInTime['Silver'] = moment().add($scope.silverTime.second(), 'seconds').add($scope.silverTime.minute(), 'minutes');
+    pointsInTime['Bronze'] = moment().add($scope.bronzeTime.second(), 'seconds').add($scope.bronzeTime.minute(), 'minutes');
+  };
+
+  var setInitialMedalGoal = function($scope) {
+    $scope.currentMedal = 'Gold';
+    var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
+    $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToGold);
+  };
+
+  var updateGoalTimes = function($scope) {
+    if ($scope.currentMedal === 'Gold') {
+      var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
+      if (secondsToGold === 0) {
+        var secondsToSilver = pointsInTime['Silver'].diff(moment(), 'seconds');
+        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToSilver);
+        $scope.currentMedal = 'Silver';
+      } else {
+        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToGold);
+      }
+    } else if ($scope.currentMedal === 'Silver') {
+      var secondsToSilver = pointsInTime['Silver'].diff(moment(), 'seconds');
+      if (secondsToSilver === 0) {
+        var secondsToBronze = pointsInTime['Bronze'].diff(moment(), 'seconds');
+        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToBronze);
+        $scope.currentMedal = 'Bronze';
+      } else {
+        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToSilver);
+      }
+    } else if ($scope.currentMedal === 'Bronze') {
+      var secondsToBronze = pointsInTime['Bronze'].diff(moment(), 'seconds');
+      if (secondsToBronze === 0) {
+        $scope.currentMedal = 'High Five';
+        $scope.timeUntilCurrentMedal = '';
+      } else {
+        $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToBronze);
+      }
+    }
+  };
+
+  return {
+    setPointsInTime: setPointsInTime,
+    setInitialMedalGoal: setInitialMedalGoal,
+    updateGoalTimes: updateGoalTimes
+  };
+
 })
 
 
@@ -99,6 +156,11 @@ angular.module('bolt.services', [])
         url: '/api/users/profile',
         data: {
           newInfo: newInfo,
+          //The above 'newInfo' object needs to contain the same keys as
+          //the DB, or else it will fail to PUT. E.g. newInfo needs to have
+          //a 'firstName' key in the incoming object in order to update the
+          //'firstName' key in the User DB. If it's named something else
+          //('first', 'firstname', 'firstN', etc.), it won't work
           user: user
         }
       }).then(function (res) {
