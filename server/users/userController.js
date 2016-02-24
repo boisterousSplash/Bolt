@@ -108,11 +108,6 @@ module.exports = {
     }
   },
 
-  updateRunData: function(req, res, next) {
-    //post to DB
-    var username = req.body.user.username.data.username;
-  },
-
   checkAuth: function (req, res, next) {
     // checking to see if the user is authenticated
     // grab the token in the header is any
