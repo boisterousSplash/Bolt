@@ -1,4 +1,4 @@
-<div id='profile' class="container" >
+<div id='profile' class="container">
   <a href="#/">Return to Bolt<a>
   <div>
     <a href="#/createProfile">Edit Profile</a>
@@ -8,28 +8,28 @@
       <div class="row">
         <div class="input-field col s3">
           <i class="material-icons prefix">account_circle</i>
-          <label>{{$root.user.firstName + " " + $root.user.lastName}}</label>
+          <label>{{session.firstName + " " + session.lastName}}</label>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">email</i>
-          <label for="icon_email">{{$root.user.email}}</label>
+          <label for="icon_email">{{session.email}}</label>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">phone</i>
-          <label for="icon_telephone">{{$root.user.phone || 'N/A'}}</label>
+          <label for="icon_telephone">{{session.phone || 'N/A'}}</label>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">trending_up</i>
-          <label for="icon_telephone">{{$root.user.preferedDistance + " miles" || 'N/A'}}</label>
+          <label for="icon_telephone">{{session.preferredDistance + " miles" || 'N/A'}}</label>
         </div>
       </div>
     </form>

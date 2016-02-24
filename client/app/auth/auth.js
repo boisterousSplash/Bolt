@@ -9,6 +9,10 @@ angular.module('bolt.auth', [])
         $window.localStorage.setItem('com.bolt', session.token);
         $window.localStorage.setItem('username', session.username);
         $window.localStorage.setItem('firstName', session.firstName);
+        $window.localStorage.setItem('lastName', session.lastName);
+        $window.localStorage.setItem('phone', session.phone);
+        $window.localStorage.setItem('email', session.email);
+        $window.localStorage.setItem('preferredDistance', session.preferredDistance);
         $window.localStorage.setItem('runs', session.runs);
         $window.localStorage.setItem('achievements', session.achievements);
         $location.path('/');
