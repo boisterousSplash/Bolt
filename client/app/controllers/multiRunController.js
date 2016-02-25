@@ -44,6 +44,27 @@ angular.module('multirun.controller', [])
     runTime = moment().minute(0).second(secondsRan);
   };
 
+  $scope.ready = function() {
+    MultiGame.getGame(session.gameId)
+      .then(function(game) {
+        console.log('in the game.... ', game);
+        game.user1.ready = true;
+
+        })
+  }
+
+  // $scope.checkReady = function() {
+  //   MultiGame.getGame(session.gameId)
+  //     .then(function(game) {
+  //       console.log('in the game.... ', game);
+  //       if (game.user1.ready && game.user2.ready) {
+
+  //       }
+  //     })
+  // }
+
+  $scope.ready();
+
   $scope.startRun = function() {
     // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();

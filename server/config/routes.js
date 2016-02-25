@@ -13,6 +13,8 @@ module.exports = function (app, express) {
     gameController.getGame(req.params.game_id, res);
   });
 
+  app.post('/api/games/update', gameController.updateGame);
+
   app.route('api/games/:game_id')
   .post(function(req, res) {
     console.log("posting req>>>>>>> ", req);
@@ -20,6 +22,7 @@ module.exports = function (app, express) {
   });
 
   app.post('/api/users/signin', userController.signin);
+
   app.post('/api/users/signup', userController.signup);
 
   app.put('/api/users/profile', userController.updateUser);

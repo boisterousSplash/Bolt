@@ -196,12 +196,25 @@ angular.module('bolt.services', [])
       });
     },
 
+    updateGame : function (id, user) {
+      return $http({
+        method: 'POST',
+        url: '/api/games/update',
+        data: {
+          id: id,
+          user: user
+        }
+      }).then(function (res) {
+        return res;
+      });
+    },
+
     getGame : function (id) {
       return $http({
         method: 'GET',
-        url: '/api/games',
+        url: '/api/games/' + id,
       }).then(function (res) {
-        return res;
+        return res.data;
       });
     },
 
