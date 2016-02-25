@@ -10,13 +10,12 @@ var createGame = Q.nbind(Game.create, Game);
 module.exports = {
 
   makeGame: function (req, res, next) {
-    console.log('req.body....', req.body)
     var user1 = req.body.user1;
     var user2 = req.body.user2;
     var id = req.body.id;
-    findGame({id:id}).then(function(user) {
+    findGame({id:id}).then(function(game) {
       if (user) {
-        res.send(201, user);
+        res.send(201, game);
       } else {
         createGame({
           id: id,
@@ -29,6 +28,14 @@ module.exports = {
           res.send(201, newGame._id);
         });
       }
+    });
+  },
+
+  getGame: function (gameId, res, next) {
+    // var id = req.body.id;
+    console.log('gameId...', gameId);
+    findGame({id:gameId}).then(function(game) {
+      res.send(201, game);
     });
   },
 

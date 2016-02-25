@@ -8,10 +8,15 @@ module.exports = function (app, express) {
 
   app.post('/api/games', gameController.makeGame);
 
+  app.route('/api/games/:game_id')
+  .get(function(req, res) {
+    gameController.getGame(req.params.game_id, res);
+  });
+
   app.route('api/games/:game_id')
   .post(function(req, res) {
     console.log("posting req>>>>>>> ", req);
-    Game.cancelGame(req.params.game_id, res);
+    gameController.cancelGame(req.params.game_id, res);
   });
 
   app.post('/api/users/signin', userController.signin);

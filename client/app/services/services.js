@@ -196,6 +196,15 @@ angular.module('bolt.services', [])
       });
     },
 
+    getGame : function (id) {
+      return $http({
+        method: 'GET',
+        url: '/api/games',
+      }).then(function (res) {
+        return res;
+      });
+    },
+
     cancelGame : function (game_id) {
       return $http({
         method: 'POST',
