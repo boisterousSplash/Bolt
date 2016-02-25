@@ -1,4 +1,4 @@
-angular.module('multi.Controller', ['bolt.profile'])
+angular.module('multi.controller', ['bolt.profile'])
 
 .controller('MultiController', function($window, $scope, Multi){
   $scope.session = $window.localStorage;

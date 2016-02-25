@@ -183,6 +183,8 @@ angular.module('bolt.services', [])
 
 .factory('MultiGame', function ($http) {
   return {
+    logMess: function() { console.log('multigame') },
+
     makeGame : function (user1, user2) {
       return $http({
         method: 'POST',

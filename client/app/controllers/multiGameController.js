@@ -1,13 +1,7 @@
 angular.module('multigame.controller', [])
 
-.controller('MultiController', function($scope, $location, $window){
+.controller('MultiGameController', function($scope, $location, $window, MultiGame) {
   $scope.session = $window.localStorage;
-  $scope.startRun = function() {
-
-
-  }
-
-
-
-})
+  MultiGame.logMess();
+});
 
