@@ -1,12 +1,17 @@
-navigator.geolocation.getCurrentPosition(function(position) {
-  makeMap({lat: position.coords.latitude, lng: position.coords.longitude});  
-}, function(err) {
+navigator.geolocation.getCurrentPosition(function (position) {
+  var mapToMake = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  };
+  makeMap(mapToMake);
+}, function (err) {
   console.error(err);
 });
+
 var map;
 var marker;
 var destinationMarker;
-var makeMap = function(currentLatLngObj) {
+var makeMap = function (currentLatLngObj) {
   map = new google.maps.Map(document.getElementById('map'), {
     center: currentLatLngObj,
     zoom: 13
@@ -25,7 +30,7 @@ var makeMap = function(currentLatLngObj) {
   });
 };
 
-var randomCoordsAlongCircumference = function(originObj, radius) {
+var randomCoordsAlongCircumference = function (originObj, radius) {
   var randomTheta = Math.random() * 2 * Math.PI;
   return {
     lat: originObj.lat + (radius / 69 * Math.cos(randomTheta)),
