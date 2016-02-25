@@ -12,7 +12,7 @@ module.exports = {
 
   makeGame: function (req, res, next) {
     var id = req.body.id;
-    findGame({id:id}).then(function(game) {
+    findGame({id: id}).then(function (game) {
       if (game) {
         res.send(201, game);
       } else {
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   getGame: function (gameId, res, next) {
-    findGame({id:gameId}).then(function(game) {
+    findGame({id: gameId}).then(function (game) {
       res.send(201, game);
     });
   },
@@ -38,18 +38,17 @@ module.exports = {
     var field = req.body.field;
     var updateQuery = {$set: {}};
     updateQuery.$set[field] = true;
-    updateGame({id:id}, updateQuery).then(function(game) {
+    updateGame({id: id}, updateQuery).then(function (game) {
       res.send(201, game);
     });
   },
 
   removeGame: function (req, res, next) {
     var id = req.body.id;
-    removeGame({id:id}).then(function(game) {
+    removeGame({id: id}).then(function (game) {
       res.send(201, game);
     });
-  },
-  
+  }
   // cancelGame: function (gameId, res) {
   //   findGame({_id : "ObjectId(" + gameId + ")"})
   //     .then(function (targetGame) {
@@ -61,5 +60,4 @@ module.exports = {
   //       console.error(err);
   //     });
   // }
-
 };
