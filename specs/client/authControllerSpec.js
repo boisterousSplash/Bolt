@@ -5,7 +5,7 @@ describe('AuthController', function () {
 
   // using angular mocks, we can inject the injector
   // to retrieve our dependencies
-  beforeEach(module('shortly'));
+  beforeEach(module('bolt'));
   beforeEach(inject(function ($injector) {
 
     // mock out our dependencies
@@ -34,7 +34,7 @@ describe('AuthController', function () {
   afterEach(function () {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
-    $window.localStorage.removeItem('com.shortly');
+    $window.localStorage.removeItem('com.bolt');
   });
 
 
@@ -54,7 +54,7 @@ describe('AuthController', function () {
     $httpBackend.expectPOST('/api/users/signup').respond({token: token});
     $scope.signup();
     $httpBackend.flush();
-    expect($window.localStorage.getItem('com.shortly')).to.equal(token);
+    expect($window.localStorage.getItem('com.bolt')).to.equal(token);
   });
 
   it('should have a signin method', function () {
@@ -67,6 +67,6 @@ describe('AuthController', function () {
     $httpBackend.expectPOST('/api/users/signin').respond({token: token});
     $scope.signin();
     $httpBackend.flush();
-    expect($window.localStorage.getItem('com.shortly')).to.equal(token);
+    expect($window.localStorage.getItem('com.bolt')).to.equal(token);
   });
 });
