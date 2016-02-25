@@ -8,10 +8,6 @@ describe('Routing', function () {
     $route = $injector.get('$route');
   }));
 
-  it('Should test a test test in routing spec test', function () {
-    expect('true').to.be.a('string');
-  });
-
   it('Should have /signup route, template, and controller', function () {
     expect($route.routes['/signup']).to.be.defined;
     expect($route.routes['/signup'].controller).to.equal('AuthController');
@@ -24,12 +20,12 @@ describe('Routing', function () {
     expect($route.routes['/signin'].templateUrl).to.equal('app/auth/signin.html');
   });
 
-  // it('Should have /links route, template, and controller', function () {
-  //   expect($route.routes['/links']).to.be.defined;
-  //   expect($route.routes['/links'].controller).to.equal('LinksController');
-  //   expect($route.routes['/links'].templateUrl).to.equal('app/links/links.html');
-  // });
-  //
+  it('Should have /bolt route, template, and controller', function () {
+    expect($route.routes['/bolt']).to.be.defined;
+    expect($route.routes['/bolt'].controller).to.equal('BoltController');
+    expect($route.routes['/bolt'].templateUrl).to.equal('app/views/bolt.html');
+  });
+
   // it('Should have /shorten route, template, and controller', function () {
   //   expect($route.routes['/shorten']).to.be.defined;
   //   expect($route.routes['/shorten'].controller).to.equal('ShortenController');

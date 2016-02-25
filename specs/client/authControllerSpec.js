@@ -37,11 +37,6 @@ describe('AuthController', function () {
     $window.localStorage.removeItem('com.bolt');
   });
 
-
-  it('should test a test test in auth tests', function () {
-    expect(4).to.be.a('number');
-  });
-
   it('should have a signup method', function () {
     expect($scope.signup).to.be.a('function');
   });
