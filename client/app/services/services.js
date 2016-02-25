@@ -9,13 +9,16 @@ angular.module('bolt.services', [])
   var directionsRenderer = new google.maps.DirectionsRenderer();
   var route;
 
-  var makeInitialMap = function($scope) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      makeMap({lat: position.coords.latitude, lng: position.coords.longitude}, $scope);
-    }, function(err) {
-      console.error(err);
-    });
-    var makeMap = function(currentLatLngObj, $scope) {
+  var makeInitialMap = function ($scope) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+        makeMap({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }, $scope);
+      }, function (err) {
+        console.error(err);
+      });
+    var makeMap = function (currentLatLngObj, $scope) {
       var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.2);
 
       mainMap = new google.maps.Map(document.getElementById('map'), {
@@ -32,14 +35,17 @@ angular.module('bolt.services', [])
       });
       var startOfRoute = new google.maps.LatLng(currentLocMarker.position.lat(), currentLocMarker.position.lng());
       var endOfRoute = new google.maps.LatLng(destinationCoordinates.lat, destinationCoordinates.lng);
-      $scope.destination = {lat: endOfRoute.lat(), lng: endOfRoute.lng()};
+      $scope.destination = {
+        lat: endOfRoute.lat(),
+        lng: endOfRoute.lng()
+      };
       route = directionsService.route({
         origin: startOfRoute,
         destination: endOfRoute,
         travelMode: google.maps.TravelMode.WALKING,
         unitSystem: google.maps.UnitSystem.IMPERIAL,
         provideRouteAlternatives: false
-      }, function(response, status) {
+      }, function (response, status) {
         directionsRenderer.setDirections(response);
         var totalDistance = 0;
         for (var i = 0; i < response.routes[0].legs.length; i++) {
@@ -58,13 +64,16 @@ angular.module('bolt.services', [])
     };
   };
 
-  var updateCurrentPosition = function($scope) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+  var updateCurrentPosition = function ($scope) {
+    navigator.geolocation.getCurrentPosition(function (position) {
       currentLocMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
       if ($scope) {
-        $scope.userLocation= {lat: currentLocMarker.position.lat(), lng: currentLocMarker.position.lng()};
+        $scope.userLocation = {
+          lat: currentLocMarker.position.lat(),
+          lng: currentLocMarker.position.lng()
+        };
       }
-    }, function(err) {
+    }, function (err) {
       console.error(err);
     });
   };
@@ -84,7 +93,7 @@ angular.module('bolt.services', [])
 
 })
 
-.factory('Run', function($http){
+.factory('Run', function ($http) {
 
   var pointsInTime = {
     'Gold': '',
@@ -92,23 +101,23 @@ angular.module('bolt.services', [])
     'Bronze': ''
   };
 
-  var updateTimeUntilMedal = function(secondsToMedal) {
+  var updateTimeUntilMedal = function (secondsToMedal) {
     return moment().second(secondsToMedal).minute(secondsToMedal / 60);
   };
 
-  var setPointsInTime = function($scope) {
+  var setPointsInTime = function ($scope) {
     pointsInTime['Gold'] = moment().add($scope.goldTime.second(), 'seconds').add($scope.goldTime.minute(), 'minutes');
     pointsInTime['Silver'] = moment().add($scope.silverTime.second(), 'seconds').add($scope.silverTime.minute(), 'minutes');
     pointsInTime['Bronze'] = moment().add($scope.bronzeTime.second(), 'seconds').add($scope.bronzeTime.minute(), 'minutes');
   };
 
-  var setInitialMedalGoal = function($scope) {
+  var setInitialMedalGoal = function ($scope) {
     $scope.currentMedal = 'Gold';
     var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
     $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToGold);
   };
 
-  var updateGoalTimes = function($scope) {
+  var updateGoalTimes = function ($scope) {
     if ($scope.currentMedal === 'Gold') {
       var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
       if (secondsToGold === 0) {
@@ -171,12 +180,11 @@ angular.module('bolt.services', [])
     getUser : function () {
       return $http({
         method: 'GET',
-        url: '/api/users/profile',
-      }).then(function(user) {
+        url: '/api/users/profile'
+      }).then(function (user) {
         return user.data;
       });
-    },
-
+    }
   };
 })
 

@@ -1,16 +1,11 @@
 angular.module('run.controller', [])
 
-.controller('RunController', function($scope, $timeout, $interval, $location, $route, Geo, Run, Profile){
+.controller('RunController',
+  function ($scope, $timeout, $interval,
+            $location, $route, Geo, Run, Profile) {
 
   $scope.userLocation;
   $scope.destination;
-
-  /////////////////////////////////////
-  // None of these variables get used. Do we need them?
-  // No, I've deleted these same variables three or four times now but the deletion never gets merged with my PRs.
-  /////////////////////////////////////
-
-  // These variables seem similar. do you think we can put them together in an object?
 
   var startTime;
   var runTime;
@@ -24,27 +19,32 @@ angular.module('run.controller', [])
   var floor = Math.floor;
   var random = Math.random;
   var pow2 = function (num) {
-    return Math.pow(num, 2)
-  }
+    return Math.pow(num, 2);
+  };
 
 
-  var updateTotalRunTime = function() {
+  var updateTotalRunTime = function () {
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
   };
 
   //set a waiting message for the user while Google maps loads...
 
-  var messages = ["Finding the best route for you", "Scanning the streets", "Charging runtime engine"];
+  var messages = [
+    "Finding the best route for you",
+    "Scanning the streets",
+    "Charging runtime engine",
+    "Looking into the eye of the tiger"
+  ];
 
-  var setRunMessage = function() {
+  var setRunMessage = function () {
     $scope.runMessage = messages[floor(random() * messages.length)] + "...";
   };
 
   //rinse and repeat...
   $interval(setRunMessage, random() * 1000, messages.length);
 
-  $scope.startRun = function() {
+  $scope.startRun = function () {
     // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
@@ -53,15 +53,15 @@ angular.module('run.controller', [])
     // same goes for silver, bronze Times --> these get defined in services.js when we initialize the map
     Run.setPointsInTime($scope);
     Run.setInitialMedalGoal($scope);
-    document.getElementById('map').style.height = "93vh"
-    document.getElementById('botNav').style.height = "7vh"
-  }
+    document.getElementById('map').style.height = "93vh";
+    document.getElementById('botNav').style.height = "7vh";
+  };
 
-  $scope.regenRace =  function() {
+  $scope.regenRace = function () {
     $route.reload();
   };
 
-  var makeInitialMap = function() {
+  var makeInitialMap = function () {
     Geo.makeInitialMap($scope);
   };
 
@@ -70,7 +70,7 @@ angular.module('run.controller', [])
   // It looks like we're repeating ourselves a bit here.
   // Could we refactor to cover all three medals with one medalTime object?
 
-  var finishRun = function() {
+  var finishRun = function () {
     $scope.$parent.runTime = runTime.format('mm:ss');
     var medal = $scope.$parent.achievement = $scope.currentMedal;
 
@@ -96,11 +96,11 @@ angular.module('run.controller', [])
       googleExpectedTime: null,
       actualTime: runTime,
       medalReceived: medal,
-      racedAgainst: null,
+      racedAgainst: null
     };
 
     Profile.getUser()
-    .then(function(user) {
+    .then(function (user) {
       var achievements = user.data.achievements;
       var previousRuns = user.data.runs;
 
@@ -127,7 +127,7 @@ angular.module('run.controller', [])
     $location.path('/finish');
   };
 
-  var checkIfFinished = function() {
+  var checkIfFinished = function () {
     if ($scope.destination && $scope.userLocation) {
       var distRemaining = distBetween($scope.userLocation, $scope.destination);
       if (distRemaining < 0.0002) {
@@ -136,11 +136,11 @@ angular.module('run.controller', [])
     }
   };
 
-  var distBetween = function(loc1, loc2) {
+  var distBetween = function (loc1, loc2) {
     return sqrt(pow2(loc1.lat - loc2.lat) + pow2(loc1.lng - loc2.lng));
-  }
+  };
 
-  var updateStatus = function() {
+  var updateStatus = function () {
     Geo.updateCurrentPosition($scope);
     updateTotalRunTime();
     Run.updateGoalTimes($scope);
@@ -149,7 +149,7 @@ angular.module('run.controller', [])
 
   // Stop geotracker upon canceling run
   // Does this make sure to stop tracking if they close the window? --> all scripts die when the browser is no longer interpreting them
-  $scope.$on('$destroy', function() {
+  $scope.$on('$destroy', function () {
     $interval.cancel(statusUpdateLoop);
   });
-})
+});
