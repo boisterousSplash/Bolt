@@ -12,9 +12,9 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser. order matters!
     files: [
       // angular source
-      'bower_components/angular/angular.js',
-      'bower_components/angular-route/angular-route.js',
-      'bower_components/angular-mocks/angular-mocks.js',
+      'client/lib/angular/angular.js',
+      'client/lib/angular-route/angular-route.js',
+      'client/lib/angular-mocks/angular-mocks.js',
 
       // our app code
       'client/app/**/*.js',
