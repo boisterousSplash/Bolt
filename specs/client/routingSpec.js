@@ -31,33 +31,29 @@ describe('Routing', function () {
     expect($route.routes['/finish'].controller).to.equal('FinishController');
     expect($route.routes['/finish'].templateUrl).to.equal('app/views/finish.html');
   });
+
+  it('Should have /finish route, template, and controller', function () {
+    expect($route.routes['/finish']).to.be.defined;
+    expect($route.routes['/finish'].controller).to.equal('FinishController');
+    expect($route.routes['/finish'].templateUrl).to.equal('app/views/finish.html');
+  });
+
+  it('Should have /multiLoad route, template, and controller', function () {
+    expect($route.routes['/multiLoad']).to.be.defined;
+    expect($route.routes['/multiLoad'].controller).to.equal('MultiController');
+    expect($route.routes['/multiLoad'].templateUrl).to.equal('app/views/multiLoad.html');
+  });
+
+  it('Should have /profile route, template, and controller', function () {
+    expect($route.routes['/profile']).to.be.defined;
+    expect($route.routes['/profile'].controller).to.equal('ProfileController');
+    expect($route.routes['/profile'].templateUrl).to.equal('app/views/profile.html');
+  });
+
+  it('Should have /createProfile route, template, and controller', function () {
+    expect($route.routes['/createProfile']).to.be.defined;
+    expect($route.routes['/createProfile'].controller).to.equal('CreateProfileController');
+    expect($route.routes['/createProfile'].templateUrl).to.equal('app/views/createProfile.html');
+  });
+
 });
-//
-// .when('/achievements', {
-//   templateUrl: 'app/views/achievements.html',
-//   controller: 'AchievementsController',
-//   authenticate: true
-// })
-// .when('/multiLoad', {
-//   templateUrl: 'app/views/multiLoad.html',
-//   controller: 'MultiController',
-//   authenticate: true
-// })
-// .when('/signin', {
-//   templateUrl: 'app/auth/signin.html',
-//   controller: 'AuthController'
-// })
-// .when('/signup', {
-//   templateUrl: 'app/auth/signup.html',
-//   controller: 'AuthController'
-// })
-// .when('/profile', {
-//   templateUrl: 'app/profile/profile.html',
-//   controller: 'ProfileController',
-//   authenticate: true
-// })
-// .when('/createProfile', {
-//   templateUrl: 'app/views/createProfile.html',
-//   controller: 'CreateProfileController',
-//   authenticate: true
-// })
