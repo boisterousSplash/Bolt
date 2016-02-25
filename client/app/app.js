@@ -7,7 +7,7 @@ angular.module('bolt', [
   'run.controller',
   'finish.controller',
   'multi.controller',
-  'multigame.controller',
+  'multirun.controller',
   'bolt.createProfile',
   'achievements.controller'
 ])
@@ -42,8 +42,8 @@ angular.module('bolt', [
       authenticate: true
     })
     .when('/multiGame', {
-      templateUrl: 'app/views/multiLoad.html',
-      controller: 'MultiGameController',
+      templateUrl: 'app/views/multiRun.html',
+      controller: 'MultiRunController',
       authenticate: true
     })
     .when('/signin', {

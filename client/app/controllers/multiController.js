@@ -32,6 +32,9 @@ angular.module('multi.controller', ['bolt.profile'])
         $interval.cancel(stop);
         geoQuery.cancel();
         MultiGame.makeGame(id, user1, user2);
+        session.gameId = id;
+        session.competitor = key;
+        $location.path('multiGame');
         return;
       }
     });
