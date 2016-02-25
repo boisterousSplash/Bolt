@@ -54,7 +54,8 @@
     <div class ="medalTimes" ng-show="!raceStarted">{{ silverTime ? "Silver: " + silverTime.format('mm:ss') : "" }}</div>
     <div class ="medalTimes" ng-show="!raceStarted">{{ goldTime ? "Gold: " + goldTime.format('mm:ss') : "" }}</div>
     <div class ="medalTimes" ng-show="raceStarted">
-      <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} <img src="../assets/{{ currentMedal.toLowerCase() }}.png" class="medals"/> </div>
+      <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} <img src="../assets/{{ currentMedal.toLowerCase() }}.png" class="medals"/><div class="botLink" ng-show="oppFinished"> &nbsp; Too slow! </div></div>
+
       <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
     </div>
     <div class ="medalTimes">
