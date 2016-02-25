@@ -1,6 +1,6 @@
-angular.module('multi.controller', ['bolt.profile'])
+angular.module('multiload.controller', ['bolt.profile'])
 
-.controller('MultiController', function($window, $scope, Multi){
+.controller('MultiLoadController', function($window, $scope, Multi){
   $scope.session = $window.localStorage;
   Multi.addUserGeoFire();
 
