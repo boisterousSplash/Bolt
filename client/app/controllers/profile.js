@@ -5,7 +5,7 @@ angular.module('bolt.profile', ['bolt.auth'])
   $scope.session = window.localStorage;
 
   var getUserInfo = function () {
-    Profile.getUser(
+    Profile.getUser()
     .catch(function (err) {
       console.error(err);
     });

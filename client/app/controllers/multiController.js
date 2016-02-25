@@ -2,8 +2,6 @@ angular.module('multi.Controller', ['bolt.profile'])
 
 .controller('MultiController', function($window, $scope, Multi){
   $scope.session = $window.localStorage;
-  
-  console.log('window local storage', $scope.session)
   Multi.addUserGeoFire();
 
   $scope.cancelSearch = function() {
@@ -23,11 +21,13 @@ angular.module('multi.Controller', ['bolt.profile'])
   var search = function(geoQuery) {
     console.log('searching');
     var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
-      if (key !== currentUser._id) {
+      if (key !== session.username) {
         console.log("found match, stop search")
         console.log("user id of new user", key);
-        console.log("id of current user", currentUser._id);
+        console.log("id of current user", session.username);
+        geoFire.remove(key).then(function() {});
         $interval.cancel(stop);
+        geoQuery.cancel();
         return;
       }
     });
@@ -48,6 +48,7 @@ angular.module('multi.Controller', ['bolt.profile'])
 
   var addUserGeoFire = function(){
     navigator.geolocation.getCurrentPosition(function(position) {
+      userPosition = position;
       geoFire.set(session.username, [position.coords.latitude, position.coords.longitude]).then(function() {
         console.log("Provided key has been added to GeoFire");
         generateQuery();
@@ -60,8 +61,7 @@ angular.module('multi.Controller', ['bolt.profile'])
   };
 
   var cancelSearch = function(){
-    geoFire.remove(currentUser._id).then(function() {
-    });
+    geoFire.remove(session.username).then(function() {});
     $interval.cancel(stop);
     $location.path('/bolt');
   }

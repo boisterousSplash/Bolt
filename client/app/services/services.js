@@ -181,7 +181,7 @@ angular.module('bolt.services', [])
 })
 
 
-.factory('Game', function ($http) {
+.factory('MultiGame', function ($http) {
   return {
     makeGame : function (user1, user2) {
       return $http({
