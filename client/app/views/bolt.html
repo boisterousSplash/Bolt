@@ -4,19 +4,17 @@
   <a href="#/profile" class="icon left">
     <i class="medium material-icons" style="color:white">perm_identity</i>
   </a>
-  
 
   <!-- Achievements Link -->
   <a href="#/achievements" class="icon right">
-    <img src="../assets/medal_icon.png" height="50" width="50" /> 
+    <img src="../assets/medal_icon.png" height="50" width="50" />
   </a>
 </div>
-  Hi there{{session.firstName ? ", " + session.firstName : ""}}! 
+  Hi there{{session.firstName ? ", " + session.firstName : ""}}!
   <!-- Run Distance Spinner -->
   <!-- (does not exist yet) -->
 
 <div class="boltButton">
-  <!-- Big Button to start run -->
   <a class="btn-floating btn-large waves-effect waves-light red lighten-1" ng-click="startRun()">
     <img src="../assets/thunderbolt.png" width="40%" height="50%"/>
   </a>
@@ -26,7 +24,7 @@
 
 <div class="container">
   <!-- Radio input for solo, friends, public run -->
-  <form class="form" id="runForm">   
+  <form class="form" id="runForm">
     <div class="switch-field">
       <input type="radio" id="switch_3_left" name="switch_3" value="yes" checked/>
       <label for="switch_3_left">Solo</label>
