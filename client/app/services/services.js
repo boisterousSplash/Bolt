@@ -9,15 +9,14 @@ angular.module('bolt.services', [])
   var directionsRenderer = new google.maps.DirectionsRenderer();
   var route;
 
-  var makeInitialMap = function($scope) {
+  var makeInitialMap = function($scope, destination) {
     navigator.geolocation.getCurrentPosition(function(position) {
       makeMap({lat: position.coords.latitude, lng: position.coords.longitude}, $scope);
     }, function(err) {
       console.error(err);
     });
     var makeMap = function(currentLatLngObj, $scope) {
-      var destinationCoordinates = randomCoordsAlongCircumference(currentLatLngObj, 0.2);
-
+      var destinationCoordinates = destination || randomCoordsAlongCircumference(currentLatLngObj, 0.2);
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         zoom: 13,

@@ -25,15 +25,23 @@ angular.module('multi.controller', ['bolt.profile'])
         var id = [session.username, key].sort().join('');
         var user1 = {name: session.username, ready: false, canceled: false, finished: false};
         var user2 = {name: key, ready: false, canceled: false, finished: false};
+        
+        // This calculation should be placed in a factory
+        var destinationLat = (userPosition.coords.latitude + location[0]) / 2;
+        var destinationLng = (userPosition.coords.longitude + location[1]) / 2;
+
         console.log("found match, stop search")
         console.log("user id of new user", key);
         console.log("id of current user", session.username);
+
         geoFire.remove(key).then(function() {});
         $interval.cancel(stop);
         geoQuery.cancel();
         MultiGame.makeGame(id, user1, user2);
         session.gameId = id;
         session.competitor = key;
+        session.multiLat = destinationLat;
+        session.multiLng = destinationLng;
         $location.path('multiGame');
         return;
       }
