@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var MultiGameSchema = new mongoose.Schema({
-  id: {type:String, unique:true},
+  id: String,
   user1: Object,
   user2: Object,
   active: Boolean,
