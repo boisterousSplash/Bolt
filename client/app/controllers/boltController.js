@@ -1,8 +1,8 @@
 angular.module('bolt.controller', [])
 
-.controller('BoltController', function($scope, $location, $window){
+.controller('BoltController', function ($scope, $location, $window) {
   $scope.session = $window.localStorage;
-  $scope.startRun = function() {
+  $scope.startRun = function () {
     if (document.getElementById("switch_3_left").checked) {
       $location.path('/run');
     } else if (document.getElementById("switch_3_center").checked) {
@@ -11,5 +11,5 @@ angular.module('bolt.controller', [])
     } else {
       $location.path('/multiLoad');
     }
-  }
-})
+  };
+});
