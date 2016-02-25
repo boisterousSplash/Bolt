@@ -6,18 +6,6 @@ angular.module('bolt.profile', ['bolt.auth'])
 
   var getUserInfo = function () {
     Profile.getUser()
-    .then(function (currentUser) {
-
-      // $window.localStorage.setItem('username', currentUser.username);
-      // $window.localStorage.setItem('firstName', currentUser.firstName);
-      // $window.localStorage.setItem('lastName', currentUser.lastName);
-      // $window.localStorage.setItem('phone', currentUser.phone);
-      // $window.localStorage.setItem('email', currentUser.email);
-      // $window.localStorage.setItem('preferredDistance', currentUser.preferredDistance);
-      // $window.localStorage.setItem('runs', currentUser.runs);
-      // $window.localStorage.setItem('achievements', currentUser.achievements);
-
-    })
     .catch(function (err) {
       console.error(err);
     });

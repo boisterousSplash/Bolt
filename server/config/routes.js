@@ -1,11 +1,31 @@
 var userController = require('../users/userController.js');
+var gameController = require('../game/multiGameController');
 var helpers = require('./helpers.js'); // our custom middleware
 
 module.exports = function (app, express) {
   app.get('/api/users/profile', userController.getUser);
   app.get('/api/users/signedin', userController.checkAuth);
 
+  app.post('/api/games', gameController.makeGame);
+
+  app.route('/api/games/:game_id')
+  .get(function(req, res) {
+    gameController.getGame(req.params.game_id, res);
+  });
+
+
+  app.route('api/games/:game_id')
+  .post(function(req, res) {
+    console.log("posting req>>>>>>> ", req);
+    gameController.cancelGame(req.params.game_id, res);
+  });
+
+  app.post('/api/games/update', gameController.updateGame);
+
+  app.post('/api/games/remove', gameController.removeGame);
+
   app.post('/api/users/signin', userController.signin);
+
   app.post('/api/users/signup', userController.signup);
 
   app.put('/api/users/profile', userController.updateUser);
