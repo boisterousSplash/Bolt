@@ -189,6 +189,64 @@ angular.module('bolt.services', [])
 })
 
 
+.factory('MultiGame', function ($http) {
+  return {
+    makeGame : function (id, user1, user2) {
+      return $http({
+        method: 'POST',
+        url: '/api/games',
+        data: {
+          id: id
+        }
+      }).then(function (res) {
+        return res;
+      });
+    },
+
+    updateGame : function (id, field) {
+      return $http({
+        method: 'POST',
+        url: '/api/games/update',
+        data: {
+          id: id,
+          field: field
+        }
+      }).then(function (res) {
+        return res;
+      });
+    },
+
+    getGame : function (id) {
+      return $http({
+        method: 'GET',
+        url: '/api/games/' + id,
+      }).then(function (res) {
+        return res.data;
+      });
+    },
+
+    removeGame: function(id) {
+      return $http({
+        method: 'POST',
+        url: '/api/games/remove',
+        data: {
+          id: id
+        }
+      }).then(function (res) {
+        return res;
+      });
+    }
+    // cancelGame : function (game_id) {
+    //   return $http({
+    //     method: 'POST',
+    //     url: 'api/games/' + game_id,
+    //   }).then(function(game) {
+    //     return game;
+    //   });
+    // }
+  };
+})
+
 
 .factory('Auth', function ($http, $location, $window) {
   // it is responsible for authenticating our user
