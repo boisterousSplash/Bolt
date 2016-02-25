@@ -49,7 +49,7 @@ angular.module('bolt', [
       controller: 'AuthController'
     })
     .when('/profile', {
-      templateUrl: 'app/profile/profile.html',
+      templateUrl: 'app/views/profile.html',
       controller: 'ProfileController',
       authenticate: true
     })
