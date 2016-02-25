@@ -21,9 +21,9 @@ describe('Routing', function () {
   });
 
   it('Should have /bolt route, template, and controller', function () {
-    expect($route.routes['/bolt']).to.be.defined;
-    expect($route.routes['/bolt'].controller).to.equal('BoltController');
-    expect($route.routes['/bolt'].templateUrl).to.equal('app/views/bolt.html');
+    expect($route.routes['/']).to.be.defined;
+    expect($route.routes['/'].controller).to.equal('BoltController');
+    expect($route.routes['/'].templateUrl).to.equal('app/views/bolt.html');
   });
 
   // it('Should have /shorten route, template, and controller', function () {
