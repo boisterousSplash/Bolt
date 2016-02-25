@@ -10,9 +10,12 @@ var createGame = Q.nbind(Game.create, Game);
 module.exports = {
 
   makeGame: function (req, res, next) {
+    console.log('req.body....', req.body)
     var user1 = req.body.user1;
     var user2 = req.body.user2;
+    var id = req.body.id;
     createGame({
+      id: id,
       user1: user1,
       user2: user2,
       active: true

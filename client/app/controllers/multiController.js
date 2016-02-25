@@ -10,7 +10,7 @@ angular.module('multi.controller', ['bolt.profile'])
 
 })
 
-.factory('Multi', function($window, $location, $interval, Profile) {
+.factory('Multi', function($window, $location, $interval, Profile, MultiGame) {
   var session = $window.localStorage;
   var firebaseRef = new Firebase("https://glowing-fire-8101.firebaseio.com/");
   var geoFire = new GeoFire(firebaseRef);
@@ -22,12 +22,16 @@ angular.module('multi.controller', ['bolt.profile'])
     console.log('searching');
     var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
       if (key !== session.username) {
+        var id = [session.username, key].sort().join('');
+        var user1 = {name: session.username, ready: false, canceled: false, finished: false};
+        var user2 = {name: key, ready: false, canceled: false, finished: false};
         console.log("found match, stop search")
         console.log("user id of new user", key);
         console.log("id of current user", session.username);
         geoFire.remove(key).then(function() {});
         $interval.cancel(stop);
         geoQuery.cancel();
+        MultiGame.makeGame(id, user1, user2);
         return;
       }
     });
