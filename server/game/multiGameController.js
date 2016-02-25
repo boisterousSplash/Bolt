@@ -37,9 +37,9 @@ module.exports = {
   updateGame: function (req, res, next) {
     console.log('req.body... ', req.body)
     var id = req.body.id;
-    var user = req.body.user;
+    var field = req.body.field;
     var updateQuery = {$set: {}};
-    updateQuery.$set[user] = true;
+    updateQuery.$set[field] = true;
     updateGame({id:id}, updateQuery).then(function(game) {
       res.send(201, game);
     });

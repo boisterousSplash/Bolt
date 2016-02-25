@@ -194,13 +194,13 @@ angular.module('bolt.services', [])
       });
     },
 
-    updateGame : function (id, user) {
+    updateGame : function (id, field) {
       return $http({
         method: 'POST',
         url: '/api/games/update',
         data: {
           id: id,
-          user: user
+          field: field
         }
       }).then(function (res) {
         return res;

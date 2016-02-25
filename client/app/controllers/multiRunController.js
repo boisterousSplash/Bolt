@@ -2,17 +2,6 @@ angular.module('multirun.controller', [])
 
 .controller('MultiRunController', function($scope, $window, $timeout, $interval, $location, $route, Geo, Run, Profile, MultiGame) {
   var session = $window.localStorage;
-  console.log('gameId', session.gameId);
-  console.log('destination lng', session.multiLng);
-
-
-
-
-
-  // angular.module('run.controller', [])
-
-// .controller('RunController', function($scope, $timeout, $interval, $location, $route, Geo, Run, Profile){
-
   $scope.userLocation;
   $scope.destination;
 
@@ -38,32 +27,62 @@ angular.module('multirun.controller', [])
     return Math.pow(num, 2)
   }
 
+  /////////////////////////////////////////////////////////////////////////////////
+  // Multiplayer
+  $scope.waiting = false;
+  var userNum;
+  var oppNum;
+  var stopCheck;
+  var stopFinish;
+  if (session.username > session.competitor) {
+    userNum = "user1";
+    oppNum = "user2";
+  } else {
+    userNum = "user2";
+    oppNum = "user1";
+  }
+
+  $scope.showCheck = function() {
+    return !$scope.waiting && !$scope.raceStarted
+  }
+
+  $scope.ready = function() {
+    $scope.waiting = true;
+    MultiGame.updateGame(session.gameId, userNum).then(function(game) {});
+    stopCheck = $interval($scope.checkOppReady, 300);
+  }
+
+  $scope.checkOppReady = function() {
+    console.log('check if ready');
+    MultiGame.getGame(session.gameId)
+      .then(function(game) {
+        if (game.user1 && game.user2) {
+          $scope.startRun();
+          $interval.cancel(stopCheck);
+          stopFinish = $interval($scope.checkOppFinished, 1000);
+        }
+      })
+  }
+
+  $scope.checkOppFinished = function() {
+    console.log('checking for finished');
+    MultiGame.getGame(session.gameId)
+      .then(function(game) {
+        if (game.won) {
+          console.log('won');
+          $interval.cancel(stopFinish);
+        }
+      })
+  }
+  // End multiplayer block
+  /////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////
+
 
   var updateTotalRunTime = function() {
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
   };
-
-  $scope.ready = function() {
-    MultiGame.getGame(session.gameId)
-      .then(function(game) {
-        console.log('in the game.... ', game);
-        game.user1.ready = true;
-
-        })
-  }
-
-  // $scope.checkReady = function() {
-  //   MultiGame.getGame(session.gameId)
-  //     .then(function(game) {
-  //       console.log('in the game.... ', game);
-  //       if (game.user1.ready && game.user2.ready) {
-
-  //       }
-  //     })
-  // }
-
-  $scope.ready();
 
   $scope.startRun = function() {
     // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
@@ -93,6 +112,11 @@ angular.module('multirun.controller', [])
   // Could we refactor to cover all three medals with one medalTime object?
 
   var finishRun = function() {
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // Multiplayer
+    MultiGame.updateGame(session.gameId, 'won');
+    /////////////////////////////////////////////////////////////////////////////////////////
+
     $scope.$parent.runTime = runTime.format('mm:ss');
     var medal = $scope.$parent.achievement = $scope.currentMedal;
 
@@ -120,6 +144,7 @@ angular.module('multirun.controller', [])
       medalReceived: medal,
       racedAgainst: null,
     };
+
 
     Profile.getUser()
     .then(function(user) {
@@ -175,7 +200,3 @@ angular.module('multirun.controller', [])
     $interval.cancel(statusUpdateLoop);
   });
 });
-
-
-// });
-
