@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/hackreactor-labs/sprint.bolt-angular/issues"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
     "browser-sync": "^1.5.7",
