@@ -30,10 +30,11 @@ angular.module('multirun.controller', [])
   /////////////////////////////////////////////////////////////////////////////////
   // Multiplayer
   $scope.waiting = false;
-  var userNum;
-  var oppNum;
+  $scope.oppFinished = false;
   var stopCheck;
   var stopFinish;
+  var userNum;
+  var oppNum;
   if (session.username > session.competitor) {
     userNum = "user1";
     oppNum = "user2";
@@ -69,7 +70,7 @@ angular.module('multirun.controller', [])
     MultiGame.getGame(session.gameId)
       .then(function(game) {
         if (game.won) {
-          console.log('won');
+          $scope.oppFinished = true;
           $interval.cancel(stopFinish);
         }
       })
@@ -85,7 +86,7 @@ angular.module('multirun.controller', [])
   };
 
   $scope.startRun = function() {
-    // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
+    setTimeout(finishRun, Math.random()*10000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -114,7 +115,11 @@ angular.module('multirun.controller', [])
   var finishRun = function() {
     /////////////////////////////////////////////////////////////////////////////////////////
     // Multiplayer
-    MultiGame.updateGame(session.gameId, 'won');
+    if ($scope.oppFinished) {
+      MultiGame.removeGame(session.gameId);
+    } else {
+      MultiGame.updateGame(session.gameId, 'won');
+    }
     /////////////////////////////////////////////////////////////////////////////////////////
 
     $scope.$parent.runTime = runTime.format('mm:ss');
@@ -177,7 +182,8 @@ angular.module('multirun.controller', [])
   var checkIfFinished = function() {
     if ($scope.destination && $scope.userLocation) {
       var distRemaining = distBetween($scope.userLocation, $scope.destination);
-      if (distRemaining < 0.0002) {
+      // Reduced radius for testing
+      if (distRemaining < 0.00002) {
         finishRun();
       }
     }

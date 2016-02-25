@@ -13,13 +13,16 @@ module.exports = function (app, express) {
     gameController.getGame(req.params.game_id, res);
   });
 
-  app.post('/api/games/update', gameController.updateGame);
 
   app.route('api/games/:game_id')
   .post(function(req, res) {
     console.log("posting req>>>>>>> ", req);
     gameController.cancelGame(req.params.game_id, res);
   });
+
+  app.post('/api/games/update', gameController.updateGame);
+
+  app.post('/api/games/remove', gameController.removeGame);
 
   app.post('/api/users/signin', userController.signin);
 

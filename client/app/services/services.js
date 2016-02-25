@@ -216,14 +216,25 @@ angular.module('bolt.services', [])
       });
     },
 
-    cancelGame : function (game_id) {
+    removeGame: function(id) {
       return $http({
         method: 'POST',
-        url: 'api/games/' + game_id,
-      }).then(function(game) {
-        return game;
+        url: '/api/games/remove',
+        data: {
+          id: id
+        }
+      }).then(function (res) {
+        return res;
       });
-    },
+    }
+    // cancelGame : function (game_id) {
+    //   return $http({
+    //     method: 'POST',
+    //     url: 'api/games/' + game_id,
+    //   }).then(function(game) {
+    //     return game;
+    //   });
+    // }
   };
 })
 
