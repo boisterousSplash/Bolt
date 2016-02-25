@@ -6,6 +6,12 @@ html, body {
   height: 100vh;
 }
 
+.profile {
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
 #map {
   display: block;
   top: 0%;
