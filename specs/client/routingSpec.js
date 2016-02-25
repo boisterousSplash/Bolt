@@ -26,9 +26,38 @@ describe('Routing', function () {
     expect($route.routes['/'].templateUrl).to.equal('app/views/bolt.html');
   });
 
-  // it('Should have /shorten route, template, and controller', function () {
-  //   expect($route.routes['/shorten']).to.be.defined;
-  //   expect($route.routes['/shorten'].controller).to.equal('ShortenController');
-  //   expect($route.routes['/shorten'].templateUrl).to.equal('app/shorten/shorten.html');
-  // });
+  it('Should have /finish route, template, and controller', function () {
+    expect($route.routes['/finish']).to.be.defined;
+    expect($route.routes['/finish'].controller).to.equal('FinishController');
+    expect($route.routes['/finish'].templateUrl).to.equal('app/views/finish.html');
+  });
 });
+//
+// .when('/achievements', {
+//   templateUrl: 'app/views/achievements.html',
+//   controller: 'AchievementsController',
+//   authenticate: true
+// })
+// .when('/multiLoad', {
+//   templateUrl: 'app/views/multiLoad.html',
+//   controller: 'MultiController',
+//   authenticate: true
+// })
+// .when('/signin', {
+//   templateUrl: 'app/auth/signin.html',
+//   controller: 'AuthController'
+// })
+// .when('/signup', {
+//   templateUrl: 'app/auth/signup.html',
+//   controller: 'AuthController'
+// })
+// .when('/profile', {
+//   templateUrl: 'app/profile/profile.html',
+//   controller: 'ProfileController',
+//   authenticate: true
+// })
+// .when('/createProfile', {
+//   templateUrl: 'app/views/createProfile.html',
+//   controller: 'CreateProfileController',
+//   authenticate: true
+// })
