@@ -5,20 +5,6 @@ angular.module('multirun.controller', [])
   $scope.userLocation;
   $scope.destination;
 
-  /////////////////////////////////////
-  // None of these variables get used. Do we need them?
-  // No, I've deleted these same variables three or four times now but the deletion never gets merged with my PRs.
-  /////////////////////////////////////
-
-  // These variables seem similar. do you think we can put them together in an object?
-
-  var startTime;
-  var runTime;
-  var statusUpdateLoop;
-  var startLat;
-  var startLong;
-  var FINISH_RADIUS = 0.0002; // miles?
-
   // Math functions
   var sqrt = Math.sqrt;
   var floor = Math.floor;
@@ -35,6 +21,9 @@ angular.module('multirun.controller', [])
   var stopFinish;
   var userNum;
   var oppNum;
+
+  // This if/else can be cleaned up 
+  // Determine whether current user is user1 or user2 in multiplayer game database instance
   if (session.username > session.competitor) {
     userNum = "user1";
     oppNum = "user2";
@@ -43,18 +32,22 @@ angular.module('multirun.controller', [])
     oppNum = "user1";
   }
 
+  // Determines whether check or 'waiting' should be displayed to user
   $scope.showCheck = function() {
     return !$scope.waiting && !$scope.raceStarted
   }
 
+  // Activated when user presses the check button
+  // In multiplayer game database instance, the current user field is set to true (either "user1" or "user2", see above)
+  // Continously check whether both user1 and user2 are ready/true
   $scope.ready = function() {
     $scope.waiting = true;
     MultiGame.updateGame(session.gameId, userNum).then(function(game) {});
     stopCheck = $interval($scope.checkOppReady, 300);
   }
 
+  // check whether both user1 and user2 are ready/true
   $scope.checkOppReady = function() {
-    console.log('check if ready');
     MultiGame.getGame(session.gameId)
       .then(function(game) {
         if (game.user1 && game.user2) {
@@ -65,8 +58,8 @@ angular.module('multirun.controller', [])
       })
   }
 
+  // check whether opponent has finished race
   $scope.checkOppFinished = function() {
-    console.log('checking for finished');
     MultiGame.getGame(session.gameId)
       .then(function(game) {
         if (game.won) {
@@ -86,7 +79,7 @@ angular.module('multirun.controller', [])
   };
 
   $scope.startRun = function() {
-    setTimeout(finishRun, Math.random()*10000); // simulate finishing run for manual testing
+    setTimeout(finishRun, Math.random()*12000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -109,15 +102,14 @@ angular.module('multirun.controller', [])
 
   makeInitialMap();
 
-  // It looks like we're repeating ourselves a bit here.
-  // Could we refactor to cover all three medals with one medalTime object?
-
   var finishRun = function() {
     /////////////////////////////////////////////////////////////////////////////////////////
     // Multiplayer
     if ($scope.oppFinished) {
+      // remove game from database if both players have finished
       MultiGame.removeGame(session.gameId);
     } else {
+      // set won state to true if current user finishes first
       MultiGame.updateGame(session.gameId, 'won');
     }
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -151,29 +143,7 @@ angular.module('multirun.controller', [])
     };
 
 
-    Profile.getUser()
-    .then(function(user) {
-      var achievements = user.data.achievements;
-      var previousRuns = user.data.runs;
-
-      //update achievments object
-      achievements[medal] = achievements[medal] + 1;
-      //update runs object
-      previousRuns.push(currentRunObject);
-
-      updatedAchievementsData = {
-        achievements: achievements,
-        runs: previousRuns
-      };
-
-      Profile.updateUser(updatedAchievementsData, user)
-      .then(function (updatedProfile) {
-        return updatedProfile;
-      })
-      .catch(function (err) {
-        console.error(err);
-      });
-    });
+    // Need to add run data to profile
 
     $interval.cancel(statusUpdateLoop);
     $location.path('/finish');
