@@ -11,18 +11,13 @@ module.exports = {
 
   makeGame: function (req, res, next) {
     console.log('making game....');
-    var user1 = req.body.user1;
-    var user2 = req.body.user2;
     var id = req.body.id;
     findGame({id:id}).then(function(game) {
       if (game) {
         res.send(201, game);
       } else {
         createGame({
-          id: id,
-          user1: user1,
-          user2: user2,
-          active: true
+          id: id
         })
         .then(function (newGame) {
           console.log(newGame);
@@ -44,10 +39,7 @@ module.exports = {
     var id = req.body.id;
     var user = req.body.user;
     var updateQuery = {$set: {}};
-    // updateQuery.$set[user].$.ready = true;
-    updateQuery = {$set: {user1: {ready: true}}};
-    console.log('update user = ', user);
-
+    updateQuery.$set[user] = true;
     updateGame({id:id}, updateQuery).then(function(game) {
       res.send(201, game);
     });

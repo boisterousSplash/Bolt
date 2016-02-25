@@ -187,9 +187,7 @@ angular.module('bolt.services', [])
         method: 'POST',
         url: '/api/games',
         data: {
-          id: id,
-          user1: user1,
-          user2: user2,
+          id: id
         }
       }).then(function (res) {
         return res;
