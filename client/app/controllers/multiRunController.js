@@ -34,7 +34,7 @@ angular.module('multirun.controller', [])
 
   // Determines whether check or 'waiting' should be displayed to user
   $scope.showCheck = function() {
-    return !$scope.waiting && !$scope.raceStarted
+    return !$scope.waiting && !$scope.raceStarted;
   }
 
   // Activated when user presses the check button
@@ -55,7 +55,7 @@ angular.module('multirun.controller', [])
           $interval.cancel(stopCheck);
           stopFinish = $interval($scope.checkOppFinished, 1000);
         }
-      })
+      });
   }
 
   // check whether opponent has finished race
@@ -66,7 +66,7 @@ angular.module('multirun.controller', [])
           $scope.oppFinished = true;
           $interval.cancel(stopFinish);
         }
-      })
+      });
   }
   // End multiplayer block
   /////////////////////////////////////////////////////////////////////////////////
@@ -87,8 +87,8 @@ angular.module('multirun.controller', [])
     // same goes for silver, bronze Times --> these get defined in services.js when we initialize the map
     Run.setPointsInTime($scope);
     Run.setInitialMedalGoal($scope);
-    document.getElementById('map').style.height = "93vh"
-    document.getElementById('botNav').style.height = "7vh"
+    document.getElementById('map').style.height = "93vh";
+    document.getElementById('botNav').style.height = "7vh";
   }
 
   $scope.regenRace =  function() {
