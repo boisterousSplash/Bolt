@@ -1,17 +1,30 @@
-<div class="profile center-align">
-  <div>
-    
-    <div class="row">
-        <div class="input-field col s6" style="text-align:center">
-          <i class="material-icons prefix">account_circle</i>
-          <input disabled placeholder="{{session.firstName}}" ng-model="session.first" id="icon_prefix" type="text" class="validate">
-          <label class="active" for="icon_prefix">First</label>
-        </div>
-        <div class="input-field col s6">
-          <input disabled placeholder={{session.lastName}} ng-model="session.last" id="icon_prefix" type="text" class="validate">
-          <label class="active" for="icon_prefix">Last</label>
-        </div>
-      </div>
+<div class="container profile">
+  <ul>
+    <li>
+      <i class="material-icons prefix">account_circle</i>
+      <div>{{ session.firstName }} {{session.lastName}}</div>
+    </li>
+    <li>
+      <i class="material-icons prefix">email</i>
+      <div>{{ session.email }}</div>
+    </li>
+    <li>
+      <i class="material-icons prefix">phone</i>
+      <div>{{ session.phone }}</div>
+    </li>
+    <li>
+      <i class="material-icons prefix">trending_up</i>
+      <div>{{ session.preferredDistance }}</div>
+    </li>    
+  </ul>
+</div>
+
+  <!-- <div> -->
+
+    <!-- <div class="row">
+      <i class="material-icons prefix">account_circle</i>
+      <div>{{ session.firstName }} {{session.lastName}}</div>
+    </div>
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">email</i>
@@ -47,5 +60,5 @@
   <br>
   <div>
     <a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a>
-  </div>
-</div>
+  </div> -->
+<!-- </div> -->
