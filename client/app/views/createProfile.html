@@ -1,46 +1,64 @@
 <div class="container profile center-align">
-    <div class="row">
-        <div class="input-field col s6">
-          <i class="material-icons prefix">account_circle</i>
-          <input placeholder="{{session.firstName}}" ng-model="session.first" id="icon_prefix" type="text" class="validate">
-          <label class="active" for="icon_prefix">First</label>
-        </div>
-        <div class="input-field col s6">
-          <input placeholder="{{session.lastName}}" ng-model="session.last" id="icon_prefix" type="text" class="validate">
-          <label class="active" for="icon_prefix">Last</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">email</i>
-          <input placeholder="{{session.email}}" ng-model="session.email" id="icon_email" type="text" class="validate">
-          <label class="active" for="icon_email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">phone</i>
-          <input placeholder="{{session.phone}}" ng-model="session.phone" id="icon_telephone" type="text" class="validate">
-          <label class="active" for="icon_telephone">Phone</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">trending_up</i>
-          <input placeholder="{{session.distance}}" ng-model="session.distance" id="icon_trending" type="text">
-          <label class="active" for="icon_telephone">Preferred Distance</label>
-        </div>
-      </div>
-    <br>
-    <br>
-  <div>
-    <span>
-      <a href="#/profile" class="waves-effect waves-light btn right-align">Back<a>
-    </span>
-    <span href="#/" ng-click="createProfile(session.first, session.last, session.email, session.phone, session.distance)" class="waves-effect waves-light btn right-align">Submit</span>
+  <div class="row">
+    <div class="input-field col s6">
+      <i class="material-icons prefix">account_circle</i>
+      <input placeholder="{{session.firstName}}"
+             ng-model="inputData.firstName"
+             id="icon_prefix"
+             type="text"
+             class="validate">
+      <label class="active" for="icon_prefix">First</label>
+    </div>
+    <div class="input-field col s6">
+      <input placeholder="{{session.lastName}}"
+             ng-model="inputData.lastName"
+             id="icon_prefix"
+             type="text"
+             class="validate">
+      <label class="active" for="icon_prefix">Last</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">email</i>
+      <input placeholder="{{session.email}}"
+             ng-model="inputData.email"
+             id="icon_email"
+             type="email"
+             class="validate">
+      <label class="active" for="icon_email">Email</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">phone</i>
+      <input placeholder="{{session.phone}}"
+             ng-model="inputData.phone"
+             id="icon_telephone"
+             type="tel"
+             class="validate">
+      <label class="active" for="icon_telephone">Phone</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">trending_up</i>
+      <input placeholder="{{session.preferredDistance}}"
+             ng-model="inputData.preferredDistance"
+             id="icon_trending"
+             type="number"
+             class="validate">
+      <label class="active" for="icon_telephone">Preferred Distance</label>
+    </div>
   </div>
   <br>
+  <br>
   <div>
-    <a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a>
+      <span><a href="#/profile" class="waves-effect waves-light btn right-align">Back<a></span>
+      <span href="#/profile"
+            ng-click="createProfile(inputData)"
+            class="waves-effect waves-light btn right-align">Submit
+      </span>
+      <span><a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a></span>
   </div>
 </div>
