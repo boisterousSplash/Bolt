@@ -1,6 +1,6 @@
-angular.module('bolt.createProfile', [])
+angular.module('bolt.createProfile', ['bolt.auth'])
 
-.controller('CreateProfileController', function ($location, $scope, Profile, $window) {
+.controller('CreateProfileController', function ($location, $scope, Profile, $window, Auth) {
   $scope.createProfile = function (first, last, email, phone, distance) {
     $location.path('/');
 
@@ -25,5 +25,9 @@ angular.module('bolt.createProfile', [])
         console.error(err);
       });
     });
+  };
+
+  $scope.signout = function () {
+    Auth.signout();
   };
 });
