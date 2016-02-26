@@ -1,64 +1,42 @@
-<div class="container profile">
-  <ul>
-    <li>
-      <i class="material-icons prefix">account_circle</i>
-      <div>{{ session.firstName }} {{session.lastName}}</div>
+<nav>
+  <div class="nav-wrapper blue">
+    <a href="#/" class="brand-logo">Profile</a>
+    <ul id="nav-mobile" class="right">
+      <li><a href="#/" class="icon left">Run</a></li>
+      <li><a href="#/achievements" class="icon right">Achievements</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <ul class="collection">
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">account_circle</i>
+      <p class="valign">{{ session.firstName }} {{session.lastName}}</p>
     </li>
-    <li>
-      <i class="material-icons prefix">email</i>
-      <div>{{ session.email }}</div>
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">email</i>
+      <p class="valign">{{ session.email }}</p>
     </li>
-    <li>
-      <i class="material-icons prefix">phone</i>
-      <div>{{ session.phone }}</div>
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">phone</i>
+      <p class="valign">{{ session.phone }}</p>
     </li>
-    <li>
-      <i class="material-icons prefix">trending_up</i>
-      <div>{{ session.preferredDistance }}</div>
-    </li>    
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">trending_up</i>
+      <p class="valign">{{ session.preferredDistance }} miles</p>
+    </li>
   </ul>
 </div>
 
-  <!-- <div> -->
-
-    <!-- <div class="row">
-      <i class="material-icons prefix">account_circle</i>
-      <div>{{ session.firstName }} {{session.lastName}}</div>
-    </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">email</i>
-          <input disabled placeholder={{session.email}} ng-model="session.email" id="icon_email" type="email" class="validate">
-          <label class="active" for="icon_email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">phone</i>
-          <input disabled placeholder="{{session.phone}}" ng-model="session.phone" id="icon_telephone" type="text" class="validate">
-          <label class="active" for="icon_telephone">Phone</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">trending_up</i>
-          <input disabled placeholder="{{session.preferredDistance}}" ng-model="session.distance" id="icon_trending" type="text">
-          <label class="active" for="icon_telephone">Preferred Distance</label>
-        </div>
-      </div>
-  </div>
-    <br>
-    <br>
-  <div class="center-align">
-    <span>
-      <a href="#/" class="waves-effect waves-light btn right-align">Back<a>
-    </span>
-    <span>
-      <a href="#/createProfile" class="waves-effect waves-light btn right-align">Edit Profile</a>
-    </span>
-  </div>
-  <br>
-  <div>
+<div class="center-align">
+  <span>
+    <a href="#/" class="waves-effect waves-light btn right-align">Run<a>
+  </span>
+  <span>
+    <a href="#/createProfile" class="waves-effect waves-light btn right-align">Edit</a>
+  </span>
+  <span>
     <a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a>
-  </div> -->
-<!-- </div> -->
+  </span>
+</div>

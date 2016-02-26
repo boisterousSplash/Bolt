@@ -7,12 +7,6 @@ html, body {
   height: 100vh;
 }
 
-.profile {
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-}
-
 #map {
   display: block;
   top: 0%;
@@ -199,7 +193,7 @@ html, body {
   /*position: relative;*/
   top: 5vh;
   height: 55vh;
-  margin: 10vh 0;
+  margin: 5vh 0 10vh 0;
   display: block;
 }
 
@@ -255,4 +249,8 @@ html, body {
 
 .switch-field label:last-of-type {
   border-radius: 0 4px 4px 0;
+}
+
+.profile-icon {
+  margin: 0 10vh 0 2vh;
 }

@@ -1,48 +1,19 @@
-
-<!-- Profile Link -->
-<!-- <nav>
-  <div id="topNav">
-    <a href="#/profile" class="icon left">
-      <i class="medium material-icons" style="color:white">perm_identity</i>
-    </a>
-
-    <a href="#/achievements" class="icon right">
-      <img src="../assets/medal_icon.png" height="50" width="50" />
-    </a>
-  </div>
-</nav> -->
 <nav>
   <div class="nav-wrapper blue">
     <a href="#" class="brand-logo">Bolt</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li>
-        <a href="#/profile" class="icon left">
-          <!-- Profile -->
-          {{session.firstName}}
-          <!-- <i class="medium material-icons" style="color:white">perm_identity</i> -->
-        </a>
-      </li>
-      <li>
-        <a href="#/achievements" class="icon right">
-          Achievements
-          <!-- <img src="../assets/medal_icon.png" height="50" width="50" /> -->
-        </a>
-      </li>
+      <li><a href="#/profile" class="icon left">{{session.firstName}}</a></li>
+      <li><a href="#/achievements" class="icon right">Achievements</a></li>
     </ul>
   </div>
 </nav>
-  <!-- Hi there{{session.firstName ? ", " + session.firstName : ""}}! -->
-  <!-- Run Distance Spinner -->
-  <!-- (does not exist yet) -->
 
 <div class="boltButton">
   <a class="btn-floating btn-large waves-effect waves-light red lighten-1" ng-click="startRun()">
     <img src="../assets/thunderbolt.png" width="40%" height="30%"/>
-    <!-- <div>GO</div> -->
   </a>
 </div>
 
-<!-- <h2 style="text-align:center; height:10vh"> Bolt </h2> -->
 
 <div class="container">
   <!-- Radio input for solo, friends, public run -->
@@ -57,3 +28,12 @@
     </div>
   </form>
 </div>
+
+<footer class="page-footer hide-on-large-only white valign-wrapper">
+  <div class="container valign">
+    <h5>
+      <a class="blue-text" href="#/profile">{{session.firstName}}</a>
+      <a class="blue-text right" href="#/achievements">Achievements</a>
+    </h5>
+  </div>
+</footer>
