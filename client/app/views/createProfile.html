@@ -14,6 +14,7 @@
         <div class="input-field col s12">
           <i class="material-icons prefix">email</i>
           <input placeholder={{session.email}} ng-model="session.email" id="icon_email" type="email" class="validate">
+
           <label class="active" for="icon_email">Email</label>
         </div>
       </div>
@@ -37,7 +38,7 @@
     <span>
       <a href="#/profile" class="waves-effect waves-light btn right-align">Back<a>
     </span>
-    <span href="#/" ng-click="createProfile(session.firstName, session.last, session.email, session.phone, session.distance)" class="waves-effect waves-light btn right-align">Submit</span>
+    <span href="#/" ng-click="createProfile(session.first, session.last, session.email, session.phone, session.distance)" class="waves-effect waves-light btn right-align">Submit</span>
   </div>
   <br>
   <div>
