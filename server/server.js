@@ -5,6 +5,7 @@ var app = express();
 
 // connect to mongo database named "bolt"
 // uncomment this line to use a local database
+// be sure to re-comment this line when submitting PR
 // mongoose.connect('mongodb://localhost/bolt');
 mongoose.connect('mongodb://heroku_l3g4r0kp:61docmam4tnk026c51bhc5hork@ds029605.mongolab.com:29605/heroku_l3g4r0kp');
 
