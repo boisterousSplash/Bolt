@@ -27,10 +27,9 @@ angular.module('bolt.createProfile', ['bolt.auth'])
     });
   };
 
+  $scope.session = window.localStorage;
+
   $scope.signout = function () {
     Auth.signout();
   };
-
-  $scope.session = window.localStorage;
-
 });
