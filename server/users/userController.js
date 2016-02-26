@@ -73,8 +73,9 @@ module.exports = {
 
   updateUser: function (req, res, next) {
     var newData = req.body.newInfo;
+    var username = req.body.user.username;
     var user = {
-      username: req.body.user.username
+      username: username
     };
 
     var queryCondition = {username: username};

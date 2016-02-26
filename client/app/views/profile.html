@@ -1,42 +1,50 @@
-<div id='profile' class="container">
-  <a href="#/">Return to Bolt<a>
+<div class="profile center-align">
   <div>
-    <a href="#/createProfile">Edit Profile</a>
-  </div>
-  <div class="">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s3">
+    
+    <div class="row">
+        <div class="input-field col s6" style="text-align:center">
           <i class="material-icons prefix">account_circle</i>
-          <label>{{session.firstName + " " + session.lastName}}</label>
+          <input disabled placeholder="{{session.firstName}}" ng-model="session.first" id="icon_prefix" type="text" class="validate">
+          <label class="active" for="icon_prefix">First</label>
+        </div>
+        <div class="input-field col s6">
+          <input disabled placeholder={{session.lastName}} ng-model="session.last" id="icon_prefix" type="text" class="validate">
+          <label class="active" for="icon_prefix">Last</label>
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12">
           <i class="material-icons prefix">email</i>
-          <label for="icon_email">{{session.email}}</label>
+          <input disabled placeholder={{session.email}} ng-model="session.email" id="icon_email" type="email" class="validate">
+          <label class="active" for="icon_email">Email</label>
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12">
           <i class="material-icons prefix">phone</i>
-          <label for="icon_telephone">{{session.phone || 'N/A'}}</label>
+          <input disabled placeholder="{{session.phone}}" ng-model="session.phone" id="icon_telephone" type="text" class="validate">
+          <label class="active" for="icon_telephone">Phone</label>
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12">
           <i class="material-icons prefix">trending_up</i>
-          <label for="icon_telephone">{{session.preferredDistance + " miles" || 'N/A'}}</label>
+          <input disabled placeholder="{{session.preferredDistance}}" ng-model="session.distance" id="icon_trending" type="text">
+          <label class="active" for="icon_telephone">Preferred Distance</label>
         </div>
       </div>
-    </form>
-    <br>
-    <br>
-    <div>
-      <a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a>
-    </div>
   </div>
+    <br>
+    <br>
+  <div class="center-align">
+    <span>
+      <a href="#/" class="waves-effect waves-light btn right-align">Back<a>
+    </span>
+    <span>
+      <a href="#/createProfile" class="waves-effect waves-light btn right-align">Edit Profile</a>
+    </span>
+  </div>
+  <!-- <span>
+    <a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a>
+  </span> -->
 </div>
