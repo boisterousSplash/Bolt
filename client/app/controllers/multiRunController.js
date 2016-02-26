@@ -78,7 +78,7 @@ angular.module('multirun.controller', [])
   };
 
   $scope.startRun = function () {
-    setTimeout(finishRun, Math.random() * 12000); // simulate finishing run for manual testing
+    // setTimeout(finishRun, Math.random() * 12000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -155,7 +155,7 @@ angular.module('multirun.controller', [])
     if ($scope.destination && $scope.userLocation) {
       var distRemaining = distBetween($scope.userLocation, $scope.destination);
       // Reduced radius for testing
-      if (distRemaining < 0.00002) {
+      if (distRemaining < 0.0002) {
         finishRun();
       }
     }
