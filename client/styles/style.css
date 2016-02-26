@@ -199,7 +199,7 @@ html, body {
 
 /* Toggle run option*/
 .switch-field {
-  font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
+  /*font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;*/
   padding: 0;
   overflow: hidden;
 }
@@ -258,4 +258,8 @@ html, body {
 .buttonLayer {
   display: flex;
   justify-content: space-between;
+}
+
+.hidden-radio {
+  visibility: hidden;
 }
