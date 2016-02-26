@@ -1,3 +1,15 @@
+<nav>
+  <div class="nav-wrapper blue">
+    <a href="#/" class="brand-logo">Profile</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down right">
+      <li><a href="#/" class="icon left">Run</a></li>
+      <li><a href="#/achievements" class="icon right">Achievements</a></li>
+    </ul>
+  </div>
+</nav>
+<br>
+<br>
+
 <div class="container profile center-align">
   <div class="row">
     <div class="input-field col s6">
@@ -53,12 +65,12 @@
   </div>
   <br>
   <br>
-  <div>
-      <span><a href="#/profile" class="waves-effect waves-light btn right-align">Back<a></span>
+  <div class="buttonLayer">
+    <span><a href="#/profile" class="waves-effect waves-light btn">Back<a></span>
       <span href="#/profile"
-            ng-click="createProfile(inputData)"
-            class="waves-effect waves-light btn right-align">Submit
-      </span>
-      <span><a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a></span>
+      ng-click="createProfile(inputData)"
+      class="waves-effect waves-light btn">Submit
+    </span>
+    <span><a href="#/" class="waves-effect waves-light btn" ng-click="signout()">Log Out</a></span>
   </div>
 </div>

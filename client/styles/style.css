@@ -254,3 +254,8 @@ html, body {
 .profile-icon {
   margin: 0 10vh 0 2vh;
 }
+
+.buttonLayer {
+  display: flex;
+  justify-content: space-between;
+}
