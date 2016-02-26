@@ -2,6 +2,8 @@
 
 # OSX
 **/.DS_Store
+.DS_Store
+client/.DS_Store
 
 # Logs
 logs
@@ -30,4 +32,4 @@ dist/
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
 bower_components/
-client/lib
+client/lib/

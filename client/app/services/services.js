@@ -219,13 +219,13 @@ angular.module('bolt.services', [])
     getGame : function (id) {
       return $http({
         method: 'GET',
-        url: '/api/games/' + id,
+        url: '/api/games/' + id
       }).then(function (res) {
         return res.data;
       });
     },
 
-    removeGame: function(id) {
+    removeGame: function (id) {
       return $http({
         method: 'POST',
         url: '/api/games/remove',
@@ -240,7 +240,7 @@ angular.module('bolt.services', [])
     //   return $http({
     //     method: 'POST',
     //     url: 'api/games/' + game_id,
-    //   }).then(function(game) {
+    //   }).then(function (game) {
     //     return game;
     //   });
     // }

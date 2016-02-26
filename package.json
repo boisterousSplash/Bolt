@@ -7,7 +7,8 @@
   "scripts": {
     "test": "gulp karma",
     "start": "gulp",
-    "lint": "jscs ./"
+    "lint": "jscs ./",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "contributors": [
     "Shane McGraw",
@@ -23,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/hackreactor-labs/sprint.bolt-angular/issues"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
     "browser-sync": "^1.5.7",

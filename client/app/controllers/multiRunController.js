@@ -1,6 +1,6 @@
 angular.module('multirun.controller', [])
 
-.controller('MultiRunController', function($scope, $window, $timeout, $interval, $location, $route, Geo, Run, Profile, MultiGame) {
+.controller('MultiRunController', function ($scope, $window, $timeout, $interval, $location, $route, Geo, Run, Profile, MultiGame) {
   var session = $window.localStorage;
   $scope.userLocation;
   $scope.destination;
@@ -10,8 +10,8 @@ angular.module('multirun.controller', [])
   var floor = Math.floor;
   var random = Math.random;
   var pow2 = function (num) {
-    return Math.pow(num, 2)
-  }
+    return Math.pow(num, 2);
+  };
 
   /////////////////////////////////////////////////////////////////////////////////
   // Multiplayer
@@ -21,8 +21,7 @@ angular.module('multirun.controller', [])
   var stopFinish;
   var userNum;
   var oppNum;
-
-  // This if/else can be cleaned up 
+  // This if/else can be cleaned up
   // Determine whether current user is user1 or user2 in multiplayer game database instance
   if (session.username > session.competitor) {
     userNum = "user1";
@@ -33,53 +32,53 @@ angular.module('multirun.controller', [])
   }
 
   // Determines whether check or 'waiting' should be displayed to user
-  $scope.showCheck = function() {
+  $scope.showCheck = function () {
     return !$scope.waiting && !$scope.raceStarted;
-  }
+  };
 
   // Activated when user presses the check button
   // In multiplayer game database instance, the current user field is set to true (either "user1" or "user2", see above)
   // Continously check whether both user1 and user2 are ready/true
-  $scope.ready = function() {
+  $scope.ready = function () {
     $scope.waiting = true;
-    MultiGame.updateGame(session.gameId, userNum).then(function(game) {});
+    MultiGame.updateGame(session.gameId, userNum).then(function (game) {});
     stopCheck = $interval($scope.checkOppReady, 300);
-  }
+  };
 
   // check whether both user1 and user2 are ready/true
-  $scope.checkOppReady = function() {
+  $scope.checkOppReady = function () {
     MultiGame.getGame(session.gameId)
-      .then(function(game) {
+      .then(function (game) {
         if (game.user1 && game.user2) {
           $scope.startRun();
           $interval.cancel(stopCheck);
           stopFinish = $interval($scope.checkOppFinished, 1000);
         }
       });
-  }
+  };
 
   // check whether opponent has finished race
-  $scope.checkOppFinished = function() {
+  $scope.checkOppFinished = function () {
     MultiGame.getGame(session.gameId)
-      .then(function(game) {
+      .then(function (game) {
         if (game.won) {
           $scope.oppFinished = true;
           $interval.cancel(stopFinish);
         }
       });
-  }
+  };
   // End multiplayer block
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
 
 
-  var updateTotalRunTime = function() {
+  var updateTotalRunTime = function () {
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
   };
 
-  $scope.startRun = function() {
-    setTimeout(finishRun, Math.random()*12000); // simulate finishing run for manual testing
+  $scope.startRun = function () {
+    setTimeout(finishRun, Math.random() * 12000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -89,20 +88,23 @@ angular.module('multirun.controller', [])
     Run.setInitialMedalGoal($scope);
     document.getElementById('map').style.height = "93vh";
     document.getElementById('botNav').style.height = "7vh";
-  }
+  };
 
-  $scope.regenRace =  function() {
+  $scope.regenRace = function () {
     $route.reload();
   };
 
-  var makeInitialMap = function() {
+  var makeInitialMap = function () {
     console.log('make initial map');
-    Geo.makeInitialMap($scope, {lat: parseFloat(session.multiLat), lng: parseFloat(session.multiLng)});
+    Geo.makeInitialMap($scope, {
+      lat: parseFloat(session.multiLat),
+      lng: parseFloat(session.multiLng)
+    });
   };
 
   makeInitialMap();
 
-  var finishRun = function() {
+  var finishRun = function () {
     /////////////////////////////////////////////////////////////////////////////////////////
     // Multiplayer
     if ($scope.oppFinished) {
@@ -139,7 +141,7 @@ angular.module('multirun.controller', [])
       googleExpectedTime: null,
       actualTime: runTime,
       medalReceived: medal,
-      racedAgainst: null,
+      racedAgainst: null
     };
 
 
@@ -149,7 +151,7 @@ angular.module('multirun.controller', [])
     $location.path('/finish');
   };
 
-  var checkIfFinished = function() {
+  var checkIfFinished = function () {
     if ($scope.destination && $scope.userLocation) {
       var distRemaining = distBetween($scope.userLocation, $scope.destination);
       // Reduced radius for testing
@@ -159,11 +161,11 @@ angular.module('multirun.controller', [])
     }
   };
 
-  var distBetween = function(loc1, loc2) {
+  var distBetween = function (loc1, loc2) {
     return sqrt(pow2(loc1.lat - loc2.lat) + pow2(loc1.lng - loc2.lng));
-  }
+  };
 
-  var updateStatus = function() {
+  var updateStatus = function () {
     Geo.updateCurrentPosition($scope);
     updateTotalRunTime();
     Run.updateGoalTimes($scope);
@@ -172,7 +174,7 @@ angular.module('multirun.controller', [])
 
   // Stop geotracker upon canceling run
   // Does this make sure to stop tracking if they close the window? --> all scripts die when the browser is no longer interpreting them
-  $scope.$on('$destroy', function() {
+  $scope.$on('$destroy', function () {
     $interval.cancel(statusUpdateLoop);
   });
 });
