@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
 html, body {
   height: 100vh;
 }
@@ -25,18 +26,18 @@ html, body {
   height: 0%;
 }
 
-.ng-scope {
+/*.ng-scope {
   height: 100vh;
   overflow: hidden;
-}
+}*/
 
 .message {
   text-align: center;
 }
 
-nav {
+/*nav {
   background-color: black;
-}
+}*/
 
 .btn-floating.btn-large {
   width: 22em;
@@ -151,7 +152,7 @@ nav {
   display: inline-block;
   position: relative;
   margin-top: 1%;
-  height: 100%;
+  height: 50%;
   width: auto;
 }
 
@@ -195,9 +196,10 @@ nav {
 }
 
 .boltButton {
-  position: relative;
+  /*position: relative;*/
   top: 5vh;
   height: 55vh;
+  margin: 10vh 0;
   display: block;
 }
 
