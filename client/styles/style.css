@@ -130,15 +130,15 @@ html, body {
   display: block;
   width: 100%;
   height: 87vh;
+  margin-top: 10vh;
 }
 
 .medalContainerInner {
   display: block;
   color: white;
   height: 10vh;
-  width: 115px;
-  margin: 10vh auto;
-  font-size: 18pt;
+  margin: 0 auto 5vh auto;
+  font-size: 2em;
   vertical-align: middle;
 }
 
@@ -146,7 +146,7 @@ html, body {
   display: inline-block;
   position: relative;
   margin-top: 1%;
-  height: 50%;
+  height: 90%;
   width: auto;
 }
 
