@@ -278,7 +278,8 @@ angular.module('bolt.services', [])
   };
 
   var isAuth = function () {
-    return !!$window.localStorage.getItem('com.bolt');
+    return (!!$window.localStorage.getItem('com.bolt'))
+        && (!!$window.localStorage.getItem('username'));
   };
 
   var signout = function () {
