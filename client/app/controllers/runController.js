@@ -1,7 +1,7 @@
 angular.module('run.controller', [])
 
 .controller('RunController',
-  function ($scope, $timeout, $interval,
+  function ($scope, $timeout, $interval, $window,
             $location, $route, Geo, Run, Profile) {
 
   $scope.userLocation;
@@ -45,7 +45,7 @@ angular.module('run.controller', [])
   $interval(setRunMessage, random() * 1000, messages.length);
 
   $scope.startRun = function () {
-    // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
+    setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
@@ -101,11 +101,12 @@ angular.module('run.controller', [])
 
     Profile.getUser()
     .then(function (user) {
-      var achievements = user.data.achievements;
-      var previousRuns = user.data.runs;
+      var achievements = user.achievements;
+      var previousRuns = user.runs;
 
       //update achievments object
       achievements[medal] = achievements[medal] + 1;
+      $window.localStorage.setItem('achievements', JSON.stringify(achievements));
       //update runs object
       previousRuns.push(currentRunObject);
 
