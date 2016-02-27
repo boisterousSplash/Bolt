@@ -49,8 +49,7 @@ angular.module('multiload.controller', ['bolt.profile'])
         MultiGame.makeGame(id, user1, user2);
         session.gameId = id;
         session.competitor = key;
-        session.multiLat = destinationLat;
-        session.multiLng = destinationLng;
+        session.destination = JSON.stringify([destinationLat, destinationLng]);
         $location.path('multiGame');
         return;
       }

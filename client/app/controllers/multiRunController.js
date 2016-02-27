@@ -95,10 +95,9 @@ angular.module('multirun.controller', [])
   };
 
   var makeInitialMap = function () {
-    console.log('make initial map');
     Geo.makeInitialMap($scope, {
-      lat: parseFloat(session.multiLat),
-      lng: parseFloat(session.multiLng)
+      lat: parseFloat(JSON.parse(session.destination)[0]),
+      lng: parseFloat(JSON.parse(session.destination)[1])
     });
   };
 
@@ -145,7 +144,30 @@ angular.module('multirun.controller', [])
     };
 
 
-    // Need to add run data to profile
+    Profile.getUser()
+    .then(function (user) {
+      var achievements = user.achievements;
+      var previousRuns = user.runs;
+
+      //update achievments object
+      achievements[medal] = achievements[medal] + 1;
+      $window.localStorage.setItem('achievements', JSON.stringify(achievements));
+      //update runs object
+      previousRuns.push(currentRunObject);
+
+      updatedAchievementsData = {
+        achievements: achievements,
+        runs: previousRuns
+      };
+
+      Profile.updateUser(updatedAchievementsData, user)
+      .then(function (updatedProfile) {
+        return updatedProfile;
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+    });
 
     $interval.cancel(statusUpdateLoop);
     $location.path('/finish');

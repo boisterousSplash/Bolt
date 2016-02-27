@@ -1,7 +1,6 @@
 angular.module('bolt.services', [])
 
 .factory('Geo', function ($window) {
-  var session = $window.localStorage;
   var mainMap;
   var currentLocMarker;
   var destinationMarker;
@@ -19,6 +18,7 @@ angular.module('bolt.services', [])
         console.error(err);
       });
     var makeMap = function (currentLatLngObj, $scope) {
+      console.log('destination', destination);
       var destinationCoordinates = destination || randomCoordsAlongCircumference(currentLatLngObj, session.preferredDistance);
 
       mainMap = new google.maps.Map(document.getElementById('map'), {
