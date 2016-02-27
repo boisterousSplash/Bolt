@@ -1,6 +1,7 @@
 angular.module('bolt.services', [])
 
 .factory('Geo', function ($window) {
+  var session = $window.localStorage;
   var mainMap;
   var currentLocMarker;
   var destinationMarker;
