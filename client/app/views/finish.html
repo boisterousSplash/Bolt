@@ -1,6 +1,19 @@
+<nav>
+  <div class="nav-wrapper blue">
+    <a href="#/" class="brand-logo">Race Completed</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="#/profile" class="icon left">{{session.firstName}}</a></li>
+      <li><a href="#/achievements" class="icon right">Achievements</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="congrats">
-   <p>Congrats! Your run time: {{ runTime }}</p>
-   <p>You earned a {{ achievement !== 'High Five' ? achievement.toLowerCase() + " medal" : achievment.toLowerCase() }}!</p>
+   <p>Congrats!</p>
+   <p> Your run time: {{ runTime }}</p>
+   <p style="margin-top:5vh">Medal earned </p>
+   <img src="../assets/{{achievement.toLowerCase()}}.png" height="90px" width="auto" />
+   <!-- {{ achievement !== 'High Five' ? achievement.toLowerCase() + " medal" : achievment.toLowerCase() }}!</p> -->
 </div>
 <div id="botNav">
   <a href='#/bolt' class="botLink right"> Race again </a>

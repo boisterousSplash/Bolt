@@ -20,18 +20,14 @@ html, body {
   height: 0%;
 }
 
-/*.ng-scope {
-  height: 100vh;
+
+body{
   overflow: hidden;
-}*/
+}
 
 .message {
   text-align: center;
 }
-
-/*nav {
-  background-color: black;
-}*/
 
 .btn-floating.btn-large {
   width: 22em;
@@ -108,7 +104,8 @@ html, body {
 .congrats {
   position: relative;
   top: 30%;
-  color: green;
+  color: black;
+  margin-top: 5vh;
   text-align: center;
   font-size: 32pt;
 }
