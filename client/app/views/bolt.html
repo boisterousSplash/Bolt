@@ -1,37 +1,39 @@
-
-<!-- Profile Link -->
-<div id="topNav">
-  <a href="#/profile" class="icon left">
-    <i class="medium material-icons" style="color:white">perm_identity</i>
-  </a>
-
-  <!-- Achievements Link -->
-  <a href="#/achievements" class="icon right">
-    <img src="../assets/medal_icon.png" height="50" width="50" />
-  </a>
-</div>
-  Hi there{{session.firstName ? ", " + session.firstName : ""}}!
-  <!-- Run Distance Spinner -->
-  <!-- (does not exist yet) -->
+<nav>
+  <div class="nav-wrapper blue">
+    <a href="#/" class="brand-logo">Bolt</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="#/profile" class="icon left">{{session.firstName}}</a></li>
+      <li><a href="#/achievements" class="icon right">Achievements</a></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="boltButton">
   <a class="btn-floating btn-large waves-effect waves-light red lighten-1" ng-click="startRun()">
-    <img src="../assets/thunderbolt.png" width="40%" height="50%"/>
+    <img src="../assets/thunderbolt.png" width="40%" height="30%"/>
   </a>
 </div>
 
-<h2 style="text-align:center; height:10vh"> Bolt </h2>
 
 <div class="container">
   <!-- Radio input for solo, friends, public run -->
   <form class="form" id="runForm">
     <div class="switch-field">
-      <input type="radio" id="switch_3_left" name="switch_3" value="yes" checked/>
+      <input class="hidden-radio with-gap" type="radio" id="switch_3_left" name="switch_3" value="yes" checked/>
       <label for="switch_3_left">Solo</label>
-      <input type="radio" id="switch_3_center" name="switch_3" value="yes" />
+      <input class="hidden-radio with-gap" type="radio" id="switch_3_center" name="switch_3" value="yes" />
       <label for="switch_3_center">Friend</label>
-        <input type="radio" id="switch_3_right" name="switch_3" value="yes" />
+      <input class="hidden-radio with-gap" type="radio" id="switch_3_right" name="switch_3" value="yes" />
       <label for="switch_3_right">Public</label>
     </div>
   </form>
 </div>
+
+<footer class="page-footer hide-on-large-only white valign-wrapper">
+  <div class="container valign">
+    <h6>
+      <a class="waves-effect waves-light btn left" href="#/profile">Profile</a>
+      <a class="waves-effect waves-light btn right" href="#/achievements">Achievements</a>
+    </h6>
+  </div>
+</footer>

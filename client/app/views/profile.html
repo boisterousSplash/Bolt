@@ -1,51 +1,40 @@
-<div class="profile center-align">
-  <div>
-    
-    <div class="row">
-        <div class="input-field col s6" style="text-align:center">
-          <i class="material-icons prefix">account_circle</i>
-          <input disabled placeholder="{{session.firstName}}" ng-model="session.first" id="icon_prefix" type="text" class="validate">
-          <label class="active" for="icon_prefix">First</label>
-        </div>
-        <div class="input-field col s6">
-          <input disabled placeholder={{session.lastName}} ng-model="session.last" id="icon_prefix" type="text" class="validate">
-          <label class="active" for="icon_prefix">Last</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">email</i>
-          <input disabled placeholder={{session.email}} ng-model="session.email" id="icon_email" type="email" class="validate">
-          <label class="active" for="icon_email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">phone</i>
-          <input disabled placeholder="{{session.phone}}" ng-model="session.phone" id="icon_telephone" type="text" class="validate">
-          <label class="active" for="icon_telephone">Phone</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">trending_up</i>
-          <input disabled placeholder="{{session.preferredDistance}}" ng-model="session.distance" id="icon_trending" type="text">
-          <label class="active" for="icon_telephone">Preferred Distance</label>
-        </div>
-      </div>
+<nav>
+  <div class="nav-wrapper blue">
+    <a href="#/" class="brand-logo">Profile</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down right">
+      <li><a href="#/" class="icon left">Run</a></li>
+      <li><a href="#/achievements" class="icon right">Achievements</a></li>
+    </ul>
   </div>
-    <br>
-    <br>
-  <div class="center-align">
-    <span>
-      <a href="#/" class="waves-effect waves-light btn right-align">Back<a>
+</nav>
+
+<div class="container">
+  <ul class="collection">
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">account_circle</i>
+      <p class="valign">{{ session.firstName }} {{session.lastName}}</p>
+    </li>
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">email</i>
+      <p class="valign">{{ session.email }}</p>
+    </li>
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">phone</i>
+      <p class="valign">{{ session.phone }}</p>
+    </li>
+    <li class="collection-item valign-wrapper">
+      <i class="valign material-icons profile-icon">trending_up</i>
+      <p class="valign">{{ session.preferredDistance }} miles</p>
+    </li>
+  </ul>
+</div>
+
+<div class="container profile center-align">
+  <div class="buttonLayer">
+    <span><a href="#/" class="waves-effect waves-light btn">Run<a></span>
+    <span ng-click="navigate('/createProfile')"
+      class="waves-effect waves-light btn">Edit
     </span>
-    <span>
-      <a href="#/createProfile" class="waves-effect waves-light btn right-align">Edit Profile</a>
-    </span>
-  </div>
-  <br>
-  <div>
-    <a href="#/" class="waves-effect waves-light btn right-align" ng-click="signout()">Log Out</a>
+    <span><a href="#/" class="waves-effect waves-light btn" ng-click="signout()">Log Out</a></span>
   </div>
 </div>

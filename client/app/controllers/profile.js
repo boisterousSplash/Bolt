@@ -1,6 +1,6 @@
 angular.module('bolt.profile', ['bolt.auth'])
 
-.controller('ProfileController', function ($scope, $rootScope, $window, Auth, Profile) {
+.controller('ProfileController', function ($scope, $location, $rootScope, $window, Auth, Profile) {
   $scope.newInfo = {};
   $scope.session = window.localStorage;
 
@@ -9,6 +9,10 @@ angular.module('bolt.profile', ['bolt.auth'])
     .catch(function (err) {
       console.error(err);
     });
+  };
+
+  $scope.navigate = function (path) {
+    $location.path(path);
   };
 
   $scope.signout = function () {
