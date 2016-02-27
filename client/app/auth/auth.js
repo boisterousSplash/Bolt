@@ -31,7 +31,7 @@ angular.module('bolt.auth', [])
       })
       .catch(function (error) {
         $scope.errorDetected = true;
-        $scope.signupError = "Please enter both a username and a password";
+        $scope.signupError = "Invalid username or password";
       });
   };
 });
