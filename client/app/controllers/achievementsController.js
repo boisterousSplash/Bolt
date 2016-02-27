@@ -1,7 +1,6 @@
 angular.module('achievements.controller', [])
   .controller('AchievementsController', function ($scope, $window) {
     var session = $window.localStorage;
-    console.log('sesh ', session);
     var medals = JSON.parse(session.achievements);
     $scope.total = medals['Gold'] + medals['Silver'] + medals['Bronze'] + medals['High Five'];
     var medalCounts = [
@@ -10,9 +9,8 @@ angular.module('achievements.controller', [])
       medals['Bronze'].toString(),
       medals['High Five'].toString()
     ];
-    
+
     $scope.incrementCounts = function (width) {
-      console.log('increment');
       selection = d3.select('body')
         .selectAll('span.number')
         .data(medalCounts);
@@ -28,6 +26,7 @@ angular.module('achievements.controller', [])
     };
 
     setTimeout(function () {
-      $scope.incrementCounts();}, 500);
+      $scope.incrementCounts();
+      }, 500);
 
   });
