@@ -95,9 +95,10 @@ angular.module('multirun.controller', [])
   };
 
   var makeInitialMap = function () {
+    console.log('make initial map');
     Geo.makeInitialMap($scope, {
-      lat: parseFloat(JSON.parse(session.destination)[0]),
-      lng: parseFloat(JSON.parse(session.destination)[1])
+      lat: parseFloat(session.multiLat),
+      lng: parseFloat(session.multiLng)
     });
   };
 
