@@ -2,6 +2,7 @@ angular.module('multirun.controller', [])
 
 .controller('MultiRunController', function ($scope, $window, $timeout, $interval, $location, $route, Geo, Run, Profile, MultiGame) {
   var session = $window.localStorage;
+  var raceFinished = false;
   $scope.userLocation;
   $scope.destination;
 
@@ -52,7 +53,7 @@ angular.module('multirun.controller', [])
         if (game.user1 && game.user2) {
           $scope.startRun();
           $interval.cancel(stopCheck);
-          stopFinish = $interval($scope.checkOppFinished, 1000);
+          stopFinish = $interval($scope.checkOppFinished, 2000);
         }
       });
   };
@@ -95,7 +96,6 @@ angular.module('multirun.controller', [])
   };
 
   var makeInitialMap = function () {
-    console.log('make initial map');
     Geo.makeInitialMap($scope, {
       lat: parseFloat(session.multiLat),
       lng: parseFloat(session.multiLng)
@@ -169,7 +169,6 @@ angular.module('multirun.controller', [])
         console.error(err);
       });
     });
-
     $interval.cancel(statusUpdateLoop);
     $location.path('/finish');
   };
@@ -178,7 +177,8 @@ angular.module('multirun.controller', [])
     if ($scope.destination && $scope.userLocation) {
       var distRemaining = distBetween($scope.userLocation, $scope.destination);
       // Reduced radius for testing
-      if (distRemaining < 0.0002) {
+      if (distRemaining < 0.0002 && !raceFinished) {
+        raceFinished = true;
         finishRun();
       }
     }

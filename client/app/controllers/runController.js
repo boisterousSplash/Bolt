@@ -45,7 +45,7 @@ angular.module('run.controller', [])
   $interval(setRunMessage, random() * 1000, messages.length);
 
   $scope.startRun = function () {
-    setTimeout(finishRun, 4000); // simulate finishing run for manual testing
+    // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
