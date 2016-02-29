@@ -59,9 +59,10 @@ angular.module('bolt.services', [])
         totalDistance = parseFloat(totalDistance);
         $scope.totalDistance = totalDistance;
         var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
-        var hours = userMinPerMile * totalDistance / 60;
+        var hours = Math.floor(userMinPerMile * totalDistance / 60);
         var minutes = userMinPerMile * totalDistance;
         var seconds = minutes * 60;
+        $scope.hasHours = hours > 0;
         $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9).hour(hours * 0.9);
         $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0).hour(hours * 1.0);
         $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1).hour(hours * 1.1);
