@@ -27,6 +27,7 @@ angular.module('bolt.auth', [])
     Auth.signup($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.bolt', token);
+        $window.localStorage.setItem('username', $scope.user.username);
         $location.path('/createProfile');
       })
       .catch(function (error) {
