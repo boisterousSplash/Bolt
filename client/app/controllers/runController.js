@@ -72,7 +72,7 @@ angular.module('run.controller', [])
   // Could we refactor to cover all three medals with one medalTime object?
 
   var finishRun = function () {
-    $scope.$parent.runTime = runTime.format('hh:mm:ss');
+    $scope.$parent.runTime = runTime.format('mm:ss');
     var medal = $scope.$parent.achievement = $scope.currentMedal;
 
     var date = new Date();
