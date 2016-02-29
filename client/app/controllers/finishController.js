@@ -3,5 +3,4 @@ angular.module('finish.controller', [])
     $scope.raceAgain = function () {
       $route.reload('/bolt');
     };
-    document.getElementById('botNav').style.height = "7vh";
 });
