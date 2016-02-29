@@ -22,7 +22,7 @@ describe('RunController', function () {
 
     $scope = $rootScope.$new();
 
-    // used to create our AuthController for testing
+    // used to create our RunController for testing
     createController = function () {
       return $controller('RunController', {
         $scope: $scope,
@@ -49,4 +49,12 @@ describe('RunController', function () {
     expect($scope.regenRace).to.be.a('function');
   });
  
+  it('$scope.goldTime, $scope.silverTime, and $scope.bronzeTime should be defined', function() {
+    setTimeout(function() {
+      expect($scope.goldTime).to.exist;
+      expect($scope.silverTime).to.exist;
+      expect($scope.bronzeTime).to.exist;
+    }, 1500);
+  });
+
 });

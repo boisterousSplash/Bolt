@@ -26,7 +26,8 @@ module.exports = function (config) {
       // our spec files - in order of the README
       'specs/client/authControllerSpec.js',
       'specs/client/routingSpec.js',
-      'specs/client/runControllerSpec.js'
+      'specs/client/runControllerSpec.js',
+      'specs/client/boltControllerSpec.js'
     ],
 
     // test results reporter to use
