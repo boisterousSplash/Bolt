@@ -5,9 +5,9 @@ Find running partners with the click of a button. Race yourself, race your frien
 
 ## Team
 
-  - __Product Owner__: Shane McGraw (Cheetah)
-  - __Scrum Master__: Elliot Plant (Tiger)
-  - __Development Team Members__: Kyle Corbelli (Panther), Erick Paepke (Lynx)
+  - __Product Owner__: Shane McGraw
+  - __Scrum Master__: Elliot Plant
+  - __Development Team Members__: Kyle Corbelli, Erick Paepke
 
 ## Table of Contents
 
