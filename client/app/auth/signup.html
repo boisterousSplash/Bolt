@@ -1,9 +1,9 @@
-<div id='signup' class="container">
+<div id='signup' class="grey darken-3 container">
   <h1>Join</h1>
   <form name="signupForm" ng-submit='signup()'>
-    <input type='text' ng-model='user.username' placeholder="username">
-    <input type="password" ng-model='user.password' placeholder="password">
-    <button class="waves-effect waves-light btn">Join</button>
+    <input type='text' ng-model='user.username' class="grey darken-3" placeholder="username">
+    <input type="password" ng-model='user.password' class="grey darken-3" placeholder="password">
+    <button class="waves-effect waves-light grey darken-3 btn">Join</button>
   </form><br>
   <div class="card-panel red lighten-3" ng-show="errorDetected">{{signupError}}</div>
   <a href="#/signin">Already have an account?<strong> Signin!</strong></a>
