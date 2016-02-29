@@ -49,16 +49,23 @@ angular.module('bolt.services', [])
         directionsRenderer.setDirections(response);
         var totalDistance = 0;
         for (var i = 0; i < response.routes[0].legs.length; i++) {
-          totalDistance += response.routes[0].legs[i].distance.text;
+          var distance = response.routes[0].legs[i].distance.text;
+          if (distance.substring(distance.length - 2) === "ft") {
+            distance = (distance.substring(0, distance.length - 3) / 5280).toString().substring(0, 3) + " mi";
+          }
+          totalDistance += distance;
         }
-        totalDistance = parseFloat(totalDistance);
+        console.log('tot distance .... ', totalDistance);
+        totalDistance = parseFloat(totalDistance) || 0.1; // If run distance is small display 0.1 miles
         $scope.totalDistance = totalDistance;
         var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
+        var hours = Math.floor(userMinPerMile * totalDistance / 60);
         var minutes = userMinPerMile * totalDistance;
         var seconds = minutes * 60;
-        $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9);
-        $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0);
-        $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1);
+        $scope.hasHours = hours > 0;
+        $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9).hour(hours * 0.9);
+        $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0).hour(hours * 1.0);
+        $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1).hour(hours * 1.1);
         $scope.$digest();
       });
     };

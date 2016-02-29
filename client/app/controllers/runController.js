@@ -6,6 +6,7 @@ angular.module('run.controller', [])
 
   $scope.userLocation;
   $scope.destination;
+  $scope.hasHours = true;
 
   var startTime;
   var runTime;

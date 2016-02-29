@@ -3,8 +3,11 @@ angular.module('multirun.controller', [])
 .controller('MultiRunController', function ($scope, $window, $timeout, $interval, $location, $route, Geo, Run, Profile, MultiGame) {
   var session = $window.localStorage;
   var raceFinished = false;
+  document.getElementById('map').style.height = "66vh";
+  document.getElementById('botNav').style.height = "34vh";
   $scope.userLocation;
   $scope.destination;
+  $scope.competitor = session.competitor;
 
   // Math functions
   var sqrt = Math.sqrt;
@@ -87,8 +90,8 @@ angular.module('multirun.controller', [])
     // same goes for silver, bronze Times --> these get defined in services.js when we initialize the map
     Run.setPointsInTime($scope);
     Run.setInitialMedalGoal($scope);
-    document.getElementById('map').style.height = "93vh";
-    document.getElementById('botNav').style.height = "7vh";
+    document.getElementById('map').style.height = "89vh";
+    document.getElementById('botNav').style.height = "11vh";
   };
 
   $scope.regenRace = function () {
