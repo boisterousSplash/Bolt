@@ -1,8 +1,11 @@
+// This controller is tied to achievements.html
 angular.module('achievements.controller', [])
   .controller('AchievementsController', function ($scope, $window) {
     var session = $window.localStorage;
     var medals = JSON.parse(session.achievements);
     $scope.total = medals['Gold'] + medals['Silver'] + medals['Bronze'] + medals['High Five'];
+
+    // Use numeric strings for medal counts to display in d3
     var medalCounts = [
       medals['Gold'].toString(),
       medals['Silver'].toString(),
@@ -10,6 +13,7 @@ angular.module('achievements.controller', [])
       medals['High Five'].toString()
     ];
 
+    // Animates display of medal counts
     $scope.incrementCounts = function (width) {
       selection = d3.select('body')
         .selectAll('span.number')
