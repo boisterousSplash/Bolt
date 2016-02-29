@@ -23,7 +23,7 @@ Find running partners with the click of a button. Race yourself, race your frien
 
 Users can find running partners with a click of a button. The app will find a random place for the user to run and give them a goal time for them to try for. If the user wants added incentive, the app will find her a running partner nearby and start them both off in a race towards a common finish line.
 
-For a visual map of how users can navigate through the app, take a look at the [storyboard diagram](storyboard/storyboard.pdf)
+For a visual map of how users can navigate through the app, take a look at the [storyboard diagram](Storyboard/storyboard.pdf)
 ## Requirements
 
 - Node 3.5.3+
