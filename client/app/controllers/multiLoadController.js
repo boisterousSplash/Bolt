@@ -39,10 +39,6 @@ angular.module('multiload.controller', ['bolt.profile'])
         var destinationLat = (userPosition.coords.latitude + location[0]) / 2;
         var destinationLng = (userPosition.coords.longitude + location[1]) / 2;
 
-        console.log("found match, stop search");
-        console.log("user id of new user", key);
-        console.log("id of current user", session.username);
-
         geoFire.remove(key).then(function () {});
         $interval.cancel(stop);
         geoQuery.cancel();

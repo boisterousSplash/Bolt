@@ -1,22 +1,21 @@
 angular.module('achievements.controller', [])
-  .controller('AchievementsController', function ($scope) {
-
-    $scope.gold = 15; // Place holder for user-specific data
-    $scope.silver = 13; // Place holder for user-specific data
-    $scope.bronze = 5; // Place holder for user-specific data
-
+  .controller('AchievementsController', function ($scope, $window) {
+    var session = $window.localStorage;
+    var medals = JSON.parse(session.achievements);
+    $scope.total = medals['Gold'] + medals['Silver'] + medals['Bronze'] + medals['High Five'];
     var medalCounts = [
-      $scope.gold.toString(),
-      $scope.silver.toString(),
-      $scope.bronze.toString()
+      medals['Gold'].toString(),
+      medals['Silver'].toString(),
+      medals['Bronze'].toString(),
+      medals['High Five'].toString()
     ];
 
     $scope.incrementCounts = function (width) {
-      selection = d3.select("body")
-        .selectAll("span.number")
+      selection = d3.select('body')
+        .selectAll('span.number')
         .data(medalCounts);
       selection.transition()
-      .tween("html", function (d) {
+      .tween('html', function (d) {
         var i = d3.interpolate(this.textContent, d);
         return function (t) {
           this.textContent = Math.round(i(t));
@@ -26,6 +25,8 @@ angular.module('achievements.controller', [])
       .style('width', width + 'px');
     };
 
-    $scope.incrementCounts();
+    setTimeout(function () {
+      $scope.incrementCounts();
+      }, 500);
 
   });
