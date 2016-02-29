@@ -56,7 +56,7 @@ angular.module('bolt.services', [])
           totalDistance += distance;
         }
         console.log('tot distance .... ', totalDistance);
-        totalDistance = parseFloat(totalDistance) || 0.1;
+        totalDistance = parseFloat(totalDistance) || 0.1; // If run distance is small display 0.1 miles
         $scope.totalDistance = totalDistance;
         var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
         var hours = Math.floor(userMinPerMile * totalDistance / 60);

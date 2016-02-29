@@ -49,7 +49,8 @@
 </div>
 </div>
   <div id="botNav">
-    <div class ="medalTimes" ng-show="!raceStarted">{{ totalDistance ? "Total Distance: " + totalDistance + " miles": "" }} </div>
+    <div class ="medalTimes" style="font-size:14pt; text-align:left; text-indent:4px; height:4vh"> Racing against: {{ competitor }} </div>
+    <div class ="medalTimes" ng-show="!raceStarted"> {{ totalDistance ? "Total Distance: " + totalDistance + " miles": "" }} </div>
     <div class ="medalTimes" ng-show="!raceStarted">{{ bronzeTime ? "Bronze: " + bronzeTime.format('mm:ss') : ""}}</div>
     <div class ="medalTimes" ng-show="!raceStarted">{{ silverTime ? "Silver: " + silverTime.format('mm:ss') : "" }}</div>
     <div class ="medalTimes" ng-show="!raceStarted">{{ goldTime ? "Gold: " + goldTime.format('mm:ss') : "" }}</div>
