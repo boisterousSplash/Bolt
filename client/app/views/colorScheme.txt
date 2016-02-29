@@ -1,0 +1,8 @@
+#fff176 yellow lighten-2
+#e0e0e0 grey lighten-2
+#424242 grey darken-3
+
+#00e676 green accent-3
+#4caf50 green
+
+#448aff blue accent-2
