@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bolt</title>
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/bolt.ico">
+
     <!-- Angular Materialize Styles -->
     <!-- http://materializecss.com/ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
@@ -20,34 +23,42 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIOAllvDFbkAixfnuS9TaC4Cep3rCpRAk"></script>
 
     <!-- Moment date/time library -->
-    <script src="/lib/moment/min/moment.min.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+
+    <!-- d3 -->
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <!-- RSVP -->
+    <script src="lib/rsvp.js/rsvp.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
+
+    <!-- GeoFire -->
+    <script src="https://cdn.firebase.com/libs/geofire/2.0.0/geofire.min.js"></script>
   </head>
 
-  <body ng-controller="BoltController">
 
-
-    <!-- Top Bar -->
-    <!-- Probably unnecessary on mobile -->
-    <nav>
-        <div class="nav-wrapper blue darken-1">
-          <a class="brand-logo center">Bolt</a>
-        </div>
-    </nav>
-
+  <!-- <body>  ng-controller="BoltController"> -->
+  <body>
     <!-- ng-view holds all subviews for SPA -->
     <div ng-view></div>
-<!--     <div id="map"></div> -->
 
     <!-- Angular requirements -->
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <!-- <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script> -->
 
     <!-- Angular servicies -->
     <script src="app/controllers/boltController.js"></script>
     <script src="app/controllers/runController.js"></script>
+    <script src="app/controllers/finishController.js"></script>
     <script src="app/controllers/profile.js"></script>
-    <script src="app/controllers/multiController.js"></script>
+    <script src="app/controllers/multiLoadController.js"></script>
+    <script src="app/controllers/multiRunController.js"></script>
     <script src="app/controllers/createProfileController.js"></script>
+    <script src="app/controllers/achievementsController.js"></script>
     <script src="app/auth/auth.js"></script>
     <script src="app/services/services.js"></script>
     <script src="app/app.js"></script>

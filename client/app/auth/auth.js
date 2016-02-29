@@ -5,12 +5,21 @@ angular.module('bolt.auth', [])
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.bolt', token);
-        $location.path('/links');
+      .then(function (session) {
+        $window.localStorage.setItem('com.bolt', session.token);
+        $window.localStorage.setItem('username', session.username);
+        $window.localStorage.setItem('firstName', session.firstName);
+        $window.localStorage.setItem('lastName', session.lastName);
+        $window.localStorage.setItem('phone', session.phone);
+        $window.localStorage.setItem('email', session.email);
+        $window.localStorage.setItem('preferredDistance', session.preferredDistance);
+        $window.localStorage.setItem('runs', session.runs);
+        $window.localStorage.setItem('achievements', session.achievements);
+        $location.path('/');
       })
       .catch(function (error) {
-        console.error(error);
+        $scope.errorDetected = true;
+        $scope.signinError = "Hmm... we can't seem to find that username in our DB. Could it be another?";
       });
   };
 
@@ -18,13 +27,11 @@ angular.module('bolt.auth', [])
     Auth.signup($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.bolt', token);
-        $location.path('/');
+        $location.path('/createProfile');
       })
       .catch(function (error) {
-        console.error(error);
+        $scope.errorDetected = true;
+        $scope.signupError = "Invalid username or password";
       });
   };
-
-
-
 });

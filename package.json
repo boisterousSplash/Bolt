@@ -5,7 +5,10 @@
   "author": "Boisterous Splash",
   "main": "server/server.js",
   "scripts": {
-    "postinstall": "bower install"
+    "test": "gulp karma",
+    "start": "gulp",
+    "lint": "jscs ./",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "contributors": [
     "Shane McGraw",
@@ -13,6 +16,7 @@
     "Kyle Corbelli",
     "Erick Paepke"
   ],
+  "pre-commit": "lint",
   "repository": {
     "type": "git",
     "url": "http://github.com/hackreactor-labs/sprint.bolt-angular.git"
@@ -20,12 +24,14 @@
   "bugs": {
     "url": "https://github.com/hackreactor-labs/sprint.bolt-angular/issues"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
     "browser-sync": "^1.5.7",
     "chai": "^3.4.1",
     "clone-stats": "0.0.1",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-plugin-standard": "^1.3.2",
     "gulp": "^3.8.5",
     "gulp-nodemon": "^1.0.4",
     "gulp-shell": "^0.2.7",
@@ -37,6 +43,7 @@
     "karma-sinon": "^1.0.4",
     "karma-unicorn-reporter": "^0.1.4",
     "mocha": "^2.3.4",
+    "nodemon": "^1.9.0",
     "pre-commit": "^1.1.1",
     "sinon": "^1.17.2"
   },

@@ -1,5 +1,20 @@
-<div class="congrats"> Congrats! Your run time: {{ time }} </div>
-<div class="botNav">
-  <a href='#/bolt' class="botLink right"> Race again </a>
-  <a href='#/profile' class="botLink left"> Profile </a>
+<nav>
+  <div class="nav-wrapper blue">
+    <a href="#/" class="brand-logo">Race Completed</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="#/profile" class="icon left">{{session.firstName}}</a></li>
+      <li><a href="#/achievements" class="icon right">Achievements</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="congrats">
+   <p>Congrats!</p>
+   <p> Your run time: {{ runTime }}</p>
+   <p style="margin-top:5vh">Medal earned </p>
+   <img src="../assets/{{achievement.toLowerCase()}}.png" height="90px" width="auto" />
+</div>
+<br><br><br><br>
+<div class="container profile center-align">
+  <span><a href="#/" class="waves-effect waves-light btn">Home<a></span>
 </div>

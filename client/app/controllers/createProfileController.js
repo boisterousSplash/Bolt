@@ -1,20 +1,36 @@
-angular.module('bolt.createProfile', [])
+angular.module('bolt.createProfile', ['bolt.auth'])
 
-.controller('CreateProfileController', function($scope, Profile) {
-  $scope.createProfile = function(first, last, email, phone, distance) {
-    console.log(arguments);
-    var newData = {
-      first: first,
-      last: last,
-      email: email,
-      phone: phone,
-      distancePreference: distance
+.controller('CreateProfileController', function ($location, $scope, Profile, $window, Auth) {
+  $scope.inputData = {};
+  $scope.createProfile = function (inputData) { //first, last, email, phone, distance) {
+    $location.path('/profile');
+    newData = {
+      firstName: $scope.session.firstName,
+      lastName: $scope.session.lastName,
+      email: $scope.session.email,
+      phone: $scope.session.phone,
+      preferredDistance: $scope.session.preferredDistance
     };
 
-    Profile.getUser()
-    .then(function(currentUser) {
-      Profile.updateUser(newData, currentUser);
-    });
+    for (var key in inputData) {
+      if (inputData.hasOwnProperty(key) && inputData[key]) {
+        newData[key] = inputData[key];
+        $window.localStorage.setItem(key, inputData[key]);
+      }
+    }
 
+    Profile.getUser()
+    .then(function (currentUser) {
+      Profile.updateUser(newData, currentUser)
+      .catch(function (err) {
+        console.error(err);
+      });
+    });
   };
-})
+
+  $scope.session = window.localStorage;
+
+  $scope.signout = function () {
+    Auth.signout();
+  };
+});

@@ -5,32 +5,47 @@ var SALT_WORK_FACTOR = 10;
 
 
 var UserSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
   salt: String,
-
-  firstName: { type: String, default: "Speedee" },
-  lastName: { type: String, default: "Gonzales" },
+  firstName: {
+    type: String,
+    default: "Speedee"
+  },
+  lastName: {
+    type: String,
+    default: "Gonzales"
+  },
   email: String,
-  phone: String,
-  preferedDistance: Number,
-  mileSpeed: { type: Number, default: 10 }, // in min/mile
-  runs: Array
-  // holds run objects, format should be {
-  //   date: Date,
-  //   startLocation: {
-  //     longitude: String,
-  //     latitude: String
-  //   },
-  //   endLocation: {
-  //     longitude: String,
-  //     latitude: String
-  //   },
-  //   googleExpectedTime: Number,
-  //   actualTime: Number,
-  //   medalRecieved: String,
-  //   racedAgainst: ObjectID? String?
-  // }
+  phone: Number,
+  preferredDistance: Number,
+  mileSpeed: {
+    type: Number,  // in min/mile
+    default: 10
+  },
+  runs: {
+    type: Array,
+    default: []
+  },
+
+  personalBest: Number, // Personal best in min/mile
+  achievements: {
+    type: Object,
+    default: { // Object of all lifetime medals received
+      Gold: 0,
+      Silver: 0,
+      Bronze: 0,
+      'High Five': 0,
+      Iron: 0 //experimental
+    }
+  }
 });
 
 UserSchema.methods.comparePasswords = function (candidatePassword) {

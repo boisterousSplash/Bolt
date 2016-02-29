@@ -2,24 +2,31 @@
   margin: 0;
   padding: 0;
 }
+
 html, body {
-  height: 100%;
+  height: 100vh;
 }
+
 #map {
-  height: 100%;
+  display: block;
+  top: 0%;
+  height: 70vh;
   width: 100%;
 }
 
-.ng-scope {
-  height: 100%;
+#run {
+  display: block;
+  bottom: 0%;
+  height: 0%;
+}
+
+
+body{
+  overflow: hidden;
 }
 
 .message {
   text-align: center;
-}
-
-nav {
-  background-color: black;
 }
 
 .btn-floating.btn-large {
@@ -35,11 +42,29 @@ nav {
   font-size: 6em;
 }
 
-.botNav {
+
+#botNav {
   position: absolute;
+  height: 30vh;
+  width: 100%;
   bottom: 0;
-  left: 0;
-  top: 92%;
+  background-color: black;
+  text-align: center;
+}
+
+#topNav {
+  position: relative;
+  display: block;
+  height: 10vh;
+  width: 100%;
+  top: 0;
+  background-color: black;
+}
+
+.botNavAchievements {
+  position: absolute;
+  height: 5vh;
+  bottom: -1px;
   width: 100%;
   background-color: black;
   text-align: center;
@@ -48,25 +73,199 @@ nav {
 .botLink {
   display: inline-block;
   color: white;
-  font-size: 24pt;
+  font-size: 20pt;
+}
+
+.medalTimes {
+  background-color: black;
+  color: white;
+  font-size: 18pt;
+  display: block;
+  height: 6vh;
+  margin-top: auto;
 }
 
 .left {
   position: relative;
   float: left;
-  left: 1%;
+  left: 2%;
 }
 
 .right {
-  position: absolute;
+  position: relative;
   float: right;
-  right: 1%;
+  right: 2%;
+}
+
+.start-race {
+  cursor: pointer;
 }
 
 .congrats {
   position: relative;
   top: 30%;
-  color: green;
+  color: black;
+  margin-top: 5vh;
   text-align: center;
   font-size: 32pt;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.banner {
+  background-color: #088da5;
+  height: 8vh;
+  text-align: center;
+  padding-top: 1vh;
+  color: white;
+  font-size: 2em;
+}
+
+.medalContainerOuter {
+  display: block;
+  width: 100%;
+  height: 87vh;
+  margin-top: 5vh;
+}
+
+.medalContainerInner {
+  display: block;
+  color: white;
+  height: 10vh;
+  margin: 0 auto 4vh auto;
+  font-size: 2em;
+  vertical-align: middle;
+}
+
+.icon {
+  display: inline-block;
+  position: relative;
+  margin-top: 1%;
+  height: 90%;
+  width: auto;
+}
+
+.number {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  bottom: 30%;
+  margin: 0 auto;
+  font-size: 1em;
+  color: black;
+}
+
+.medals {
+  position: relative;
+  display: inline-block;
+  height: 5vh;
+  width: auto;
+  top: 1vh;
+  margin-left: 1vh;
+}
+
+.total {
+  font-size: 2em;
+  color: black;
+  text-align: center;
+}
+
+.buttonContainer {
+  margin-top: 10vh;
+  width: 100%;
+  height: 50vh;
+}
+
+.center {
+  /*display: inline-block;*/
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.boltButton {
+  /*position: relative;*/
+  top: 5vh;
+  height: 55vh;
+  margin: 5vh 0 10vh 0;
+  display: block;
+}
+
+/* Toggle run option*/
+.switch-field {
+  /*font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;*/
+  padding: 0;
+  overflow: hidden;
+}
+
+.switch-field input {
+  visibility: hidden;
+}
+
+.switch-field label {
+  float: left;
+}
+
+.switch-field label {
+  display: inline-block;
+  width: 33%;
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  text-shadow: none;
+  padding: 0 14px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition:    all 0.1s ease-in-out;
+  -ms-transition:     all 0.1s ease-in-out;
+  -o-transition:      all 0.1s ease-in-out;
+  transition:         all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+  cursor: pointer;
+}
+
+.switch-field input:checked + label {
+  background-color: #CC3333;
+  color: #FFF;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+  border-radius: 0 4px 4px 0;
+}
+
+.profile-icon {
+  margin: 0 10vh 0 2vh;
+}
+
+.buttonLayer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hidden-radio {
+  visibility: hidden;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    border: 2px solid white;
+    background-color: white;
+  }
+
+[type="radio"].with-gap:checked+label:before {
+    border: 2px solid white;
 }

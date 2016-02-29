@@ -1,31 +1,22 @@
 angular.module('bolt.profile', ['bolt.auth'])
 
-.controller('ProfileController', function ($scope, Auth, Profile) {
-  $scope.user = {};
+.controller('ProfileController', function ($scope, $location, $rootScope, $window, Auth, Profile) {
   $scope.newInfo = {};
+  $scope.session = window.localStorage;
+
   var getUserInfo = function () {
     Profile.getUser()
-    .then(function (user) {
-      $scope.user = user;
+    .catch(function (err) {
+      console.error(err);
     });
+  };
+
+  $scope.navigate = function (path) {
+    $location.path(path);
   };
 
   $scope.signout = function () {
     Auth.signout();
-  };
-
-  $scope.update = function () {
-    var newProperties = {};
-    for (var property in $scope.newInfo) {
-      newProperties[property] = $scope.newInfo[property];
-      $scope.newInfo[property] = '';
-    }
-
-    Profile.updateUser(newProperties, $scope.user.username)
-      .then( function(user) {
-        $scope.user = user;
-        getUserInfo();
-      });
   };
 
   getUserInfo();

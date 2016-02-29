@@ -1,0 +1,35 @@
+<nav>
+  <div class="nav-wrapper blue">
+    <a href="#/" class="brand-logo">Achievements</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="#/profile" class="icon left">{{session.firstName}}</a></li>
+      <li><a href="#/" class="icon right">Run</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Could implement ng-repeat here -->
+<div class="medalContainerOuter center-align">
+  <div class="medalContainerInner">
+    <img src="../assets/gold.png" class="icon" />
+    <div class="count number"> &nbsp; x &nbsp; <span class="number">0</span></div>
+  </div>
+  <div class="medalContainerInner">
+    <img src="../assets/silver.png" class="icon" />
+    <div class="count number"> &nbsp; x &nbsp; <span class="number">0</span></div>
+  </div>
+  <div class="medalContainerInner">
+    <img src="../assets/bronze.png" class="icon" />
+    <div class="count number"> &nbsp; x &nbsp; <span class="number">0</span></div>
+  </div>
+  <div class="medalContainerInner">
+    <img src="../assets/high five.png" class="icon" />
+    <div class="count number"> &nbsp; x &nbsp; <span class="number">0</span></div>
+  </div>
+  <div class="total"> Total Runs: {{ total }} </div>
+  <br>
+  <br>
+  <div class="container profile center-align">
+    <span><a href="#/" class="waves-effect waves-light btn">Home<a></span>
+  </div>
+</div>

@@ -1,10 +1,64 @@
-<div id="map"></div>
+<div id="map">
+<div ng-hide="raceStarted" class="container">
+  <br>
+  <div class="message">{{runMessage}}</div>
+  <div class="center" style="top:10vh">
+   <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
 
-<div id='run' class="container">
-  <div class="botNav">
-    <a class="botLink left" href="#/" ng-click="stopGeoUpdater()"> Cancel </a>
-    <div class ="botLink" ng-click="startRun()" ng-show="!raceStarted"> Ready? </div>
-    <div class="botLink" ng-show="raceStarted"> Start! </div>
-    <div class="botLink right" ng-show="raceStarted"> {{ time }} <div>
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+</div>
+  <div id="botNav">
+    <div class ="medalTimes" ng-show="!raceStarted">{{ totalDistance ? "Total Distance: " + totalDistance + " miles": "" }} </div>
+    <div class ="medalTimes" ng-show="!raceStarted">{{ bronzeTime ? "Bronze: " + bronzeTime.format('mm:ss') : ""}}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">{{ silverTime ? "Silver: " + silverTime.format('mm:ss') : "" }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted">{{ goldTime ? "Gold: " + goldTime.format('mm:ss') : "" }}</div>
+    <div class ="medalTimes" ng-show="raceStarted">
+      <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} <img src="../assets/{{ currentMedal.toLowerCase() }}.png" class="medals"/> </div>
+      <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
+    </div>
+    <div class ="medalTimes">
+      <a class="botLink left" href="#/" ng-show="!raceStarted"> x </a>
+      <div class="botLink clickable" ng-show="!raceStarted" ng-click="regenRace()"> <i class="small material-icons">replay</i> </div>
+      <div class="botLink right clickable" ng-show="!raceStarted" ng-click="startRun()"> <i class="small material-icons">done</i> </div>
+    </div>
+  </div>

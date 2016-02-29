@@ -1,0 +1,32 @@
+angular.module('achievements.controller', [])
+  .controller('AchievementsController', function ($scope, $window) {
+    var session = $window.localStorage;
+    var medals = JSON.parse(session.achievements);
+    $scope.total = medals['Gold'] + medals['Silver'] + medals['Bronze'] + medals['High Five'];
+    var medalCounts = [
+      medals['Gold'].toString(),
+      medals['Silver'].toString(),
+      medals['Bronze'].toString(),
+      medals['High Five'].toString()
+    ];
+
+    $scope.incrementCounts = function (width) {
+      selection = d3.select('body')
+        .selectAll('span.number')
+        .data(medalCounts);
+      selection.transition()
+      .tween('html', function (d) {
+        var i = d3.interpolate(this.textContent, d);
+        return function (t) {
+          this.textContent = Math.round(i(t));
+        };
+      })
+      .duration(1500)
+      .style('width', width + 'px');
+    };
+
+    setTimeout(function () {
+      $scope.incrementCounts();
+      }, 500);
+
+  });

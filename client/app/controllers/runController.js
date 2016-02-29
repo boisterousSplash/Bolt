@@ -1,63 +1,156 @@
 angular.module('run.controller', [])
 
-.controller('RunController', function($scope, $timeout, $location, Geo){
-  $scope.raceStarted = 0;
-  $scope.startTime;
+.controller('RunController',
+  function ($scope, $timeout, $interval, $window,
+            $location, $route, Geo, Run, Profile) {
+
   $scope.userLocation;
   $scope.destination;
 
-  var tick = function() {
-    $scope.time = Math.floor((Date.now() - $scope.startTime)/1000);
-    $timeout(tick, 100)
-  }
+  var startTime;
+  var runTime;
+  var statusUpdateLoop;
+  var startLat;
+  var startLong;
+  var FINISH_RADIUS = 0.0002; // miles?
 
-  $scope.startRun = function() {
-    $scope.startTime = Date.now();
+  // Math functions
+  var sqrt = Math.sqrt;
+  var floor = Math.floor;
+  var random = Math.random;
+  var pow2 = function (num) {
+    return Math.pow(num, 2);
+  };
+
+
+  var updateTotalRunTime = function () {
+    var secondsRan = moment().diff(startTime, 'seconds');
+    runTime = moment().minute(0).second(secondsRan);
+  };
+
+  //set a waiting message for the user while Google maps loads...
+
+  var messages = [
+    "Finding the best route for you",
+    "Scanning the streets",
+    "Charging runtime engine",
+    "Looking into the eye of the tiger"
+  ];
+
+  var setRunMessage = function () {
+    $scope.runMessage = messages[floor(random() * messages.length)] + "...";
+  };
+
+  //rinse and repeat...
+  $interval(setRunMessage, random() * 1000, messages.length);
+
+  $scope.startRun = function () {
+    // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
+    startTime = moment();
     $scope.raceStarted = true;
-    tick();
-  }
+    statusUpdateLoop = $interval(updateStatus, 100);
+    // $scope.goldTime is not declared in this controller. Where do we define it?
+    // same goes for silver, bronze Times --> these get defined in services.js when we initialize the map
+    Run.setPointsInTime($scope);
+    Run.setInitialMedalGoal($scope);
+    document.getElementById('map').style.height = "93vh";
+    document.getElementById('botNav').style.height = "7vh";
+  };
 
-  // $scope.getCurrentCoords = function() {
-  //   console.log('ran');
-  //   Geo.getCurrentCoords(function(coordsObj) {
-  //     $scope.currentCoords = coordsObj;
-  //     console.log('$scope.currentCoords.lat: ', $scope.currentCoords.lat);
-  //     console.log('$scope.currentCoords.lng: ', $scope.currentCoords.lng);
-  //   });
-  // };
+  $scope.regenRace = function () {
+    $route.reload();
+  };
 
-  $scope.makeInitialMap = function($scope) {
+  var makeInitialMap = function () {
     Geo.makeInitialMap($scope);
   };
 
-  $scope.makeInitialMap($scope);
+  makeInitialMap();
 
-  $scope.updateCurrentPosition = function($scope, $location) {
-    Geo.updateCurrentPosition($scope);
-    $scope.checkIfFinished($location);
+  // It looks like we're repeating ourselves a bit here.
+  // Could we refactor to cover all three medals with one medalTime object?
+
+  var finishRun = function () {
+    $scope.$parent.runTime = runTime.format('mm:ss');
+    var medal = $scope.$parent.achievement = $scope.currentMedal;
+
+    var date = new Date();
+
+    var endLocation = {
+      latitude: $scope.destination.lat,
+      longitude: $scope.destination.long
+    };
+    var googleExpectedTime = null;
+    var actualTime = runTime;
+
+    var currentRunObject = {
+      date: date,
+      startLocation: {
+        longitude: null,
+        latitude: null
+      },
+      endLocation: {
+        longitude: $scope.destination.long,
+        latitude: $scope.destination.lat
+      },
+      googleExpectedTime: null,
+      actualTime: runTime,
+      medalReceived: medal,
+      racedAgainst: null
+    };
+
+    Profile.getUser()
+    .then(function (user) {
+      var achievements = user.achievements;
+      var previousRuns = user.runs;
+
+      //update achievments object
+      achievements[medal] = achievements[medal] + 1;
+      $window.localStorage.setItem('achievements', JSON.stringify(achievements));
+      //update runs object
+      previousRuns.push(currentRunObject);
+
+      updatedAchievementsData = {
+        achievements: achievements,
+        runs: previousRuns
+      };
+
+      Profile.updateUser(updatedAchievementsData, user)
+      .then(function (updatedProfile) {
+        return updatedProfile;
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+    });
+
+    $interval.cancel(statusUpdateLoop);
+    $location.path('/finish');
   };
 
-  $scope.checkIfFinished = function($location) {
+  var checkIfFinished = function () {
     if ($scope.destination && $scope.userLocation) {
-      var currLat = $scope.userLocation.lat;
-      var currLng = $scope.userLocation.lng;
-      var destLat = $scope.destination.lat;
-      var destLng = $scope.destination.lng;
-      var distRemaining = Math.sqrt(Math.pow((currLat - destLat), 2) + Math.pow((currLng - destLng) , 2));
-
-      if (distRemaining < 0.0004) {
-        $location.path('/finish');
-        clearInterval($scope.geoUpdater);
+      var distRemaining = distBetween($scope.userLocation, $scope.destination);
+      if (distRemaining < FINISH_RADIUS) {
+        finishRun();
       }
     }
-  }
+  };
 
-  // Determine user location and update map each second
+  var distBetween = function (loc1, loc2) {
+    return sqrt(pow2(loc1.lat - loc2.lat) + pow2(loc1.lng - loc2.lng));
+  };
 
-  $scope.geoUpdater = setInterval(function() {$scope.updateCurrentPosition($scope, $location)}, 1000);
+  var updateStatus = function () {
+    Geo.updateCurrentPosition($scope);
+    updateTotalRunTime();
+    Run.updateGoalTimes($scope);
+    checkIfFinished();
+  };
 
   // Stop geotracker upon canceling run
-  $scope.stopGeoUpdater = function() {
-    clearInterval($scope.geoUpdater);
-  };
-})
+  // Does this make sure to stop tracking if they close the window? --> all scripts die when the browser is no longer interpreting them
+  $scope.$on('$destroy', function () {
+    $interval.cancel(statusUpdateLoop);
+  });
+});
