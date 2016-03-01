@@ -1,3 +1,4 @@
+// This controller is tied to multiLoad.html
 angular.module('multiload.controller', ['bolt.profile'])
 
 .controller('MultiLoadController', function ($window, $scope, Multi) {
@@ -11,15 +12,18 @@ angular.module('multiload.controller', ['bolt.profile'])
 
 .factory('Multi', function ($window, $location, $interval, Profile, MultiGame) {
   var session = $window.localStorage;
+  // Connect your own firebase account in this line
   var firebaseRef = new Firebase("https://glowing-fire-8101.firebaseio.com/");
   var geoFire = new GeoFire(firebaseRef);
   var currentUser;
   var userPosition;
   var stop;
 
+  // Find runners in an area given by the geoQuery object
   var search = function (geoQuery) {
     console.log('searching');
     var onKeyEnteredRegistration = geoQuery.on("key_entered", function (key, location, distance) {
+      // create a session out of the two users' usernames
       if (key !== session.username) {
         var id = [session.username, key].sort().join('');
         var user1 = {
@@ -53,12 +57,13 @@ angular.module('multiload.controller', ['bolt.profile'])
     });
   };
 
+  // Create an area in which to search for other users
   var generateQuery = function () {
     console.log('generate query');
     var geoQuery = geoFire.query({
       center: [userPosition.coords.latitude, userPosition.coords.longitude],
-      // radius should eventually be reduced
-      radius: 1000
+      // radius should be reduced to within the users desired distance
+      radius: 1000 // miles
     });
 
     stop = $interval(function () {
@@ -66,6 +71,7 @@ angular.module('multiload.controller', ['bolt.profile'])
     }, 2000);
   };
 
+  // Make user findable in the database
   var addUserGeoFire = function () {
     navigator.geolocation.getCurrentPosition(function (position) {
       userPosition = position;
