@@ -8,24 +8,31 @@ module.exports = function (app, express) {
 
   app.post('/api/games', gameController.makeGame);
 
+  // Route to obtain specified multiplayer game instance
   app.route('/api/games/:game_id')
   .get(function (req, res) {
     gameController.getGame(req.params.game_id, res);
   });
 
+  // Route to create new multiplayer game instances
   app.route('api/games/:game_id')
   .post(function (req, res) {
     gameController.cancelGame(req.params.game_id, res);
   });
 
+  // Route to update specified multiplayer game instance
   app.post('/api/games/update', gameController.updateGame);
 
+  // Route to remove specified multiplayer game instance
   app.post('/api/games/remove', gameController.removeGame);
 
+  // Route to sign in users
   app.post('/api/users/signin', userController.signin);
 
+  // Route to sign up users
   app.post('/api/users/signup', userController.signup);
 
+  // Route to update user preferences and settings
   app.put('/api/users/profile', userController.updateUser);
 
   // If a request is sent somewhere other than the routes above,
