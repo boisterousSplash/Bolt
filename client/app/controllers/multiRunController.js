@@ -48,17 +48,20 @@ angular.module('multirun.controller', [])
   // Continously check whether both user1 and user2 are ready/true
   $scope.ready = function () {
     $scope.waiting = true;
+    // Update database to indicate that user is ready
     MultiGame.updateGame(session.gameId, userNum).then(function (game) {});
     stopCheck = $interval($scope.checkOppReady, 300);
   };
 
   // Check whether both user1 and user2 are ready/true
   $scope.checkOppReady = function () {
+    // Check game instance to determine whether both users are ready
     MultiGame.getGame(session.gameId)
       .then(function (game) {
         if (game.user1 && game.user2) {
           $scope.startRun();
           $interval.cancel(stopCheck);
+          // If both users are ready, start checking if a player has finished
           stopFinish = $interval($scope.checkOppFinished, 2000);
         }
       });
