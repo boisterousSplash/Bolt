@@ -1,3 +1,4 @@
+<!-- Controller: FinishController - client/app/controllers/finishController.js -->
 <nav>
   <div class="nav-wrapper grey darken-3">
     <a href="#/" class="brand-logo">Race Completed</a>
@@ -8,6 +9,7 @@
   </div>
 </nav>
 
+<!-- The runTime and achievement variables are set in the RunController upon finishing a run, using $scope.$parent. Since we are no longer nesting controllers, these variables are likely defined on $rootScope -->
 <div class="congrats">
    <p>Congrats!</p>
    <p> Your run time: {{ runTime }}</p>
