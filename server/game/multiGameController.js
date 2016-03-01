@@ -2,14 +2,14 @@ var Game = require('./multiGameModel');
 var Q = require('q');
 var helpers = require('../config/helpers');
 
-
+// Define promisified versions of mongoose methods
 var findGame = Q.nbind(Game.findOne, Game);
 var createGame = Q.nbind(Game.create, Game);
 var updateGame = Q.nbind(Game.update, Game);
 var removeGame = Q.nbind(Game.remove, Game);
 
 module.exports = {
-
+  // Check whether game is in database, if not then create game
   makeGame: function (req, res, next) {
     var id = req.body.id;
     findGame({id: id}).then(function (game) {
@@ -27,12 +27,14 @@ module.exports = {
     });
   },
 
+  // Retrieve game instance from database
   getGame: function (gameId, res, next) {
     findGame({id: gameId}).then(function (game) {
       res.send(201, game);
     });
   },
 
+  // Update specified field for a given game instance
   updateGame: function (req, res, next) {
     var id = req.body.id;
     var field = req.body.field;
@@ -43,21 +45,11 @@ module.exports = {
     });
   },
 
+  // Remove specified game instance from database
   removeGame: function (req, res, next) {
     var id = req.body.id;
     removeGame({id: id}).then(function (game) {
       res.send(201, game);
     });
   }
-  // cancelGame: function (gameId, res) {
-  //   findGame({_id : "ObjectId(" + gameId + ")"})
-  //     .then(function (targetGame) {
-  //       console.log(targetGame);
-  //       targetGame.active = false;
-  //       res.send(201, targetGame);
-  //     })
-  //     .catch(function (err) {
-  //       console.error(err);
-  //     });
-  // }
 };
