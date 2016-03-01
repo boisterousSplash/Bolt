@@ -12,36 +12,40 @@ angular.module('bolt', [
   'achievements.controller'
 ])
 .config(function ($routeProvider, $httpProvider) {
-  //Shane's code here
-
+  // Configure various routes
   $routeProvider
     .when('/', {
-      // home page template
+      // home page
       templateUrl: 'app/views/bolt.html',
       controller: 'BoltController',
       authenticate: true
     })
     .when('/run', {
+      // single-player run
       templateUrl: 'app/views/run.html',
       controller: 'RunController',
       authenticate: true
     })
     .when('/finish', {
+      // user finishes a run
       templateUrl: 'app/views/finish.html',
       controller: 'FinishController',
       authenticate: true
     })
     .when('/achievements', {
+      // user requests their achievements
       templateUrl: 'app/views/achievements.html',
       controller: 'AchievementsController',
       authenticate: true
     })
     .when('/multiLoad', {
+      // loading multiplayer game
       templateUrl: 'app/views/multiLoad.html',
       controller: 'MultiLoadController',
       authenticate: true
     })
     .when('/multiGame', {
+      // running a multiplayer race
       templateUrl: 'app/views/multiRun.html',
       controller: 'MultiRunController',
       authenticate: true
@@ -55,11 +59,13 @@ angular.module('bolt', [
       controller: 'AuthController'
     })
     .when('/profile', {
+      // user viewing their profile information
       templateUrl: 'app/views/profile.html',
       controller: 'ProfileController',
       authenticate: true
     })
     .when('/createProfile', {
+      // user creating/updating their profile info
       templateUrl: 'app/views/createProfile.html',
       controller: 'CreateProfileController',
       authenticate: true
@@ -67,9 +73,8 @@ angular.module('bolt', [
     .otherwise({
       redirectTo: '/'
     });
-
-    // We add our $httpInterceptor into the array
-    // of interceptors. Think of it like middleware for your ajax calls
+    // We add our $httpInterceptor into the array of interceptors. Think of it
+    // like middleware for your ajax calls
     $httpProvider.interceptors.push('AttachTokens');
 })
 

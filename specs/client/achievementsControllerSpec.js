@@ -15,7 +15,6 @@ describe('AchievementsController', function () {
     var $controller = $injector.get('$controller');
 
     $scope = $rootScope.$new();
-    
     // used to create our AchievementsController for testing
     createController = function () {
       return $controller('AchievementsController', {
@@ -27,9 +26,6 @@ describe('AchievementsController', function () {
     createController();
   }));
 
-  
-  it('should be cool', function() {
-
+  it('should be cool', function () {
   });
-
 });

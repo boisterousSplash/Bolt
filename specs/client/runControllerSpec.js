@@ -31,7 +31,7 @@ describe('RunController', function () {
         $interval: $interval,
         $timeout: $timeout,
         Run: Run,
-        Geo: Geo,        
+        Geo: Geo,
         Profile: Profile
       });
     };
@@ -39,18 +39,18 @@ describe('RunController', function () {
     createController();
   }));
 
-  it('$scope.startRun should exist and be a function', function() {
+  it('$scope.startRun should exist and be a function', function () {
     expect($scope.startRun).to.exist;
     expect($scope.startRun).to.be.a('function');
   });
 
-  it('$scope.regenRace should exist and be a function', function() {
+  it('$scope.regenRace should exist and be a function', function () {
     expect($scope.regenRace).to.exist;
     expect($scope.regenRace).to.be.a('function');
   });
- 
-  it('$scope.goldTime, $scope.silverTime, and $scope.bronzeTime should be defined', function() {
-    setTimeout(function() {
+
+  it('$scope.goldTime, $scope.silverTime, and $scope.bronzeTime should be defined', function () {
+    setTimeout(function () {
       expect($scope.goldTime).to.exist;
       expect($scope.silverTime).to.exist;
       expect($scope.bronzeTime).to.exist;
