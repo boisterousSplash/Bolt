@@ -1,7 +1,7 @@
 'use strict';
 
-describe('AuthController', function () {
-  var $scope, $rootScope, $location, $window, $httpBackend, createController, Auth;
+describe('RunController', function () {
+  var $scope, $rootScope, $route, $interval, $timeout, $location, createController, Geo, Run, Profile;
 
   // using angular mocks, we can inject the injector
   // to retrieve our dependencies
@@ -11,57 +11,50 @@ describe('AuthController', function () {
     // mock out our dependencies
     $rootScope = $injector.get('$rootScope');
     $location = $injector.get('$location');
-    $window = $injector.get('$window');
-    $httpBackend = $injector.get('$httpBackend');
-    Auth = $injector.get('Auth');
-    $scope = $rootScope.$new();
+    $route = $injector.get('$route');
+    $interval = $injector.get('$interval');
+    $timeout = $injector.get('$timeout');
+    Run = $injector.get('Run');
+    Geo = $injector.get('Geo');
+    Profile = $injector.get('Profile');
 
     var $controller = $injector.get('$controller');
 
-    // used to create our AuthController for testing
+    $scope = $rootScope.$new();
+
+    // used to create our RunController for testing
     createController = function () {
-      return $controller('AuthController', {
+      return $controller('RunController', {
         $scope: $scope,
-        $window: $window,
         $location: $location,
-        Auth: Auth
+        $route: $route,
+        $interval: $interval,
+        $timeout: $timeout,
+        Run: Run,
+        Geo: Geo,        
+        Profile: Profile
       });
     };
 
     createController();
   }));
 
-  afterEach(function () {
-    $httpBackend.verifyNoOutstandingExpectation();
-    $httpBackend.verifyNoOutstandingRequest();
-    $window.localStorage.removeItem('com.bolt');
+  it('$scope.startRun should exist and be a function', function() {
+    expect($scope.startRun).to.exist;
+    expect($scope.startRun).to.be.a('function');
   });
 
-  it('should have a signup method', function () {
-    expect($scope.signup).to.be.a('function');
+  it('$scope.regenRace should exist and be a function', function() {
+    expect($scope.regenRace).to.exist;
+    expect($scope.regenRace).to.be.a('function');
+  });
+ 
+  it('$scope.goldTime, $scope.silverTime, and $scope.bronzeTime should be defined', function() {
+    setTimeout(function() {
+      expect($scope.goldTime).to.exist;
+      expect($scope.silverTime).to.exist;
+      expect($scope.bronzeTime).to.exist;
+    }, 1500);
   });
 
-  it('should store token in localStorage after signup', function () {
-    // create a fake JWT for auth
-    var token = 'sjj232hwjhr3urw90rof';
-
-    // make a 'fake' reques to the server, not really going to our server
-    $httpBackend.expectPOST('/api/users/signup').respond({token: token});
-    $scope.signup();
-    $httpBackend.flush();
-    expect($window.localStorage.getItem('com.bolt')).to.equal(token);
-  });
-
-  it('should have a signin method', function () {
-    expect($scope.signin).to.be.a('function');
-  });
-
-  it('should store token in localStorage after signin', function () {
-    // create a fake JWT for auth
-    var token = 'sjj232hwjhr3urw90rof';
-    $httpBackend.expectPOST('/api/users/signin').respond({token: token});
-    $scope.signin();
-    $httpBackend.flush();
-    expect($window.localStorage.getItem('com.bolt')).to.equal(token);
-  });
 });

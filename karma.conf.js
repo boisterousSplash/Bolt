@@ -7,6 +7,7 @@ module.exports = function (config) {
     basePath: './',
 
     // testing frameworks to use
+    // frameworks: ['jasmine'],
     frameworks: ['mocha', 'chai', 'sinon'],
 
     // list of files / patterns to load in the browser. order matters!
@@ -16,25 +17,31 @@ module.exports = function (config) {
       'client/lib/angular-route/angular-route.js',
       'client/lib/angular-mocks/angular-mocks.js',
 
+      // google maps api
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyBIOAllvDFbkAixfnuS9TaC4Cep3rCpRAk',
+
       // our app code
       'client/app/**/*.js',
 
       // our spec files - in order of the README
       'specs/client/authControllerSpec.js',
-      'specs/client/routingSpec.js'
+      'specs/client/routingSpec.js',
+      'specs/client/runControllerSpec.js',
+      'specs/client/boltControllerSpec.js',
+      'specs/client/createProfileControllerSpec.js'
     ],
 
     // test results reporter to use
     reporters: ['nyan','unicorn'],
 
     // start these browsers. PhantomJS will load up in the background
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
     // if true, Karma exits after running the tests.
-    singleRun: true
+    singleRun: false
 
   });
 };
