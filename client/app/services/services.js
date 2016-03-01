@@ -1,5 +1,6 @@
 angular.module('bolt.services', [])
 
+// Handle all location-based features
 .factory('Geo', function ($window) {
   var session = $window.localStorage;
   var mainMap;
@@ -9,6 +10,7 @@ angular.module('bolt.services', [])
   var directionsRenderer = new google.maps.DirectionsRenderer();
   var route;
 
+  // Create map around the users current location and their destination
   var makeInitialMap = function ($scope, destination) {
     navigator.geolocation.getCurrentPosition(function (position) {
         makeMap({
@@ -19,8 +21,8 @@ angular.module('bolt.services', [])
         console.error(err);
       });
     var makeMap = function (currentLatLngObj, $scope) {
-      var destinationCoordinates = destination || randomCoordsAlongCircumference(currentLatLngObj, session.preferredDistance);
-
+      var destinationCoordinates = destination ||
+          randomCoordsAlongCircumference(currentLatLngObj, session.preferredDistance);
       mainMap = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(currentLatLngObj.lat, currentLatLngObj.lng),
         zoom: 13,
@@ -48,17 +50,29 @@ angular.module('bolt.services', [])
       }, function (response, status) {
         directionsRenderer.setDirections(response);
         var totalDistance = 0;
+        // Add up distance for all legs of the journey
         for (var i = 0; i < response.routes[0].legs.length; i++) {
-          totalDistance += response.routes[0].legs[i].distance.text;
+          var distance = response.routes[0].legs[i].distance.text;
+          if (distance.substring(distance.length - 2) === "ft") {
+            distance = (distance.substring(0, distance.length - 3) / 5280).toString().substring(0, 3) + " mi";
+          }
+          totalDistance += distance;
         }
-        totalDistance = parseFloat(totalDistance);
+        console.log('tot distance .... ', totalDistance);
+        totalDistance = parseFloat(totalDistance) || 0.1; // If run distance is small display 0.1 miles
         $scope.totalDistance = totalDistance;
-        var userMinPerMile = 10; ////////////// FIXXX MEEE!!!
+
+        // Change this to pull the users speed from their profile
+        var userMinPerMile = 10;
+        var hours = Math.floor(userMinPerMile * totalDistance / 60);
         var minutes = userMinPerMile * totalDistance;
         var seconds = minutes * 60;
-        $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9);
-        $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0);
-        $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1);
+
+        // Display projected time in a freindly format
+        $scope.hasHours = hours > 0;
+        $scope.goldTime = moment().second(seconds * 0.9).minute(minutes * 0.9).hour(hours * 0.9);
+        $scope.silverTime = moment().second(seconds * 1.0).minute(minutes * 1.0).hour(hours * 1.0);
+        $scope.bronzeTime = moment().second(seconds * 1.1).minute(minutes * 1.1).hour(hours * 1.1);
         $scope.$digest();
       });
     };
@@ -78,7 +92,7 @@ angular.module('bolt.services', [])
     });
   };
 
-  function randomCoordsAlongCircumference (originObj, radius) {
+  var randomCoordsAlongCircumference = function (originObj, radius) {
     var randomTheta = Math.random() * 2 * Math.PI;
     return {
       lat: originObj.lat + (radius / 69 * Math.cos(randomTheta)),
@@ -93,6 +107,7 @@ angular.module('bolt.services', [])
 
 })
 
+// Handle all tracking and rewards during the run
 .factory('Run', function ($http) {
 
   var pointsInTime = {
@@ -105,18 +120,22 @@ angular.module('bolt.services', [])
     return moment().second(secondsToMedal).minute(secondsToMedal / 60);
   };
 
+  // Could refactor to handle a {gold, silver, bronze} object
   var setPointsInTime = function ($scope) {
     pointsInTime['Gold'] = moment().add($scope.goldTime.second(), 'seconds').add($scope.goldTime.minute(), 'minutes');
     pointsInTime['Silver'] = moment().add($scope.silverTime.second(), 'seconds').add($scope.silverTime.minute(), 'minutes');
     pointsInTime['Bronze'] = moment().add($scope.bronzeTime.second(), 'seconds').add($scope.bronzeTime.minute(), 'minutes');
   };
 
+  // Initialize medal countdown to gold
   var setInitialMedalGoal = function ($scope) {
     $scope.currentMedal = 'Gold';
     var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
     $scope.timeUntilCurrentMedal = updateTimeUntilMedal(secondsToGold);
   };
 
+  // Make sure the next best medal is displayed with the correct time
+  // Could refactor to handle a {gold, silver, bronze} object
   var updateGoalTimes = function ($scope) {
     if ($scope.currentMedal === 'Gold') {
       var secondsToGold = pointsInTime['Gold'].diff(moment(), 'seconds');
@@ -155,7 +174,7 @@ angular.module('bolt.services', [])
 
 })
 
-
+// Update and retrieve user information
 .factory('Profile', function ($http) {
 
   return {
@@ -188,7 +207,7 @@ angular.module('bolt.services', [])
   };
 })
 
-
+// Handle multiplayer sessions to db
 .factory('MultiGame', function ($http) {
   return {
     makeGame : function (id, user1, user2) {
@@ -236,18 +255,10 @@ angular.module('bolt.services', [])
         return res;
       });
     }
-    // cancelGame : function (game_id) {
-    //   return $http({
-    //     method: 'POST',
-    //     url: 'api/games/' + game_id,
-    //   }).then(function (game) {
-    //     return game;
-    //   });
-    // }
   };
 })
 
-
+// Handle Authentication
 .factory('Auth', function ($http, $location, $window) {
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
@@ -277,6 +288,7 @@ angular.module('bolt.services', [])
     });
   };
 
+  // Checks token and ensures leftover tokens without usernames don't fly
   var isAuth = function () {
     return (!!$window.localStorage.getItem('com.bolt'))
         && (!!$window.localStorage.getItem('username'));

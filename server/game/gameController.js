@@ -8,7 +8,7 @@ var createGame = Q.nbind(Game.create, Game);
 
 
 module.exports = {
-
+  // Create new multiplayer match
   makeGame: function (req, res, next) {
     var user1 = req.body.user1;
     var user2 = req.body.user2;
@@ -23,6 +23,7 @@ module.exports = {
     });
   },
 
+  // Delete specified game from database
   cancelGame: function (gameId, res) {
     findGame({_id : "ObjectId(" + gameId + ")"})
       .then(function (targetGame) {

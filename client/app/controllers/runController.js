@@ -6,6 +6,7 @@ angular.module('run.controller', [])
 
   $scope.userLocation;
   $scope.destination;
+  $scope.hasHours = true;
 
   var startTime;
   var runTime;
@@ -22,14 +23,13 @@ angular.module('run.controller', [])
     return Math.pow(num, 2);
   };
 
-
+  // Update run timer
   var updateTotalRunTime = function () {
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
   };
 
-  //set a waiting message for the user while Google maps loads...
-
+  // Define waiting messages for the user while Google maps loads...
   var messages = [
     "Finding the best route for you",
     "Scanning the streets",
@@ -41,35 +41,34 @@ angular.module('run.controller', [])
     $scope.runMessage = messages[floor(random() * messages.length)] + "...";
   };
 
-  //rinse and repeat...
+  // Display random waiting message
   $interval(setRunMessage, random() * 1000, messages.length);
 
   $scope.startRun = function () {
+    // Simulate finishing run for manual testing
     // setTimeout(finishRun, 4000); // simulate finishing run for manual testing
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
-    // $scope.goldTime is not declared in this controller. Where do we define it?
-    // same goes for silver, bronze Times --> these get defined in services.js when we initialize the map
     Run.setPointsInTime($scope);
     Run.setInitialMedalGoal($scope);
     document.getElementById('map').style.height = "93vh";
     document.getElementById('botNav').style.height = "7vh";
   };
 
+  // Generate a new map or route after initial map has been loaded
   $scope.regenRace = function () {
     $route.reload();
   };
 
+  // Generates google map with current location marker and run route details
   var makeInitialMap = function () {
     Geo.makeInitialMap($scope);
   };
 
   makeInitialMap();
 
-  // It looks like we're repeating ourselves a bit here.
-  // Could we refactor to cover all three medals with one medalTime object?
-
+  // Handle end run conditions. Update user profile to reflect latest run.
   var finishRun = function () {
     $scope.$parent.runTime = runTime.format('mm:ss');
     var medal = $scope.$parent.achievement = $scope.currentMedal;
@@ -99,22 +98,20 @@ angular.module('run.controller', [])
       racedAgainst: null
     };
 
+    // Update current user's profile
     Profile.getUser()
     .then(function (user) {
       var achievements = user.achievements;
       var previousRuns = user.runs;
-
       //update achievments object
       achievements[medal] = achievements[medal] + 1;
       $window.localStorage.setItem('achievements', JSON.stringify(achievements));
       //update runs object
       previousRuns.push(currentRunObject);
-
       updatedAchievementsData = {
         achievements: achievements,
         runs: previousRuns
       };
-
       Profile.updateUser(updatedAchievementsData, user)
       .then(function (updatedProfile) {
         return updatedProfile;
@@ -128,6 +125,7 @@ angular.module('run.controller', [])
     $location.path('/finish');
   };
 
+  // Check if user is in close proximity to destination
   var checkIfFinished = function () {
     if ($scope.destination && $scope.userLocation) {
       var distRemaining = distBetween($scope.userLocation, $scope.destination);
@@ -137,10 +135,12 @@ angular.module('run.controller', [])
     }
   };
 
+  // Calculate distance between two coordinates
   var distBetween = function (loc1, loc2) {
     return sqrt(pow2(loc1.lat - loc2.lat) + pow2(loc1.lng - loc2.lng));
   };
 
+  // Update geographical location and timers
   var updateStatus = function () {
     Geo.updateCurrentPosition($scope);
     updateTotalRunTime();

@@ -1,3 +1,4 @@
+// This controller is tied to profile.html
 angular.module('bolt.profile', ['bolt.auth'])
 
 .controller('ProfileController', function ($scope, $location, $rootScope, $window, Auth, Profile) {

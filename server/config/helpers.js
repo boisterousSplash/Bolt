@@ -2,7 +2,7 @@ var jwt = require('jwt-simple');
 
 module.exports = {
 
-  // Getus user from db, returns a promise of that user
+  // Get user from db and return a promise with access to that user
   applyToUser: function (user) {
     if ((typeof user) === 'string') {
       user = {username: user};
@@ -17,6 +17,7 @@ module.exports = {
     });
   },
 
+  // Log errors when appropriate
   errorLogger: function (error, req, res, next) {
     console.error(error.stack);
     next(error);
@@ -24,6 +25,8 @@ module.exports = {
   errorHandler: function (error, req, res, next) {
     res.send(500, {error: error.message});
   },
+
+  // Used for authentication
   decode: function (req, res, next) {
     var token = req.headers['x-access-token'];
     var user;

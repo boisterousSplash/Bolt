@@ -8,6 +8,14 @@ describe('Routing', function () {
     $route = $injector.get('$route');
   }));
 
+
+
+  it('should have a /run route, template, and controller', function () {
+    expect($route.routes['/run']).to.be.defined;
+    expect($route.routes['/run'].controller).to.equal('RunController');
+    expect($route.routes['/run'].templateUrl).to.equal('app/views/run.html');
+  });
+
   it('Should have /signup route, template, and controller', function () {
     expect($route.routes['/signup']).to.be.defined;
     expect($route.routes['/signup'].controller).to.equal('AuthController');
@@ -40,7 +48,7 @@ describe('Routing', function () {
 
   it('Should have /multiLoad route, template, and controller', function () {
     expect($route.routes['/multiLoad']).to.be.defined;
-    expect($route.routes['/multiLoad'].controller).to.equal('MultiController');
+    expect($route.routes['/multiLoad'].controller).to.equal('MultiLoadController');
     expect($route.routes['/multiLoad'].templateUrl).to.equal('app/views/multiLoad.html');
   });
 
@@ -54,6 +62,18 @@ describe('Routing', function () {
     expect($route.routes['/createProfile']).to.be.defined;
     expect($route.routes['/createProfile'].controller).to.equal('CreateProfileController');
     expect($route.routes['/createProfile'].templateUrl).to.equal('app/views/createProfile.html');
+  });
+
+  it('Should have /achievements route, template, and controller', function () {
+    expect($route.routes['/achievements']).to.be.defined;
+    expect($route.routes['/achievements'].controller).to.equal('AchievementsController');
+    expect($route.routes['/achievements'].templateUrl).to.equal('app/views/achievements.html');
+  });
+
+  it('Should have /multiGame route, template, and controller', function () {
+    expect($route.routes['/multiGame']).to.be.defined;
+    expect($route.routes['/multiGame'].controller).to.equal('MultiRunController');
+    expect($route.routes['/multiGame'].templateUrl).to.equal('app/views/multiRun.html');
   });
 
 });

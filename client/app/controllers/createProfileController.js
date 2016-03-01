@@ -1,8 +1,12 @@
 angular.module('bolt.createProfile', ['bolt.auth'])
-
+// This controller is tied to 'createProfile.html'
 .controller('CreateProfileController', function ($location, $scope, Profile, $window, Auth) {
+  // Define inputData object to store the user's data
   $scope.inputData = {};
-  $scope.createProfile = function (inputData) { //first, last, email, phone, distance) {
+  // This will be the mechanism by which profiles are created / updated. It
+  // will set the new data to $scope (so it's accessible to other controllers)
+  // and update the user in our Mongo DB
+  $scope.createProfile = function (inputData) {
     $location.path('/profile');
     newData = {
       firstName: $scope.session.firstName,
@@ -11,6 +15,10 @@ angular.module('bolt.createProfile', ['bolt.auth'])
       phone: $scope.session.phone,
       preferredDistance: $scope.session.preferredDistance
     };
+    // Loop through the inputData object to update any new pieces of user info.
+    // If we didn't have this loop, the data in $scope would be stuck, getting
+    // read and written over by this function. Looping through makes updates
+    // possible.
 
     for (var key in inputData) {
       if (inputData.hasOwnProperty(key) && inputData[key]) {
@@ -19,6 +27,7 @@ angular.module('bolt.createProfile', ['bolt.auth'])
       }
     }
 
+    // Update the DB
     Profile.getUser()
     .then(function (currentUser) {
       Profile.updateUser(newData, currentUser)
@@ -30,6 +39,7 @@ angular.module('bolt.createProfile', ['bolt.auth'])
 
   $scope.session = window.localStorage;
 
+  // Give signout ability to $scope
   $scope.signout = function () {
     Auth.signout();
   };

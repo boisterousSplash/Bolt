@@ -1,3 +1,4 @@
+<!-- Controller: RunController - client/app/controllers/runController.js -->
 <div id="map">
 <div ng-hide="raceStarted" class="container">
   <br>
@@ -48,11 +49,20 @@
 </div>
 </div>
   <div id="botNav" class="grey darken-3">
+    <!-- Much of the logic here is to avoid showing an hour placeholder if the expected run time is less than an hour -->
     <div class ="medalTimes" ng-show="!raceStarted">{{ totalDistance ? "Total Distance: " + totalDistance + " miles": "" }} </div>
-    <div class ="medalTimes" ng-show="!raceStarted">{{ bronzeTime ? "Bronze: " + bronzeTime.format('mm:ss') : ""}}</div>
-    <div class ="medalTimes" ng-show="!raceStarted">{{ silverTime ? "Silver: " + silverTime.format('mm:ss') : "" }}</div>
-    <div class ="medalTimes" ng-show="!raceStarted">{{ goldTime ? "Gold: " + goldTime.format('mm:ss') : "" }}</div>
-    <div class ="medalTimes" ng-show="raceStarted">
+    <div class ="medalTimes" ng-show="!raceStarted && hasHours">{{ bronzeTime ? "Bronze: " + bronzeTime.format('hh:mm:ss') : ""}}</div>
+    <div class ="medalTimes" ng-show="!raceStarted && hasHours">{{ silverTime ? "Silver: " + silverTime.format('hh:mm:ss') : "" }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted && hasHours">{{ goldTime ? "Gold: " + goldTime.format('hh:mm:ss') : "" }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted && !hasHours" >{{ bronzeTime ? "Bronze: " + bronzeTime.format('mm:ss') : ""}}</div>
+    <div class ="medalTimes" ng-show="!raceStarted && !hasHours">{{ silverTime ? "Silver: " + silverTime.format('mm:ss') : "" }}</div>
+    <div class ="medalTimes" ng-show="!raceStarted && !hasHours">{{ goldTime ? "Gold: " + goldTime.format('mm:ss') : "" }}</div>
+
+    <div class ="medalTimes" ng-show="raceStarted && hasHours">
+      <div class="botLink" >{{ timeUntilCurrentMedal.format('hh:mm:ss') }} <img src="../assets/{{ currentMedal.toLowerCase() }}.png" class="medals"/> </div>
+      <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
+    </div>
+    <div class ="medalTimes" ng-show="raceStarted && !hasHours">
       <div class="botLink" >{{ timeUntilCurrentMedal.format('mm:ss') }} <img src="../assets/{{ currentMedal.toLowerCase() }}.png" class="medals"/> </div>
       <a class="botLink right" href="#/" ng-click="stopGeoUpdater()"> x </a>
     </div>
