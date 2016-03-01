@@ -32,19 +32,19 @@ describe('CreateProfileController', function () {
     createController();
   }));
 
-  it('$scope.inputData should be defined', function() {
+  it('$scope.inputData should be defined', function () {
     expect($scope.inputData).to.exist;
   });
 
-  it('$scope.inputData should be a function', function() {
+  it('$scope.inputData should be a function', function () {
     expect($scope.inputData).to.be.an('object');
   });
 
-  it('$scope.createProfile should be defined', function() {
+  it('$scope.createProfile should be defined', function () {
     expect($scope.createProfile).to.exist;
   });
 
-  it('$scope.createProfile should be a function', function() {
+  it('$scope.createProfile should be a function', function () {
     expect($scope.createProfile).to.be.a('function');
   });
 

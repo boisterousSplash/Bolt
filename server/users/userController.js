@@ -9,15 +9,20 @@ var createUser = Q.nbind(User.create, User);
 var updateUserDB = Q.nbind(User.update, User);
 
 module.exports = {
+
+  // Sign a user in
   signin: function (req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
 
+    // see if they exist...
     findUser({username: username})
     .then(function (user) {
       if (!user) {
+        // ...if we can't find them, throw error
         next(new Error('User does not exist'));
       } else {
+        // ...if we can, check the password
         return user.comparePasswords(password)
         .then(function (foundUser) {
           if (foundUser) {
@@ -72,12 +77,15 @@ module.exports = {
   },
 
   updateUser: function (req, res, next) {
+    // This is tied to createProfile on the frontend, so users can update
+    // their info
     var newData = req.body.newInfo;
     var username = req.body.user.username;
     var user = {
       username: username
     };
 
+    // search the DB for the specific user
     var queryCondition = {username: username};
 
     findUser(user)
@@ -94,7 +102,6 @@ module.exports = {
   },
 
   getUser: function (req, res, next) {
-    //var token = get x-access-token from req;
     var token = req.headers['x-access-token'];
     if (!token) {
       next(new Error('No token'));

@@ -10,7 +10,7 @@ describe('Routing', function () {
 
 
 
-  it('should have a /run route, template, and controller', function() {
+  it('should have a /run route, template, and controller', function () {
     expect($route.routes['/run']).to.be.defined;
     expect($route.routes['/run'].controller).to.equal('RunController');
     expect($route.routes['/run'].templateUrl).to.equal('app/views/run.html');

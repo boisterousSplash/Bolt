@@ -2,7 +2,7 @@ angular.module('bolt.auth', [])
 
 .controller('AuthController', function ($scope, $window, $location, Auth) {
   $scope.user = {};
-
+  // Sign the user in and write their important info into their session
   $scope.signin = function () {
     Auth.signin($scope.user)
       .then(function (session) {
@@ -19,11 +19,15 @@ angular.module('bolt.auth', [])
       })
       .catch(function (error) {
         $scope.errorDetected = true;
+        // This is a general error message, although there could be more failure
+        // cases other than the wrong username
         $scope.signinError = "Hmm... we can't seem to find that username in our DB. Could it be another?";
       });
   };
 
   $scope.signup = function () {
+    // Sign the user up, and then get them to create a new Bolt profile at
+    // '/createProfile'
     Auth.signup($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.bolt', token);
@@ -31,6 +35,7 @@ angular.module('bolt.auth', [])
         $location.path('/createProfile');
       })
       .catch(function (error) {
+        //Generic error handling (could be built out)
         $scope.errorDetected = true;
         $scope.signupError = "Invalid username or password";
       });

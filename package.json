@@ -6,7 +6,7 @@
   "main": "server/server.js",
   "scripts": {
     "test": "karma start karma.conf.js",
-    "start": "gulp",
+    "start": "nodemon server/server.js",
     "lint": "jscs ./",
     "postinstall": "./node_modules/bower/bin/bower install"
   },

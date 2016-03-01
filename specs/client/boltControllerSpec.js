@@ -28,15 +28,15 @@ describe('BoltController', function () {
     createController();
   }));
 
-  it('$scope.session should be defined', function() {
+  it('$scope.session should be defined', function () {
     expect($scope.session).to.exists;
   });
 
-  it('$scope.startRun should exist', function() {
+  it('$scope.startRun should exist', function () {
     expect($scope.startRun).to.exist;
   });
 
-  it('$scope.startRun should be a function', function() {
+  it('$scope.startRun should be a function', function () {
     expect($scope.startRun).to.be.a('function');
   });
 
