@@ -28,7 +28,8 @@ module.exports = function (config) {
       'specs/client/routingSpec.js',
       'specs/client/runControllerSpec.js',
       'specs/client/boltControllerSpec.js',
-      'specs/client/createProfileControllerSpec.js'
+      'specs/client/createProfileControllerSpec.js',
+      'specs/client/finishControllerSpec.js'
     ],
 
     // test results reporter to use
