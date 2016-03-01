@@ -3,11 +3,11 @@ angular.module('multirun.controller', [])
 .controller('MultiRunController', function ($scope, $window, $timeout, $interval, $location, $route, Geo, Run, Profile, MultiGame) {
   var session = $window.localStorage;
   var raceFinished = false;
-  document.getElementById('map').style.height = "66vh";
-  document.getElementById('botNav').style.height = "34vh";
   $scope.userLocation;
   $scope.destination;
   $scope.competitor = session.competitor;
+  document.getElementById('map').style.height = "66vh";
+  document.getElementById('botNav').style.height = "34vh";
 
   // Math functions
   var sqrt = Math.sqrt;
@@ -17,16 +17,18 @@ angular.module('multirun.controller', [])
     return Math.pow(num, 2);
   };
 
-  /////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
   // Multiplayer
+  // Code outside of this block is very similar to runController.js
   $scope.waiting = false;
   $scope.oppFinished = false;
   var stopCheck;
   var stopFinish;
   var userNum;
   var oppNum;
-  // This if/else can be cleaned up
-  // Determine whether current user is user1 or user2 in multiplayer game database instance
+
+  // Determine whether current user is user1 or user2 in multiplayer game
+  // database instance
   if (session.username > session.competitor) {
     userNum = "user1";
     oppNum = "user2";
@@ -35,13 +37,14 @@ angular.module('multirun.controller', [])
     oppNum = "user1";
   }
 
-  // Determines whether check or 'waiting' should be displayed to user
+  // Determine whether check or 'waiting' should be displayed to user
   $scope.showCheck = function () {
     return !$scope.waiting && !$scope.raceStarted;
   };
 
-  // Activated when user presses the check button
-  // In multiplayer game database instance, the current user field is set to true (either "user1" or "user2", see above)
+  // Activated when user presses the check button. In multiplayer game database
+  // instance, the current user field is set to true
+  // (either "user1" or "user2", see above)
   // Continously check whether both user1 and user2 are ready/true
   $scope.ready = function () {
     $scope.waiting = true;
@@ -49,7 +52,7 @@ angular.module('multirun.controller', [])
     stopCheck = $interval($scope.checkOppReady, 300);
   };
 
-  // check whether both user1 and user2 are ready/true
+  // Check whether both user1 and user2 are ready/true
   $scope.checkOppReady = function () {
     MultiGame.getGame(session.gameId)
       .then(function (game) {
@@ -61,7 +64,7 @@ angular.module('multirun.controller', [])
       });
   };
 
-  // check whether opponent has finished race
+  // Check whether opponent has finished race
   $scope.checkOppFinished = function () {
     MultiGame.getGame(session.gameId)
       .then(function (game) {
@@ -75,29 +78,31 @@ angular.module('multirun.controller', [])
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
 
-
+  // Update run timer
   var updateTotalRunTime = function () {
     var secondsRan = moment().diff(startTime, 'seconds');
     runTime = moment().minute(0).second(secondsRan);
   };
 
+  // Initiate race and start the timer
   $scope.startRun = function () {
-    // setTimeout(finishRun, Math.random() * 12000); // simulate finishing run for manual testing
+    // Simulate finishing run for manual testing
+    // setTimeout(finishRun, Math.random() * 12000);
     startTime = moment();
     $scope.raceStarted = true;
     statusUpdateLoop = $interval(updateStatus, 100);
-    // $scope.goldTime is not declared in this controller. Where do we define it?
-    // same goes for silver, bronze Times --> these get defined in services.js when we initialize the map
     Run.setPointsInTime($scope);
     Run.setInitialMedalGoal($scope);
     document.getElementById('map').style.height = "89vh";
     document.getElementById('botNav').style.height = "11vh";
   };
 
+  // Generate a new map or route after initial map has been loaded
   $scope.regenRace = function () {
     $route.reload();
   };
 
+  // Generates google map with current location marker and run route details
   var makeInitialMap = function () {
     Geo.makeInitialMap($scope, {
       lat: parseFloat(session.multiLat),
@@ -107,17 +112,18 @@ angular.module('multirun.controller', [])
 
   makeInitialMap();
 
+  // Handle end run conditions. Update user profile to reflect latest run.
   var finishRun = function () {
-    /////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     // Multiplayer
     if ($scope.oppFinished) {
-      // remove game from database if both players have finished
+      // Remove game from database if both players have finished
       MultiGame.removeGame(session.gameId);
     } else {
-      // set won state to true if current user finishes first
+      // Set won state to true if current user finishes first
       MultiGame.updateGame(session.gameId, 'won');
     }
-    /////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 
     $scope.$parent.runTime = runTime.format('mm:ss');
     var medal = $scope.$parent.achievement = $scope.currentMedal;
@@ -147,23 +153,20 @@ angular.module('multirun.controller', [])
       racedAgainst: null
     };
 
-
+    // Update current user's profile
     Profile.getUser()
     .then(function (user) {
       var achievements = user.achievements;
       var previousRuns = user.runs;
-
       //update achievments object
       achievements[medal] = achievements[medal] + 1;
       $window.localStorage.setItem('achievements', JSON.stringify(achievements));
       //update runs object
       previousRuns.push(currentRunObject);
-
       updatedAchievementsData = {
         achievements: achievements,
         runs: previousRuns
       };
-
       Profile.updateUser(updatedAchievementsData, user)
       .then(function (updatedProfile) {
         return updatedProfile;
@@ -176,10 +179,11 @@ angular.module('multirun.controller', [])
     $location.path('/finish');
   };
 
+  // Check if user is in close proximity to destination
   var checkIfFinished = function () {
     if ($scope.destination && $scope.userLocation) {
       var distRemaining = distBetween($scope.userLocation, $scope.destination);
-      // Reduced radius for testing
+      // Distance is in units of degrees latitude (~68 mi / deg lat)
       if (distRemaining < 0.0002 && !raceFinished) {
         raceFinished = true;
         finishRun();
@@ -187,10 +191,12 @@ angular.module('multirun.controller', [])
     }
   };
 
+  // Calculate distance between two coordinates
   var distBetween = function (loc1, loc2) {
     return sqrt(pow2(loc1.lat - loc2.lat) + pow2(loc1.lng - loc2.lng));
   };
 
+  // Update geographical location and timers
   var updateStatus = function () {
     Geo.updateCurrentPosition($scope);
     updateTotalRunTime();
