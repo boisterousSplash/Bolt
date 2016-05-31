@@ -1,4 +1,4 @@
-# Bolt
+# [Bolt](insane-bolt.herokuapp.com)
 
 Running is fun again.
 Find running partners with the click of a button. Race yourself, race your friends, and meet new people to run with.
